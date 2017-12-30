@@ -1,0 +1,41 @@
+<div fxLayout="row" fxLayoutGap="20px">
+	<ma-recommeneded-service-severity [severity]="inspectionItem.severity"></ma-recommeneded-service-severity>
+
+	<div fxLayout="column" fxLayoutGap="10px">
+		<b>{{inspectionItem.name}}</b>
+
+		<div fxLayout="column">
+			<div fxLayout="row" fxLayoutGap="5px" *ngFor="let measurement of inspectionItem.measurements">
+				<div>{{measurement.name}}</div>
+				<div>{{measurement.value}}</div>
+				<div>{{measurement.unit}}</div>
+			</div>
+		</div>
+
+		<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px"
+		     *ngFor="let cannedResponse of inspectionItem.cannedResponses">
+			<i>{{cannedResponse.description}}</i>
+			<a mat-button href="{{cannedResponse.url}}" target="_blank">
+				<mat-icon color="accent">help_outline</mat-icon>
+			</a>
+		</div>
+
+		<div>
+			From the mechanic or service writer:
+			<i>{{inspectionItem.notes}}</i>
+		</div>
+
+		<button mat-button (click)="openGallery()">
+			<mat-icon color="accent">photo_library</mat-icon>
+		</button>
+
+		<ngx-image-gallery
+				[images]="images"
+				[conf]="dialogGalleryConfig"
+		></ngx-image-gallery>
+	</div>
+
+	<!-- TODO: How the hell do we get the images, since they should be private on the server they are stored on -->
+</div>
+
+

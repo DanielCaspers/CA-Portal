@@ -1,0 +1,14 @@
+<span class="mat-body-1">
+	{{vehicle?.year}}
+	{{vehicle?.make}}
+	{{vehicle?.model}}
+</span>
+<span class="mat-body-1">
+	{{vehicle?.license}}
+</span>
+
+<ng-container *ngIf="vehicle && vehicle.color">
+	<span class="car-color-indicator" [ngStyle]="{'background-color': vehicle.color}"></span>
+</ng-container>
+
+

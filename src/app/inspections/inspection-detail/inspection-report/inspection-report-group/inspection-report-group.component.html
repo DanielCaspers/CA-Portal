@@ -1,0 +1,16 @@
+<mat-expansion-panel>
+	<mat-expansion-panel-header>
+		<mat-panel-title fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+			<ma-recommeneded-service-severity [severity]="inspectionGroup.severity"></ma-recommeneded-service-severity>
+			<span>{{inspectionGroup.name}}</span>
+		</mat-panel-title>
+	</mat-expansion-panel-header>
+
+	<!-- TODO: Make iterable -->
+	<ma-inspection-report-item [inspectionItem]="inspectionItem"></ma-inspection-report-item>
+	<mat-list>
+		<mat-divider></mat-divider>
+	</mat-list>
+	<ma-inspection-report-item [inspectionItem]="inspectionItem2"></ma-inspection-report-item>
+
+</mat-expansion-panel>

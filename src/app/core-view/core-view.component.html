@@ -1,0 +1,27 @@
+<div fxFill fxLayout="column" fxLayoutGap="10px">
+	<mat-toolbar color="primary">
+		Murphy Automotive
+		<div fxFlex></div>
+		<a mat-button href="tel:{{storePhoneNumber}}">
+			<mat-icon style="color: white">call</mat-icon>
+		</a>
+	</mat-toolbar>
+
+	<mat-card>
+		<mat-card-header>
+			<mat-card-title>
+				<div fxLayout="row" fxLayoutAlign="space-between center">
+					<span>Inspection Report</span>
+					<span>12/12/2017</span>
+				</div>
+			</mat-card-title>
+			<mat-card-subtitle>Order # 123456</mat-card-subtitle>
+		</mat-card-header>
+		<mat-card-content>
+			<div class="mat-body-1">Richard Murphy</div>
+			<ma-customer-vehicle-summary [vehicle]="vehicle"></ma-customer-vehicle-summary>
+		</mat-card-content>
+	</mat-card>
+
+	<router-outlet></router-outlet>
+</div>
