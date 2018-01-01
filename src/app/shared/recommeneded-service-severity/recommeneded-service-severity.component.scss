@@ -6,32 +6,34 @@ $recommended-service-notes: black;
 $recommended-service-unknown: saddlebrown;
 $recommended-service-ok: #59b75c;
 
-mat-icon {
-	&.immediate {
-		color: $recommended-service-immediate;
-	}
+:host {
+	mat-icon {
+		&.immediate {
+			color: $recommended-service-immediate;
+		}
 
-	&.moderate {
-		color: $recommended-service-moderate;
-	}
+		&.moderate {
+			color: $recommended-service-moderate;
+		}
 
-	&.should-watch {
-		color: $recommended-service-watch;
-	}
+		&.should-watch {
+			color: $recommended-service-watch;
+		}
 
-	&.maintenance {
-		color: $recommended-service-maintenance;
-	}
+		&.maintenance {
+			color: $recommended-service-maintenance;
+		}
 
-	&.notes {
-		color: $recommended-service-notes;
-	}
+		&.notes {
+			color: $recommended-service-notes;
+		}
 
-	&.ok {
-		color: $recommended-service-ok;
-	}
+		&.ok {
+			color: $recommended-service-ok;
+		}
 
-	&.unknown {
-		color: $recommended-service-unknown;
+		&.unknown {
+			color: $recommended-service-unknown;
+		}
 	}
 }

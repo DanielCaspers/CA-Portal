@@ -11,12 +11,12 @@ export class InspectionDetailComponent implements OnDestroy, OnInit {
 
 	public routeLinks = [
 		{
-			label: 'Report',
+			label: 'Grouped',
 			link: `/inspections/report`,
 			index: 0
 		},
 		{
-			label: 'Table',
+			label: 'Individual',
 			link: `/inspections/table`,
 			index: 1
 		}
@@ -32,6 +32,7 @@ export class InspectionDetailComponent implements OnDestroy, OnInit {
 		this.routerSubscription = this.router.events
 			.filter(event => event instanceof NavigationEnd)
 			.subscribe(() => {
+				console.log('router stuff', this.router.url, this.routeLinks);
 				this.activeLinkIndex = this.routeLinks.indexOf(this.routeLinks.find(tab => tab.link === this.router.url));
 			});
 	}

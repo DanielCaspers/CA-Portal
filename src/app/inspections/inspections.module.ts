@@ -1,4 +1,5 @@
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
@@ -9,12 +10,15 @@ import {
 	MatListModule,
 	MatTabsModule
 } from '@angular/material';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgxImageGalleryModule } from 'ngx-image-gallery';
 
 import { RecommendedServiceSeverityModule } from '../shared/recommeneded-service-severity/recommended-service-severity.module';
 
-import { InspectionDetailComponent } from './inspection-detail/inspection-detail.component';
 import { InspectionsRoutingModule } from './inspections.routing';
+import { InspectionService } from './inspection.service';
+
+import { InspectionDetailComponent } from './inspection-detail/inspection-detail.component';
 import { InspectionReportComponent } from './inspection-detail/inspection-report/inspection-report.component';
 import { InspectionTableComponent } from './inspection-detail/inspection-table/inspection-table.component';
 import {
@@ -35,6 +39,8 @@ import {
 	imports: [
 		CommonModule,
 		FlexLayoutModule,
+		HttpClientModule,
+		NgxDatatableModule,
 		NgxImageGalleryModule,
 		InspectionsRoutingModule,
 
@@ -46,7 +52,9 @@ import {
 		MatListModule,
 		MatTabsModule
 	],
-	providers: []
+	providers: [
+		InspectionService
+	]
 })
 export class InspectionsModule {
 }

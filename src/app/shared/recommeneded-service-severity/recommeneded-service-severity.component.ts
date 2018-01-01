@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 
-export enum RecommendedServiceSeverityStringsNumbers {
+export enum RecommendedServiceSeverityNumbers {
 	Immediate = 1 as any,
 	Moderate = 2 as any,
 	ShouldWatch = 3 as any,
@@ -30,7 +30,14 @@ export enum RecommendedServiceSeverityStrings {
 export class RecommenededServiceSeverityComponent {
 
 	@Input()
-	public severity: RecommendedServiceSeverityStrings;
+	public severity: RecommendedServiceSeverityNumbers;
+
+	public immediate = RecommendedServiceSeverityNumbers.Immediate;
+	public moderate = RecommendedServiceSeverityNumbers.Moderate;
+	public shouldWatch = RecommendedServiceSeverityNumbers.ShouldWatch;
+	public maintenance = RecommendedServiceSeverityNumbers.Maintenance;
+	public notes = RecommendedServiceSeverityNumbers.Notes;
+	public ok = RecommendedServiceSeverityNumbers.Ok;
 
 	constructor() {
 	}
@@ -48,22 +55,22 @@ export class RecommenededServiceSeverityComponent {
 		};
 
 		switch (this.severity) {
-			case RecommendedServiceSeverityStrings.Immediate:
+			case RecommendedServiceSeverityNumbers.Immediate:
 				classes.immediate = true;
 				break;
-			case RecommendedServiceSeverityStrings.Moderate:
+			case RecommendedServiceSeverityNumbers.Moderate:
 				classes.moderate = true;
 				break;
-			case RecommendedServiceSeverityStrings.ShouldWatch:
+			case RecommendedServiceSeverityNumbers.ShouldWatch:
 				classes[ 'should-watch' ] = true;
 				break;
-			case RecommendedServiceSeverityStrings.Maintenance:
+			case RecommendedServiceSeverityNumbers.Maintenance:
 				classes.maintenance = true;
 				break;
-			case RecommendedServiceSeverityStrings.Notes:
+			case RecommendedServiceSeverityNumbers.Notes:
 				classes.notes = true;
 				break;
-			case RecommendedServiceSeverityStrings.Ok:
+			case RecommendedServiceSeverityNumbers.Ok:
 				classes.ok = true;
 				break;
 			default:

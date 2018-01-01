@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { InspectionService } from '../../inspection.service';
 
 @Component({
 	selector: 'ma-inspection-report',
@@ -7,10 +8,27 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InspectionReportComponent implements OnInit {
 
-	constructor() {
+	public inspectionItems;
+
+	public ig1 = {
+		Condition: 3,
+		Name: 'Under Hood'
+	};
+
+	public ig2 = {
+		Condition: 5,
+		Name: 'Brakes'
+	};
+
+	constructor(private inspectionService: InspectionService) {
 	}
 
-	ngOnInit() {
+	public ngOnInit(): void {
+		this.inspectionService.getInspectionReport()
+			.subscribe((response) => {
+				this.inspectionItems = response.InspectionReportItems;
+				console.log('My inspection items', this.inspectionItems);
+			});
 	}
 
 }

@@ -1,3 +1,110 @@
-<p>
-	inspection-table works!
-</p>
+<ngx-datatable
+	#inspectionTable
+	class="material expandable"
+	[rows]="inspectionItems"
+	[columnMode]="'flex'"
+	[loadingIndicator]="showProgress"
+	[headerHeight]="50"
+	[footerHeight]="50"
+	[rowHeight]="'auto'"
+	[reorderable]="false">
+	<ngx-datatable-row-detail [rowHeight]="'auto'">
+		<ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+			<div fxLayout="column">
+				<div fxLayout="row" fxLayoutGap="5px" *ngFor="let measurement of row.Measurements">
+					<div>{{measurement.Label}}</div>
+					<div>{{measurement.Value}}</div>
+					<div>{{measurement.Unit}}</div>
+				</div>
+			</div>
+
+			<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px"
+			     *ngFor="let cannedResponse of row.CannedResponses">
+				<i *ngIf="!cannedResponse.Description">{{cannedResponse.Response}}</i>
+				<i>{{cannedResponse.Description}}</i>
+				<a *ngIf="cannedResponse.Url" mat-button href="{{cannedResponse.Url}}" target="_blank">
+					<mat-icon color="accent">help_outline</mat-icon>
+				</a>
+			</div>
+
+			<div *ngIf="row.Note && row.Note.length > 0">
+				From the mechanic or service writer:
+				<div>
+					<i>{{row.Note}}</i>
+				</div>
+			</div>
+		</ng-template>
+	</ngx-datatable-row-detail>
+
+	<ngx-datatable-column
+			[flexGrow]="0"
+			[minWidth]="35"
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false">
+		<ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+			<a
+				href="javascript:void(0)"
+				*ngIf="hasDetails(row)"
+				[class.datatable-icon-right]="!expanded"
+				[class.datatable-icon-down]="expanded"
+				title="Expand/Collapse Row"
+				(click)="toggleExpandRow(row)">
+			</a>
+		</ng-template>
+	</ngx-datatable-column>
+
+	<ngx-datatable-column
+			name="Condition"
+			prop="Condition"
+			[flexGrow]="0"
+			[minWidth]="70"
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false">
+		<ng-template let-value="value" ngx-datatable-cell-template>
+			<ma-recommeneded-service-severity [severity]="value"></ma-recommeneded-service-severity>
+		</ng-template>
+	</ngx-datatable-column>
+	<ngx-datatable-column
+			name="Name"
+			prop="Name"
+			[flexGrow]="1"
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false">
+	</ngx-datatable-column>
+	<!-- TODO: Move to row detail view -->
+	<!--<ngx-datatable-column-->
+		<!--name="Note"-->
+		<!--prop="Note"-->
+		<!--[flexGrow]="1"-->
+		<!--[resizeable]="false"-->
+		<!--[sortable]="false"-->
+		<!--[draggable]="false">-->
+	<!--</ngx-datatable-column>-->
+	<ngx-datatable-column
+			name="Images"
+			prop="Images"
+			[flexGrow]="0"
+			[minWidth]="110"
+			[resizeable]="false"
+			[sortable]="false"
+			[draggable]="false">
+		<ng-template let-value="value" ngx-datatable-cell-template>
+			<ng-container *ngIf="value && value.length > 0">
+				<div>
+					<div fxFlex></div>
+					<a mat-button (click)="openGallery(value)" class="photo-button">
+						<mat-icon color="accent">photo_library</mat-icon>
+					</a>
+				</div>
+			</ng-container>
+		</ng-template>
+	</ngx-datatable-column>
+</ngx-datatable>
+
+<ngx-image-gallery
+		[images]="selectedImages"
+		[conf]="dialogGalleryConfig">
+</ngx-image-gallery>

@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 
 import { CoreModule } from './core-view/core.module';
 import { InspectionsModule } from './inspections/inspections.module';
+import { MaAppConfigModule } from '../environments/app-config.module';
 
 @NgModule({
 	declarations: [
@@ -17,6 +18,7 @@ import { InspectionsModule } from './inspections/inspections.module';
 		BrowserAnimationsModule,
 		AppRoutingModule,
 
+		MaAppConfigModule,
 		CoreModule,
 		InspectionsModule
 	],

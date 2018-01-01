@@ -1,16 +1,16 @@
 <mat-expansion-panel>
 	<mat-expansion-panel-header>
 		<mat-panel-title fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-			<ma-recommeneded-service-severity [severity]="inspectionGroup.severity"></ma-recommeneded-service-severity>
-			<span>{{inspectionGroup.name}}</span>
+			<ma-recommeneded-service-severity [severity]="inspectionGroup.Condition"></ma-recommeneded-service-severity>
+			<b>{{inspectionGroup.Name}}</b>
 		</mat-panel-title>
 	</mat-expansion-panel-header>
 
-	<!-- TODO: Make iterable -->
-	<ma-inspection-report-item [inspectionItem]="inspectionItem"></ma-inspection-report-item>
-	<mat-list>
-		<mat-divider></mat-divider>
-	</mat-list>
-	<ma-inspection-report-item [inspectionItem]="inspectionItem2"></ma-inspection-report-item>
+	<ng-container *ngFor="let ii of inspectionItems; let idx = index;">
+		<ma-inspection-report-item [inspectionItem]="ii"></ma-inspection-report-item>
+		<mat-list *ngIf="idx < inspectionItems.length - 1">
+			<mat-divider></mat-divider>
+		</mat-list>
+	</ng-container>
 
 </mat-expansion-panel>

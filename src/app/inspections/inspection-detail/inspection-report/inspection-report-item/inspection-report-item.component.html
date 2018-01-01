@@ -1,38 +1,46 @@
 <div fxLayout="row" fxLayoutGap="20px">
-	<ma-recommeneded-service-severity [severity]="inspectionItem.severity"></ma-recommeneded-service-severity>
+	<ma-recommeneded-service-severity [severity]="inspectionItem.Condition"></ma-recommeneded-service-severity>
 
-	<div fxLayout="column" fxLayoutGap="10px">
-		<b>{{inspectionItem.name}}</b>
+	<div class="item-info-container" fxLayout="column" fxLayoutGap="10px">
+		<div>{{inspectionItem.Name}}</div>
 
 		<div fxLayout="column">
-			<div fxLayout="row" fxLayoutGap="5px" *ngFor="let measurement of inspectionItem.measurements">
-				<div>{{measurement.name}}</div>
-				<div>{{measurement.value}}</div>
-				<div>{{measurement.unit}}</div>
+			<div fxLayout="row" fxLayoutGap="5px" *ngFor="let measurement of inspectionItem.Measurements">
+				<div>{{measurement.Label}}</div>
+				<div>{{measurement.Value}}</div>
+				<div>{{measurement.Unit}}</div>
 			</div>
 		</div>
 
 		<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px"
-		     *ngFor="let cannedResponse of inspectionItem.cannedResponses">
-			<i>{{cannedResponse.description}}</i>
-			<a mat-button href="{{cannedResponse.url}}" target="_blank">
+		     *ngFor="let cannedResponse of inspectionItem.CannedResponses">
+			<i *ngIf="!cannedResponse.Description">{{cannedResponse.Response}}</i>
+			<i>{{cannedResponse.Description}}</i>
+			<a *ngIf="cannedResponse.Url" mat-button href="{{cannedResponse.Url}}" target="_blank">
 				<mat-icon color="accent">help_outline</mat-icon>
 			</a>
 		</div>
 
-		<div>
+		<div *ngIf="inspectionItem.Note">
 			From the mechanic or service writer:
-			<i>{{inspectionItem.notes}}</i>
+			<div>
+				<i>{{inspectionItem.Note}}</i>
+			</div>
 		</div>
 
-		<button mat-button (click)="openGallery()">
-			<mat-icon color="accent">photo_library</mat-icon>
-		</button>
+		<ng-container *ngIf="inspectionItem.Images && inspectionItem.Images.length > 0">
+			<div>
+				<div fxFlex></div>
+				<a mat-button (click)="openGallery()">
+					<mat-icon color="accent">photo_library</mat-icon>
+				</a>
+			</div>
 
-		<ngx-image-gallery
-				[images]="images"
-				[conf]="dialogGalleryConfig"
-		></ngx-image-gallery>
+			<ngx-image-gallery
+					[images]="inspectionItem.Images"
+					[conf]="dialogGalleryConfig">
+			</ngx-image-gallery>
+		</ng-container>
 	</div>
 
 	<!-- TODO: How the hell do we get the images, since they should be private on the server they are stored on -->
