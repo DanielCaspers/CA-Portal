@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
+import { InspectionService } from '../inspection.service';
 
 @Component({
 	selector: 'ma-inspection-detail',
@@ -8,24 +9,17 @@ import 'rxjs/add/operator/filter';
 	styleUrls: [ './inspection-detail.component.scss' ]
 })
 export class InspectionDetailComponent implements OnDestroy, OnInit {
-
-	public routeLinks = [
-		{
-			label: 'Grouped',
-			link: `/inspections/report`,
-			index: 0
-		},
-		{
-			label: 'Individual',
-			link: `/inspections/table`,
-			index: 1
-		}
-	];
+	public inspectionId: string = null;
+	public routeLinks;
+	public workOrder = null;
 
 	private activeLinkIndex = 0;
 	private routerSubscription;
 
-	constructor(private router: Router) {
+	constructor(
+		private route: ActivatedRoute,
+		private router: Router,
+		private inspectionService: InspectionService) {
 	}
 
 	public ngOnInit(): void {
@@ -34,6 +28,29 @@ export class InspectionDetailComponent implements OnDestroy, OnInit {
 			.subscribe(() => {
 				this.activeLinkIndex = this.routeLinks.indexOf(this.routeLinks.find(tab => tab.link === this.router.url));
 			});
+
+		this.route.params.subscribe(params => {
+			this.inspectionId = params.id;
+
+			this.routeLinks = [
+				{
+					label: 'Grouped',
+					link: `/inspections/${this.inspectionId}/report`,
+					index: 0
+				},
+				{
+					label: 'Individual',
+					link: `/inspections/${this.inspectionId}/table`,
+					index: 1
+				}
+			];
+
+			this.inspectionService.getInspectionReport(this.inspectionId)
+				.subscribe((response) => {
+					this.workOrder = response.WorkOrder;
+				});
+		});
+
 	}
 
 	public ngOnDestroy(): void {

@@ -1,9 +1,9 @@
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule, MatIconModule, MatToolbarModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 
-import { CustomerVehicleSummaryModule } from '../shared/customer-vehicle-summary/customer-vehicle-summary.module';
 import { CoreViewComponent } from './core-view.component';
 
 @NgModule({
@@ -11,14 +11,13 @@ import { CoreViewComponent } from './core-view.component';
 		CoreViewComponent
 	],
 	imports: [
-		RouterModule,
+		CommonModule,
 		FlexLayoutModule,
+		RouterModule,
 
 		MatCardModule,
 		MatIconModule,
-		MatToolbarModule,
-
-		CustomerVehicleSummaryModule
+		MatToolbarModule
 	],
 	providers: []
 })

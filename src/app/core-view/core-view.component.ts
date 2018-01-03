@@ -19,18 +19,11 @@ export class CoreViewComponent implements OnInit {
 		storeUrl: 'http://www.protech-automotive.com/'
 	};
 
-	public vehicle = {
-		year: '2015',
-		make: 'Nissan',
-		model: 'Murano',
-		license: '392-TBN',
-		color: 'blue'
-	};
-
 	constructor() {
 	}
 
-	ngOnInit() {
+	public ngOnInit(): void {
+
 	}
 
 }

@@ -14,6 +14,7 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { ImageGalleryModule } from '../shared/image-gallery/image-gallery.module';
 import { RecommendedServiceSeverityModule } from '../shared/recommeneded-service-severity/recommended-service-severity.module';
+import { CustomerVehicleSummaryModule } from '../shared/customer-vehicle-summary/customer-vehicle-summary.module';
 
 import { InspectionsRoutingModule } from './inspections.routing';
 import { InspectionService } from './inspection.service';
@@ -45,6 +46,7 @@ import {
 		InspectionsRoutingModule,
 
 		RecommendedServiceSeverityModule,
+		CustomerVehicleSummaryModule,
 		MatButtonModule,
 		MatCardModule,
 		MatExpansionModule,

@@ -5,9 +5,8 @@ import { InspectionReportComponent } from './inspection-detail/inspection-report
 import { InspectionTableComponent } from './inspection-detail/inspection-table/inspection-table.component';
 
 const routes: Routes = [
-	// TODO add id
 	{
-		path: '',
+		path: ':id',
 		component: InspectionDetailComponent,
 		children: [
 			{ path: '', redirectTo: 'report', pathMatch: 'full' },
@@ -20,7 +19,7 @@ const routes: Routes = [
 				component: InspectionTableComponent
 			}
 		]
-	}
+	},
 ];
 
 @NgModule({

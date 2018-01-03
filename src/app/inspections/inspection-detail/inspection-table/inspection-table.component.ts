@@ -4,6 +4,7 @@ import { GALLERY_IMAGE } from 'ngx-image-gallery';
 import { ImageGalleryComponent } from '../../../shared/image-gallery/image-gallery.component';
 
 import 'rxjs/add/operator/finally';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
 	selector: 'ma-inspection-table',
@@ -17,26 +18,31 @@ export class InspectionTableComponent implements OnInit {
 
 	public selectedImages: GALLERY_IMAGE[] = [];
 
+	public inspectionId: string;
+
 	@ViewChild(ImageGalleryComponent) maImageGallery: ImageGalleryComponent;
 	@ViewChild('inspectionTable') table: any;
 
-	constructor(private inspectionService: InspectionService) {
+	constructor(private inspectionService: InspectionService, private route: ActivatedRoute) {
 	}
 
 	public ngOnInit(): void {
-		this.inspectionService.getInspectionReport()
-			.finally(() => {
-				this.showProgress = false;
-			})
-			.subscribe((response) => {
-				this.inspectionItems = response.InspectionReportItems;
-				// Need to bind images during OnInit for proper initialization of ngxImageGallery
-				// These are replaced on image open click in openGallery()
-				const firstIIWithImages = this.inspectionItems.find(ii => ii.Images && ii.Images.length > 0);
-				this.selectedImages = firstIIWithImages && firstIIWithImages.Images;
+		this.route.parent.params.subscribe((params) => {
+			this.inspectionId = params.id;
 
-				console.log('My inspection items', this.inspectionItems);
-			});
+			this.inspectionService.getInspectionReport(this.inspectionId)
+				.finally(() => {
+					this.showProgress = false;
+				})
+				.subscribe((response) => {
+					this.inspectionItems = response.InspectionReportItems;
+					// Need to bind images during OnInit for proper initialization of ngxImageGallery
+					// These are replaced on image open click in openGallery()
+					const firstIIWithImages = this.inspectionItems.find(ii => ii.Images && ii.Images.length > 0);
+					this.selectedImages = firstIIWithImages && firstIIWithImages.Images;
+				});
+		});
+
 	}
 
 	public openGallery(images: GALLERY_IMAGE[], index: number = 0): void {
