@@ -1,8 +1,10 @@
 <div fxFill fxLayout="column" fxLayoutGap="10px">
 	<mat-toolbar color="primary">
-		Murphy Automotive
+		<a href="{{storeInfo.storeUrl}}" target="_blank">
+			<img height="56" src="{{storeInfo.logoUrl}}" />
+		</a>
 		<div fxFlex></div>
-		<a mat-button href="tel:{{storePhoneNumber}}">
+		<a mat-button href="tel:{{storeInfo.phoneNumber}}">
 			<mat-icon style="color: white">call</mat-icon>
 		</a>
 	</mat-toolbar>
@@ -15,10 +17,10 @@
 					<span>12/12/2017</span>
 				</div>
 			</mat-card-title>
-			<mat-card-subtitle>Order # 123456</mat-card-subtitle>
+			<mat-card-subtitle>Order # 584155</mat-card-subtitle>
 		</mat-card-header>
 		<mat-card-content>
-			<div class="mat-body-1">Richard Murphy</div>
+			<div class="mat-body-1">Andrew Schafer</div>
 			<ma-customer-vehicle-summary [vehicle]="vehicle"></ma-customer-vehicle-summary>
 		</mat-card-content>
 	</mat-card>

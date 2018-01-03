@@ -74,15 +74,6 @@
 			[sortable]="false"
 			[draggable]="false">
 	</ngx-datatable-column>
-	<!-- TODO: Move to row detail view -->
-	<!--<ngx-datatable-column-->
-		<!--name="Note"-->
-		<!--prop="Note"-->
-		<!--[flexGrow]="1"-->
-		<!--[resizeable]="false"-->
-		<!--[sortable]="false"-->
-		<!--[draggable]="false">-->
-	<!--</ngx-datatable-column>-->
 	<ngx-datatable-column
 			name="Images"
 			prop="Images"
@@ -92,19 +83,11 @@
 			[sortable]="false"
 			[draggable]="false">
 		<ng-template let-value="value" ngx-datatable-cell-template>
-			<ng-container *ngIf="value && value.length > 0">
-				<div>
-					<div fxFlex></div>
-					<a mat-button (click)="openGallery(value)" class="photo-button">
-						<mat-icon color="accent">photo_library</mat-icon>
-					</a>
-				</div>
-			</ng-container>
+			<a *ngIf="value && value.length > 0" mat-button (click)="openGallery(value)" class="photo-button">
+				<mat-icon color="accent">photo_library</mat-icon>
+			</a>
 		</ng-template>
 	</ngx-datatable-column>
 </ngx-datatable>
 
-<ngx-image-gallery
-		[images]="selectedImages"
-		[conf]="dialogGalleryConfig">
-</ngx-image-gallery>
+<ma-image-gallery [images]="selectedImages"></ma-image-gallery>

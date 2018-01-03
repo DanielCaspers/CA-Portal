@@ -28,22 +28,14 @@
 			</div>
 		</div>
 
-		<ng-container *ngIf="inspectionItem.Images && inspectionItem.Images.length > 0">
-			<div>
-				<div fxFlex></div>
-				<a mat-button (click)="openGallery()">
-					<mat-icon color="accent">photo_library</mat-icon>
-				</a>
-			</div>
-
-			<ngx-image-gallery
-					[images]="inspectionItem.Images"
-					[conf]="dialogGalleryConfig">
-			</ngx-image-gallery>
-		</ng-container>
+		<div *ngIf="inspectionItem.Images && inspectionItem.Images.length > 0">
+			<div fxFlex></div>
+			<a mat-button (click)="openGallery()">
+				<mat-icon color="accent">photo_library</mat-icon>
+			</a>
+			<ma-image-gallery [images]="inspectionItem.Images"></ma-image-gallery>
+		</div>
 	</div>
-
-	<!-- TODO: How the hell do we get the images, since they should be private on the server they are stored on -->
 </div>
 
 

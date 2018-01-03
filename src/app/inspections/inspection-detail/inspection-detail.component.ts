@@ -32,7 +32,6 @@ export class InspectionDetailComponent implements OnDestroy, OnInit {
 		this.routerSubscription = this.router.events
 			.filter(event => event instanceof NavigationEnd)
 			.subscribe(() => {
-				console.log('router stuff', this.router.url, this.routeLinks);
 				this.activeLinkIndex = this.routeLinks.indexOf(this.routeLinks.find(tab => tab.link === this.router.url));
 			});
 	}

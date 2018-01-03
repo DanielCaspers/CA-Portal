@@ -5,7 +5,8 @@ export const MA_HTTP_BASE_URL = new InjectionToken<string>('MaHttpBaseUrl');
 	providers: [
 		{
 			provide: MA_HTTP_BASE_URL,
-			useValue: 'http://localhost:54343'
+			useValue: 'http://24.179.148.243/nightly-b'
+			// useValue: 'http://localhost:54343'
 		}
 	]
 })

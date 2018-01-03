@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { InspectionService } from '../../inspection.service';
-import { GALLERY_CONF, GALLERY_IMAGE, NgxImageGalleryComponent } from 'ngx-image-gallery';
+import { GALLERY_IMAGE } from 'ngx-image-gallery';
+import { ImageGalleryComponent } from '../../../shared/image-gallery/image-gallery.component';
+
+import 'rxjs/add/operator/finally';
 
 @Component({
 	selector: 'ma-inspection-table',
@@ -14,34 +17,25 @@ export class InspectionTableComponent implements OnInit {
 
 	public selectedImages: GALLERY_IMAGE[] = [];
 
-	@ViewChild(NgxImageGalleryComponent) ngxImageGallery: NgxImageGalleryComponent;
+	@ViewChild(ImageGalleryComponent) maImageGallery: ImageGalleryComponent;
 	@ViewChild('inspectionTable') table: any;
-
-	public dialogGalleryConfig: GALLERY_CONF = {
-		imageOffset: '0px',
-		showDeleteControl: false,
-		showImageTitle: true,
-		// No use for external URL at this time since nothing to associate image with other URL
-		showExtUrlControl: false
-	};
 
 	constructor(private inspectionService: InspectionService) {
 	}
 
 	public ngOnInit(): void {
 		this.inspectionService.getInspectionReport()
-			// .finally(() => {
-			// 	this.showProgress = false;
-			// })
+			.finally(() => {
+				this.showProgress = false;
+			})
 			.subscribe((response) => {
 				this.inspectionItems = response.InspectionReportItems;
-
 				// Need to bind images during OnInit for proper initialization of ngxImageGallery
 				// These are replaced on image open click in openGallery()
-				this.selectedImages = this.inspectionItems[0].Images;
+				const firstIIWithImages = this.inspectionItems.find(ii => ii.Images && ii.Images.length > 0);
+				this.selectedImages = firstIIWithImages && firstIIWithImages.Images;
 
 				console.log('My inspection items', this.inspectionItems);
-				this.showProgress = false;
 			});
 	}
 
@@ -49,7 +43,7 @@ export class InspectionTableComponent implements OnInit {
 		// Trigger change detection and dynamically bind new images on button click
 		this.selectedImages = images;
 
-		this.ngxImageGallery.open(index);
+		this.maImageGallery.open(index);
 	}
 
 	public toggleExpandRow(row): void {

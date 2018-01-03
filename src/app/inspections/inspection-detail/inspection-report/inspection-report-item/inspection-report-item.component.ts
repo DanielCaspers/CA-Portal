@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { GALLERY_CONF, GALLERY_IMAGE, NgxImageGalleryComponent } from 'ngx-image-gallery';
+import { ImageGalleryComponent } from '../../../../shared/image-gallery/image-gallery.component';
 
 @Component({
 	selector: 'ma-inspection-report-item',
@@ -8,23 +8,14 @@ import { GALLERY_CONF, GALLERY_IMAGE, NgxImageGalleryComponent } from 'ngx-image
 })
 export class InspectionReportItemComponent {
 
-	@ViewChild(NgxImageGalleryComponent) ngxImageGallery: NgxImageGalleryComponent;
-
-	public dialogGalleryConfig: GALLERY_CONF = {
-		imageOffset: '0px',
-		showDeleteControl: false,
-		showImageTitle: true,
-		// No use for external URL at this time since nothing to associate image with other URL
-		showExtUrlControl: false
-	};
+	@ViewChild(ImageGalleryComponent) maImageGallery: ImageGalleryComponent;
 
 	@Input()
 	public inspectionItem;
 
-	constructor() {
-	}
+	constructor() {}
 
 	public openGallery(index: number = 0): void {
-		this.ngxImageGallery.open(index);
+		this.maImageGallery.open(index);
 	}
 }

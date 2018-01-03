@@ -1,0 +1,7 @@
+<ng-container *ngIf="images && images.length > 0">
+	<ngx-image-gallery
+			[images]="images"
+			[conf]="dialogGalleryConfig"
+			(onImageClicked)="galleryImageClicked($event)">
+	</ngx-image-gallery>
+</ng-container>

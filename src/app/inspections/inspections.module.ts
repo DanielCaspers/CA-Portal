@@ -11,8 +11,8 @@ import {
 	MatTabsModule
 } from '@angular/material';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { NgxImageGalleryModule } from 'ngx-image-gallery';
 
+import { ImageGalleryModule } from '../shared/image-gallery/image-gallery.module';
 import { RecommendedServiceSeverityModule } from '../shared/recommeneded-service-severity/recommended-service-severity.module';
 
 import { InspectionsRoutingModule } from './inspections.routing';
@@ -41,7 +41,7 @@ import {
 		FlexLayoutModule,
 		HttpClientModule,
 		NgxDatatableModule,
-		NgxImageGalleryModule,
+		ImageGalleryModule,
 		InspectionsRoutingModule,
 
 		RecommendedServiceSeverityModule,

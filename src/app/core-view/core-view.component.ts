@@ -1,5 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
+interface MAStoreInfo {
+	phoneNumber: string;
+	logoUrl: string;
+	storeUrl: string;
+}
+
 @Component({
 	selector: 'ma-core-view',
 	templateUrl: './core-view.component.html',
@@ -7,13 +13,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CoreViewComponent implements OnInit {
 
-	public storePhoneNumber = '+19522706622';
+	public storeInfo: MAStoreInfo = {
+		phoneNumber: '+19524322454',
+		logoUrl: 'https://www.protech-automotive.com/_images/logos/004.png',
+		storeUrl: 'http://www.protech-automotive.com/'
+	};
 
 	public vehicle = {
-		year: '2012',
-		make: 'Toyota',
-		model: 'Avalon',
-		license: '958-ETV',
+		year: '2015',
+		make: 'Nissan',
+		model: 'Murano',
+		license: '392-TBN',
 		color: 'blue'
 	};
 
