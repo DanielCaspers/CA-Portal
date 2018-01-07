@@ -1,15 +1,12 @@
 <mat-card *ngIf="workOrder">
-	<mat-card-header>
-		<mat-card-title>
-			<div fxLayout="row" fxLayoutAlign="space-between center">
-				<span>Inspection Report</span>
-				<!-- TODO: Figure out date parsing, or improved BE serialization -->
-				<span>{{workOrder.CompletionDate}}</span>
-			</div>
-		</mat-card-title>
-		<mat-card-subtitle>Order # {{workOrder.Id?.substring(3)}}</mat-card-subtitle>
-	</mat-card-header>
 	<mat-card-content >
+		<div fxLayout="row" fxLayoutAlign="space-between center">
+			<span class="mat-headline">Inspection Report</span>
+			<!-- TODO: Figure out date parsing, or improved BE serialization -->
+			<span>{{workOrder.CompletionDate}}</span>
+		</div>
+
+		Order # {{workOrder.Id?.substring(3)}}
 		<div class="mat-body-1">{{workOrder.Customer?.Name}}</div>
 
 		<ma-customer-vehicle-summary [vehicle]="workOrder?.Vehicle"></ma-customer-vehicle-summary>

@@ -37,33 +37,27 @@
 	</ngx-datatable-row-detail>
 
 	<ngx-datatable-column
-			[flexGrow]="0"
-			[minWidth]="35"
-			[resizeable]="false"
-			[sortable]="false"
-			[draggable]="false">
-		<ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
-			<a
-				href="javascript:void(0)"
-				*ngIf="hasDetails(row)"
-				[class.datatable-icon-right]="!expanded"
-				[class.datatable-icon-down]="expanded"
-				title="Expand/Collapse Row"
-				(click)="toggleExpandRow(row)">
-			</a>
-		</ng-template>
-	</ngx-datatable-column>
-
-	<ngx-datatable-column
 			name="Condition"
 			prop="Condition"
 			[flexGrow]="0"
-			[minWidth]="70"
+			[minWidth]="105"
 			[resizeable]="false"
 			[sortable]="false"
 			[draggable]="false">
-		<ng-template let-value="value" ngx-datatable-cell-template>
-			<ma-recommeneded-service-severity [severity]="value"></ma-recommeneded-service-severity>
+		<ng-template let-value="value" let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+			<div fxLayout="row" fxLayoutAlign="center center">
+				<a
+						href="javascript:void(0)"
+						*ngIf="hasDetails(row)"
+						[class.datatable-icon-right]="!expanded"
+						[class.datatable-icon-down]="expanded"
+						title="Expand/Collapse Row"
+						(click)="toggleExpandRow(row)">
+				</a>
+				<div *ngIf="!hasDetails(row)" style="width: 24px" class="row-detail-spacer"></div>
+
+				<ma-recommeneded-service-severity [severity]="value"></ma-recommeneded-service-severity>
+			</div>
 		</ng-template>
 	</ngx-datatable-column>
 	<ngx-datatable-column

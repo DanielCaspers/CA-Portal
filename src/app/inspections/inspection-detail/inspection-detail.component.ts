@@ -34,12 +34,12 @@ export class InspectionDetailComponent implements OnDestroy, OnInit {
 
 			this.routeLinks = [
 				{
-					label: 'Grouped',
+					label: 'By subsystem',
 					link: `/inspections/${this.inspectionId}/report`,
 					index: 0
 				},
 				{
-					label: 'Individual',
+					label: 'By condition',
 					link: `/inspections/${this.inspectionId}/table`,
 					index: 1
 				}
