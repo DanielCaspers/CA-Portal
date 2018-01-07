@@ -7,6 +7,9 @@ $recommended-service-unknown: saddlebrown;
 $recommended-service-ok: #59b75c;
 
 :host {
+	//Must be long enough to fit longest severity name, which is 'Not applicable'
+	width: 80px;
+
 	mat-icon {
 		&.immediate {
 			color: $recommended-service-immediate;
@@ -35,5 +38,9 @@ $recommended-service-ok: #59b75c;
 		&.unknown {
 			color: $recommended-service-unknown;
 		}
+	}
+
+	.mat-caption {
+		opacity: 0.6;
 	}
 }
