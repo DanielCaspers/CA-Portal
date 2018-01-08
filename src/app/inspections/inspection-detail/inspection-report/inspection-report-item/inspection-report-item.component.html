@@ -1,30 +1,36 @@
-<div fxLayout="row" fxLayoutGap="20px">
-	<ma-recommeneded-service-severity [severity]="inspectionItem.Condition"></ma-recommeneded-service-severity>
+<div fxLayout="column" fxLayoutGap="10px">
+	<div fxLayout="row" fxLayoutGap="30px">
+		<ma-recommeneded-service-severity [severity]="inspectionItem.Condition"></ma-recommeneded-service-severity>
 
-	<div class="item-info-container" fxLayout="column" fxLayoutGap="10px">
-		<div>{{inspectionItem.Name}}</div>
+		<div class="mat-subheading-1">{{inspectionItem.Name}}</div>
+	</div>
+	<div fxLayout="column" fxLayoutGap="10px">
+		<div fxLayout="column" *ngIf="inspectionItem.CannedResponses && inspectionItem.CannedResponses.length > 0">
+			<div class="mat-body-2">Description</div>
 
-		<div fxLayout="column">
-			<div fxLayout="row" fxLayoutGap="5px" *ngFor="let measurement of inspectionItem.Measurements">
-				<div>{{measurement.Label}}</div>
-				<div>{{measurement.Value}}</div>
-				<div>{{measurement.Unit}}</div>
+			<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px"
+			     *ngFor="let cannedResponse of inspectionItem.CannedResponses">
+				<div *ngIf="!cannedResponse.Description">{{cannedResponse.Response}}</div>
+				<div>{{cannedResponse.Description}}</div>
+				<a *ngIf="cannedResponse.Url" mat-button href="{{cannedResponse.Url}}" target="_blank">
+					<mat-icon color="accent">help_outline</mat-icon>
+				</a>
 			</div>
 		</div>
 
-		<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px"
-		     *ngFor="let cannedResponse of inspectionItem.CannedResponses">
-			<i *ngIf="!cannedResponse.Description">{{cannedResponse.Response}}</i>
-			<i>{{cannedResponse.Description}}</i>
-			<a *ngIf="cannedResponse.Url" mat-button href="{{cannedResponse.Url}}" target="_blank">
-				<mat-icon color="accent">help_outline</mat-icon>
-			</a>
+		<div fxLayout="column" *ngIf="inspectionItem.Note">
+			<div class="mat-body-2">Pro-Tech says</div>
+			<i><q>{{inspectionItem.Note}}</q></i>
 		</div>
 
-		<div *ngIf="inspectionItem.Note">
-			From the mechanic or service writer:
-			<div>
-				<i>{{inspectionItem.Note}}</i>
+		<div fxLayout="column" *ngIf="inspectionItem.Measurements && inspectionItem.Measurements.length > 0" >
+			<div class="mat-body-2">Measurements</div>
+			<div fxLayout="column">
+				<div fxLayout="row" fxLayoutGap="5px" *ngFor="let measurement of inspectionItem.Measurements">
+					<div fxFlex="70">{{measurement.Label}}</div>
+					<div>{{measurement.Value}}</div>
+					<div>{{measurement.Unit}}</div>
+				</div>
 			</div>
 		</div>
 

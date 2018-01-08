@@ -10,27 +10,32 @@
 	[reorderable]="false">
 	<ngx-datatable-row-detail [rowHeight]="'auto'">
 		<ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
-			<div fxLayout="column">
-				<div fxLayout="row" fxLayoutGap="5px" *ngFor="let measurement of row.Measurements">
-					<div>{{measurement.Label}}</div>
-					<div>{{measurement.Value}}</div>
-					<div>{{measurement.Unit}}</div>
+			<div fxLayout="column" *ngIf="row.CannedResponses && row.CannedResponses.length > 0">
+				<div class="mat-body-2">Description</div>
+
+				<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px"
+				     *ngFor="let cannedResponse of row.CannedResponses">
+					<div *ngIf="!cannedResponse.Description">{{cannedResponse.Response}}</div>
+					<div>{{cannedResponse.Description}}</div>
+					<a *ngIf="cannedResponse.Url" mat-button href="{{cannedResponse.Url}}" target="_blank">
+						<mat-icon color="accent">help_outline</mat-icon>
+					</a>
 				</div>
 			</div>
 
-			<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5px"
-			     *ngFor="let cannedResponse of row.CannedResponses">
-				<i *ngIf="!cannedResponse.Description">{{cannedResponse.Response}}</i>
-				<i>{{cannedResponse.Description}}</i>
-				<a *ngIf="cannedResponse.Url" mat-button href="{{cannedResponse.Url}}" target="_blank">
-					<mat-icon color="accent">help_outline</mat-icon>
-				</a>
+			<div fxLayout="column" *ngIf="row.Note">
+				<div class="mat-body-2">Pro-Tech says</div>
+				<i><q>{{row.Note}}</q></i>
 			</div>
 
-			<div *ngIf="row.Note && row.Note.length > 0">
-				From the mechanic or service writer:
-				<div>
-					<i>{{row.Note}}</i>
+			<div fxLayout="column" *ngIf="row.Measurements && row.Measurements.length > 0" >
+				<div class="mat-body-2">Measurements</div>
+				<div fxLayout="column">
+					<div fxLayout="row" fxLayoutGap="5px" *ngFor="let measurement of row.Measurements">
+						<div fxFlex="70">{{measurement.Label}}</div>
+						<div>{{measurement.Value}}</div>
+						<div>{{measurement.Unit}}</div>
+					</div>
 				</div>
 			</div>
 		</ng-template>
