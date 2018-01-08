@@ -36,11 +36,12 @@
 		</ng-template>
 	</ngx-datatable-row-detail>
 
+	<!-- Min-width must be at least 115 px to fit 'Should watch' without wrapping -->
 	<ngx-datatable-column
 			name="Condition"
 			prop="Condition"
 			[flexGrow]="0"
-			[minWidth]="105"
+			[minWidth]="115"
 			[resizeable]="false"
 			[sortable]="false"
 			[draggable]="false">

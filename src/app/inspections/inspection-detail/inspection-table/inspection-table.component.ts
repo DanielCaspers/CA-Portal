@@ -30,12 +30,12 @@ export class InspectionTableComponent implements OnInit {
 		this.route.parent.params.subscribe((params) => {
 			this.inspectionId = params.id;
 
-			this.inspectionService.getInspectionReport(this.inspectionId)
+			this.inspectionService.getInspectionReport(this.inspectionId, false)
 				.finally(() => {
 					this.showProgress = false;
 				})
 				.subscribe((response) => {
-					this.inspectionItems = response.InspectionReportItems;
+					this.inspectionItems = response;
 					// Need to bind images during OnInit for proper initialization of ngxImageGallery
 					// These are replaced on image open click in openGallery()
 					const firstIIWithImages = this.inspectionItems.find(ii => ii.Images && ii.Images.length > 0);

@@ -9,18 +9,7 @@ import { InspectionService } from '../../inspection.service';
 })
 export class InspectionReportComponent implements OnInit {
 
-	public inspectionItems;
-
-	public ig1 = {
-		Condition: 3,
-		Name: 'Under Hood'
-	};
-
-	public ig2 = {
-		Condition: 5,
-		Name: 'Brakes'
-	};
-
+	public inspectionGroups;
 	public inspectionId: string;
 
 	constructor(private inspectionService: InspectionService, private route: ActivatedRoute) {
@@ -32,9 +21,9 @@ export class InspectionReportComponent implements OnInit {
 
 			console.log('ID is', this.inspectionId);
 
-			this.inspectionService.getInspectionReport(this.inspectionId)
+			this.inspectionService.getInspectionReport(this.inspectionId, true)
 				.subscribe((response) => {
-					this.inspectionItems = response.InspectionReportItems;
+					this.inspectionGroups = response;
 				});
 		});
 	}

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import 'rxjs/add/operator/filter';
-import { InspectionService } from '../inspection.service';
+import { WorkOrderService } from '../../shared/work-order/work-order.service';
 
 @Component({
 	selector: 'ma-inspection-detail',
@@ -19,7 +19,7 @@ export class InspectionDetailComponent implements OnDestroy, OnInit {
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
-		private inspectionService: InspectionService) {
+		private workOrderService: WorkOrderService) {
 	}
 
 	public ngOnInit(): void {
@@ -45,9 +45,9 @@ export class InspectionDetailComponent implements OnDestroy, OnInit {
 				}
 			];
 
-			this.inspectionService.getInspectionReport(this.inspectionId)
+			this.workOrderService.getWorkOrder(this.inspectionId)
 				.subscribe((response) => {
-					this.workOrder = response.WorkOrder;
+					this.workOrder = response;
 				});
 		});
 
