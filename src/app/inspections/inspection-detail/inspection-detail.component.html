@@ -15,15 +15,13 @@
 
 <nav mat-tab-nav-bar *ngIf="inspectionId">
 	<a mat-tab-link
-	   *ngFor="let route of routeLinks; let i = index;"
+	   *ngFor="let routeLink of routeLinks;"
+	   [routerLink]="routeLink.link"
+	   routerLinkActive=""
 	   #rla="routerLinkActive"
-	   [active]="activeLinkIndex === i"
-	   [routerLink]="route.link"
-	   [routerLinkActive]=""
-	   [routerLinkActiveOptions]="{exact: true}"
-	   (click)="activeLinkIndex = i"
-	>
-		{{route.label}}
+	   [active]="routeLink.isActive"
+	   [routerLinkActiveOptions]="{exact: true}">
+		{{routeLink.label}}
 	</a>
 </nav>
 

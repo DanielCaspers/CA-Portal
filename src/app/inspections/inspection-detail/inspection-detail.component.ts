@@ -1,7 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/filter';
 import { WorkOrderService } from '../../shared/work-order/work-order.service';
+
+interface IInspectionRouteLink {
+	label: string;
+	link: string;
+	isActive: boolean;
+}
 
 @Component({
 	selector: 'ma-inspection-detail',
@@ -10,11 +17,11 @@ import { WorkOrderService } from '../../shared/work-order/work-order.service';
 })
 export class InspectionDetailComponent implements OnDestroy, OnInit {
 	public inspectionId: string = null;
-	public routeLinks;
+	public routeLinks: IInspectionRouteLink[];
 	public workOrder = null;
 
-	private activeLinkIndex = 0;
-	private routerSubscription;
+	private routeParamsSubscription: Subscription;
+	private routerSubscription: Subscription;
 
 	constructor(
 		private route: ActivatedRoute,
@@ -23,27 +30,23 @@ export class InspectionDetailComponent implements OnDestroy, OnInit {
 	}
 
 	public ngOnInit(): void {
-		this.routerSubscription = this.router.events
-			.filter(event => event instanceof NavigationEnd)
-			.subscribe(() => {
-				this.activeLinkIndex = this.routeLinks.indexOf(this.routeLinks.find(tab => tab.link === this.router.url));
-			});
-
-		this.route.params.subscribe(params => {
+		this.routeParamsSubscription = this.route.params.subscribe(params => {
 			this.inspectionId = params.id;
 
 			this.routeLinks = [
 				{
 					label: 'By subsystem',
 					link: `/inspections/${this.inspectionId}/report`,
-					index: 0
+					isActive: false
 				},
 				{
 					label: 'By condition',
 					link: `/inspections/${this.inspectionId}/table`,
-					index: 1
+					isActive: false
 				}
 			];
+
+			this.updateActiveTab();
 
 			this.workOrderService.getWorkOrder(this.inspectionId)
 				.subscribe((response) => {
@@ -51,10 +54,24 @@ export class InspectionDetailComponent implements OnDestroy, OnInit {
 				});
 		});
 
+		this.routerSubscription = this.router.events
+			.filter(event => event instanceof NavigationEnd)
+			.subscribe(() => {
+				this.updateActiveTab();
+			});
 	}
 
 	public ngOnDestroy(): void {
+		this.routeParamsSubscription.unsubscribe();
 		this.routerSubscription.unsubscribe();
+	}
+
+	public get activeRoute(): IInspectionRouteLink {
+		return this.routeLinks.find(tab => tab.isActive);
+	}
+
+	private updateActiveTab(): void {
+		this.routeLinks.forEach(tab => tab.isActive = (tab.link === this.router.url));
 	}
 
 }
