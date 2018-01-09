@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/filter';
-import { WorkOrderService } from '../../shared/work-order/work-order.service';
+import { WorkOrderService } from '../../shared';
 
 interface IInspectionRouteLink {
 	label: string;
@@ -35,12 +35,12 @@ export class InspectionDetailComponent implements OnDestroy, OnInit {
 
 			this.routeLinks = [
 				{
-					label: 'By subsystem',
+					label: 'By area',
 					link: `/inspections/${this.inspectionId}/report`,
 					isActive: false
 				},
 				{
-					label: 'By condition',
+					label: 'By priority',
 					link: `/inspections/${this.inspectionId}/table`,
 					isActive: false
 				}

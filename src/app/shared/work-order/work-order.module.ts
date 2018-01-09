@@ -11,4 +11,9 @@ import { WorkOrderService } from './work-order.service';
 		WorkOrderService
 	]
 })
-export class WorkOrderModule { }
+class WorkOrderModule { }
+
+export {
+	WorkOrderModule,
+	WorkOrderService
+}

@@ -1,5 +1,9 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { ImageGalleryComponent } from '../../../../shared/image-gallery/image-gallery.component';
+
+import {
+	ImageGalleryComponent,
+	MeasurementsFormDialogService
+} from '../../../../shared';
 
 @Component({
 	selector: 'ma-inspection-report-item',
@@ -13,9 +17,13 @@ export class InspectionReportItemComponent {
 	@Input()
 	public inspectionItem;
 
-	constructor() {}
+	constructor(public measurementDialog: MeasurementsFormDialogService) {}
 
 	public openGallery(index: number = 0): void {
 		this.maImageGallery.open(index);
+	}
+
+	public openMeasurementsDialog(): void {
+		this.measurementDialog.open(this.inspectionItem);
 	}
 }

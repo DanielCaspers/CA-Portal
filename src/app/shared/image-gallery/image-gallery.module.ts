@@ -16,5 +16,9 @@ import { ImageGalleryComponent } from './image-gallery.component';
 		ImageGalleryComponent
 	]
 })
-export class ImageGalleryModule {
+class ImageGalleryModule {}
+
+export {
+	ImageGalleryModule,
+	ImageGalleryComponent
 }

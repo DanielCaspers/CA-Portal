@@ -1,10 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { InspectionService } from '../../inspection.service';
-import { GALLERY_IMAGE } from 'ngx-image-gallery';
-import { ImageGalleryComponent } from '../../../shared/image-gallery/image-gallery.component';
-
-import 'rxjs/add/operator/finally';
 import { ActivatedRoute } from '@angular/router';
+import { GALLERY_IMAGE } from 'ngx-image-gallery';
+import 'rxjs/add/operator/finally';
+
+import {
+	ImageGalleryComponent,
+	MeasurementsFormDialogService
+} from '../../../shared';
+
+import { InspectionService } from '../../inspection.service';
 
 @Component({
 	selector: 'ma-inspection-table',
@@ -23,7 +27,10 @@ export class InspectionTableComponent implements OnInit {
 	@ViewChild(ImageGalleryComponent) maImageGallery: ImageGalleryComponent;
 	@ViewChild('inspectionTable') table: any;
 
-	constructor(private inspectionService: InspectionService, private route: ActivatedRoute) {
+	constructor(
+		private inspectionService: InspectionService,
+		private route: ActivatedRoute,
+		private measurementsDialog: MeasurementsFormDialogService ) {
 	}
 
 	public ngOnInit(): void {
@@ -42,7 +49,6 @@ export class InspectionTableComponent implements OnInit {
 					this.selectedImages = firstIIWithImages && firstIIWithImages.Images;
 				});
 		});
-
 	}
 
 	public openGallery(images: GALLERY_IMAGE[], index: number = 0): void {
@@ -52,8 +58,16 @@ export class InspectionTableComponent implements OnInit {
 		this.maImageGallery.open(index);
 	}
 
+	public openMeasurementsDialog(row): void {
+		this.measurementsDialog.open(row);
+	}
+
 	public toggleExpandRow(row): void {
 		this.table.rowDetail.toggleExpandRow(row);
+	}
+
+	public onSelect({ selected }): void {
+		this.toggleExpandRow(selected[0]);
 	}
 
 	public hasDetails(row): boolean {

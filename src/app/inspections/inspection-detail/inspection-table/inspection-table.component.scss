@@ -1,3 +1,5 @@
+@import '../../../../colors';
+
 :host {
 	.photo-button {
 		padding: 0;
@@ -6,6 +8,16 @@
 	::ng-deep {
 		font-family: Roboto, "Helvetica Neue", sans-serif;
 
+		.datatable-body-row .datatable-row-center,
+		.datatable-body-row .datatable-row-group,
+		.ngx-datatable.material.single-selection .datatable-body-row.active:hover {
+			background: $ma-gray !important;
+		}
+
+		.ngx-datatable.material .datatable-body .datatable-row-detail {
+			background: inherit !important;
+		}
+
 		.row-detail-spacer {
 			min-width: 30px;
 			height: 39px;
@@ -13,13 +25,14 @@
 			left: 0px;
 		}
 
-		.datatable-icon-right, .datatable-icon-down {
+		.datatable-icon-up, .datatable-icon-down {
 			text-decoration: none;
-			color: #000;
+			color: $ma-muted-black;
 			font-size: 24px;
 
 			position: absolute;
-			left: 5px;
+			right: 30px;
+			top: 15px;
 		}
 	}
 }

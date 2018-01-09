@@ -7,7 +7,9 @@
 	[headerHeight]="50"
 	[footerHeight]="50"
 	[rowHeight]="'auto'"
-	[reorderable]="false">
+	[reorderable]="false"
+	[selectionType]="'single'"
+	(select)='onSelect($event)'>
 	<ngx-datatable-row-detail [rowHeight]="'auto'">
 		<ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
 			<div fxLayout="column" *ngIf="row.CannedResponses && row.CannedResponses.length > 0">
@@ -28,15 +30,21 @@
 				<i><q>{{row.Note}}</q></i>
 			</div>
 
-			<div fxLayout="column" *ngIf="row.Measurements && row.Measurements.length > 0" >
-				<div class="mat-body-2">Measurements</div>
-				<div fxLayout="column">
-					<div fxLayout="row" fxLayoutGap="5px" *ngFor="let measurement of row.Measurements">
-						<div fxFlex="70">{{measurement.Label}}</div>
-						<div>{{measurement.Value}}</div>
-						<div>{{measurement.Unit}}</div>
-					</div>
-				</div>
+			<div fxLayout="row">
+				<button *ngIf="row.Measurements && row.Measurements.length > 0"
+				        color="accent"
+				        mat-button
+				        (click)="openMeasurementsDialog(row)">
+					View Measurements
+				</button>
+				<div fxFlex></div>
+				<button *ngIf="row.Images && row.Images.length > 0"
+				        color="accent"
+				        mat-button
+				        (click)="openGallery()">
+					View Images
+					<mat-icon color="accent">photo_library</mat-icon>
+				</button>
 			</div>
 		</ng-template>
 	</ngx-datatable-row-detail>
@@ -52,18 +60,19 @@
 			[draggable]="false">
 		<ng-template let-value="value" let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
 			<div fxLayout="row" fxLayoutAlign="center center">
-				<a
-						href="javascript:void(0)"
-						*ngIf="hasDetails(row)"
-						[class.datatable-icon-right]="!expanded"
-						[class.datatable-icon-down]="expanded"
-						title="Expand/Collapse Row"
-						(click)="toggleExpandRow(row)">
-				</a>
-				<div *ngIf="!hasDetails(row)" style="width: 24px" class="row-detail-spacer"></div>
+				<div style="width: 24px" class="row-detail-spacer"></div>
 
 				<ma-recommeneded-service-severity [severity]="value"></ma-recommeneded-service-severity>
 			</div>
+
+			<a
+				href="javascript:void(0)"
+				*ngIf="hasDetails(row)"
+				[class.datatable-icon-down]="!expanded"
+				[class.datatable-icon-up]="expanded"
+				title="Expand/Collapse Row"
+				(click)="toggleExpandRow(row)">
+			</a>
 		</ng-template>
 	</ngx-datatable-column>
 	<ngx-datatable-column
@@ -73,20 +82,6 @@
 			[resizeable]="false"
 			[sortable]="false"
 			[draggable]="false">
-	</ngx-datatable-column>
-	<ngx-datatable-column
-			name="Images"
-			prop="Images"
-			[flexGrow]="0"
-			[minWidth]="110"
-			[resizeable]="false"
-			[sortable]="false"
-			[draggable]="false">
-		<ng-template let-value="value" ngx-datatable-cell-template>
-			<a *ngIf="value && value.length > 0" mat-button (click)="openGallery(value)" class="photo-button">
-				<mat-icon color="accent">photo_library</mat-icon>
-			</a>
-		</ng-template>
 	</ngx-datatable-column>
 </ngx-datatable>
 

@@ -1,16 +1,16 @@
-<mat-expansion-panel>
+<mat-expansion-panel (opened)="isExpanded = true"
+                     (closed)="isExpanded = false">
 	<mat-expansion-panel-header>
 		<mat-panel-title fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-			<ma-recommeneded-service-severity [severity]="inspectionGroup.Condition"></ma-recommeneded-service-severity>
+			<ma-recommeneded-service-severity [hidden]="isExpanded" [severity]="inspectionGroup.Condition"></ma-recommeneded-service-severity>
+			<div class="severity-placeholder" [hidden]="!isExpanded"></div>
 			<div class="mat-body-2">{{inspectionGroup.Name}}</div>
 		</mat-panel-title>
 	</mat-expansion-panel-header>
 
 	<ng-container *ngFor="let ii of inspectionItems; let idx = index;">
 		<ma-inspection-report-item [inspectionItem]="ii"></ma-inspection-report-item>
-		<mat-list *ngIf="idx < inspectionItems.length - 1">
-			<mat-divider></mat-divider>
-		</mat-list>
+		<div *ngIf="idx < inspectionItems.length - 1" class="ma-divider"></div>
 	</ng-container>
 
 </mat-expansion-panel>

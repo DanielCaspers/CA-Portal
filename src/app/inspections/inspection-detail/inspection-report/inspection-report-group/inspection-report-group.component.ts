@@ -16,6 +16,8 @@ export class InspectionReportGroupComponent {
 	@Input()
 	public inspectionItems: any[] = [];
 
+	public isExpanded: boolean = false;
+
 	constructor() {
 	}
 

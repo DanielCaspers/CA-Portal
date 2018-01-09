@@ -1,8 +1,13 @@
+@import '../../../../../colors';
+
 :host {
+	.severity-placeholder {
+		width: 80px;
+	}
 	::ng-deep {
 		mat-expansion-panel-header {
 			padding-left: 15px;
-			background: #f3f3f3;
+			background: $ma-gray !important;
 		}
 	}
 }

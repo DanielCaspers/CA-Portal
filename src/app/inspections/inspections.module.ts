@@ -7,15 +7,17 @@ import {
 	MatCardModule,
 	MatExpansionModule,
 	MatIconModule,
-	MatListModule,
 	MatTabsModule
 } from '@angular/material';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
-import { ImageGalleryModule } from '../shared/image-gallery/image-gallery.module';
-import { RecommendedServiceSeverityModule } from '../shared/recommeneded-service-severity/recommended-service-severity.module';
-import { CustomerVehicleSummaryModule } from '../shared/customer-vehicle-summary/customer-vehicle-summary.module';
-import { WorkOrderModule } from '../shared/work-order/work-order.module';
+import {
+	CustomerVehicleSummaryModule,
+	ImageGalleryModule,
+	MeasurementsFormDialogModule,
+	RecommendedServiceSeverityModule,
+	WorkOrderModule
+} from '../shared';
 
 import { InspectionsRoutingModule } from './inspections.routing';
 import { InspectionService } from './inspection.service';
@@ -48,6 +50,7 @@ import {
 
 		RecommendedServiceSeverityModule,
 		CustomerVehicleSummaryModule,
+		MeasurementsFormDialogModule,
 		WorkOrderModule,
 		ImageGalleryModule,
 
@@ -55,7 +58,6 @@ import {
 		MatCardModule,
 		MatExpansionModule,
 		MatIconModule,
-		MatListModule,
 		MatTabsModule
 	],
 	providers: [
