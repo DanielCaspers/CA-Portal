@@ -6,11 +6,32 @@
 @import '~@swimlane/ngx-datatable/release/assets/icons.css';
 
 body {
-  margin: 0;
+	margin: 0;
 }
 
 .ma-divider {
-  display: block;
-  border-top: 1px solid rgba(0,0,0, 0.24);
-  margin: 0;
+	display: block;
+	border-top: 1px solid rgba(0, 0, 0, 0.24);
+	margin: 0;
+}
+
+@media print {
+
+	// Auto expand accordions when printed
+	.mat-expansion-panel-content {
+		height: inherit !important;
+		visibility: visible !important;
+	}
+
+	// Auto hide accordion icons
+	.mat-expansion-panel-header {
+		ma-recommeneded-service-severity, .mat-expansion-indicator {
+			display: none !important;
+		}
+	}
+
+	// Hide any ui buttons, since no interactions on paper
+	a mat-icon, button, mat-button, nav {
+		display: none !important;
+	}
 }
