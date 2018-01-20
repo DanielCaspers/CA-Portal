@@ -1,13 +1,24 @@
 <div fxFill fxLayout="column" fxLayoutGap="10px">
 	<mat-toolbar color="primary">
-		<a href="{{storeInfo.storeUrl}}" target="_blank">
-			<img height="56" src="{{storeInfo.logoUrl}}" />
+		<a href="{{storeInfo?.StoreWebAssets?.WebAddress}}" target="_blank">
+			<img height="56" [src]="storeInfo?.StoreWebAssets?.LogoSmall" />
 		</a>
 		<div fxFlex></div>
-		<a mat-button href="tel:{{storeInfo.phoneNumber}}">
-			<mat-icon style="color: white">call</mat-icon>
-		</a>
+		<div class="button-container" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="25px">
+			<a mat-button [href]="storeInfo?.PhoneNumberToSMS?.NumberForWebLink | safeUrl">
+				<mat-icon>message</mat-icon>
+			</a>
+			<a mat-button [href]="storeInfo?.PhoneNumberToCall?.NumberForWebLink | safeUrl">
+				<mat-icon>call</mat-icon>
+			</a>
+		</div>
 	</mat-toolbar>
+
+	<div class="ma-print-version-only mat-subheading-2 ma-store-address">
+		<div>{{storeInfo?.StoreAddress?.Line1}}</div>
+		<div>{{storeInfo?.StoreAddress?.City}}, {{storeInfo?.StoreAddress?.StateShort}} {{storeInfo?.StoreAddress?.ZIP}}</div>
+		<div>{{storeInfo?.PhoneNumberToCall?.Number}}</div>
+	</div>
 
 	<router-outlet></router-outlet>
 </div>

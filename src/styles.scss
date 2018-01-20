@@ -15,7 +15,18 @@ body {
 	margin: 0;
 }
 
+.ma-print-version-only {
+	visibility: hidden;
+}
+
 @media print {
+	.ma-print-version-only {
+		visibility: visible;
+	}
+
+	%ma-digital-version-only {
+		display: none !important;
+	}
 
 	// Auto expand accordions when printed
 	.mat-expansion-panel-content {
@@ -26,12 +37,13 @@ body {
 	// Auto hide accordion icons
 	.mat-expansion-panel-header {
 		ma-recommeneded-service-severity, .mat-expansion-indicator {
-			display: none !important;
+			@extend %ma-digital-version-only;
 		}
 	}
 
 	// Hide any ui buttons, since no interactions on paper
 	a mat-icon, button, mat-button, nav {
-		display: none !important;
+		@extend %ma-digital-version-only;
 	}
+
 }

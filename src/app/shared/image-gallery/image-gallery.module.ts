@@ -21,4 +21,4 @@ class ImageGalleryModule {}
 export {
 	ImageGalleryModule,
 	ImageGalleryComponent
-}
+};

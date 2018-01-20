@@ -4,6 +4,11 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule, MatIconModule, MatToolbarModule } from '@angular/material';
 import { RouterModule } from '@angular/router';
 
+import {
+	SafeUrlModule,
+	StoreInfoModule
+} from '../shared';
+
 import { CoreViewComponent } from './core-view.component';
 
 @NgModule({
@@ -17,7 +22,10 @@ import { CoreViewComponent } from './core-view.component';
 
 		MatCardModule,
 		MatIconModule,
-		MatToolbarModule
+		MatToolbarModule,
+
+		StoreInfoModule,
+		SafeUrlModule
 	],
 	providers: []
 })

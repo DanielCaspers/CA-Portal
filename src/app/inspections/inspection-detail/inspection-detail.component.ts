@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/filter';
-import { WorkOrderService } from '../../shared';
+import { StoreInfoService, WorkOrderService } from '../../shared';
 
 interface IInspectionRouteLink {
 	label: string;
@@ -22,10 +22,12 @@ export class InspectionDetailComponent implements OnDestroy, OnInit {
 
 	private routeParamsSubscription: Subscription;
 	private routerSubscription: Subscription;
+	private storeInfoSubscription: Subscription;
 
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
+		public storeInfoService: StoreInfoService,
 		private workOrderService: WorkOrderService) {
 	}
 
@@ -51,7 +53,11 @@ export class InspectionDetailComponent implements OnDestroy, OnInit {
 			this.workOrderService.getWorkOrder(this.inspectionId)
 				.subscribe((response) => {
 					this.workOrder = response;
+					// Store Info service passes info to core view, who doesn't have route parameter
+					this.storeInfoSubscription = this.storeInfoService.getStoreInfo(this.workOrder.Id.substring(0, 3))
+						.subscribe(() => {});
 				});
+
 		});
 
 		this.routerSubscription = this.router.events
@@ -64,6 +70,7 @@ export class InspectionDetailComponent implements OnDestroy, OnInit {
 	public ngOnDestroy(): void {
 		this.routeParamsSubscription.unsubscribe();
 		this.routerSubscription.unsubscribe();
+		this.storeInfoSubscription.unsubscribe();
 	}
 
 	public get activeRoute(): IInspectionRouteLink {

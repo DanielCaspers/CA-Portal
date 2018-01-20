@@ -16,4 +16,4 @@ class WorkOrderModule { }
 export {
 	WorkOrderModule,
 	WorkOrderService
-}
+};

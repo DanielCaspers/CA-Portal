@@ -31,5 +31,4 @@ class MeasurementsFormDialogModule {}
 export {
 	MeasurementsFormDialogModule,
 	MeasurementsFormDialogService
-}
-
+};
