@@ -3,7 +3,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import {
 	ImageGalleryComponent,
 	MeasurementsFormDialogService
-} from '../../../../shared';
+} from '../../../shared';
 
 @Component({
 	selector: 'ma-inspection-report-item',
@@ -16,6 +16,9 @@ export class InspectionReportItemComponent {
 
 	@Input()
 	public inspectionItem;
+
+	@Input()
+	public isCondensed = false;
 
 	constructor(public measurementDialog: MeasurementsFormDialogService) {}
 

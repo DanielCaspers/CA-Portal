@@ -27,7 +27,10 @@ import { InspectionReportComponent } from './inspection-detail/inspection-report
 import { InspectionTableComponent } from './inspection-detail/inspection-table/inspection-table.component';
 import {
 	InspectionReportItemComponent
-} from './inspection-detail/inspection-report/inspection-report-item/inspection-report-item.component';
+} from './inspection-detail/inspection-report-item/inspection-report-item.component';
+import {
+	InspectionReportItemListComponent
+} from './inspection-detail/inspection-report-item-list/inspection-report-item-list.component';
 import {
 	InspectionReportGroupComponent
 } from './inspection-detail/inspection-report/inspection-report-group/inspection-report-group.component';
@@ -38,6 +41,7 @@ import {
 		InspectionReportComponent,
 		InspectionTableComponent,
 		InspectionReportItemComponent,
+		InspectionReportItemListComponent,
 		InspectionReportGroupComponent
 	],
 	imports: [

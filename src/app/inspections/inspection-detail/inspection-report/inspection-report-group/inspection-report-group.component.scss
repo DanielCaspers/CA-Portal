@@ -1,13 +1,10 @@
 @import '../../../../../colors';
+@import '../../../../../material-overrides';
+
+@include ma-mat-accordion();
 
 :host {
 	.severity-placeholder {
 		width: 80px;
-	}
-	::ng-deep {
-		mat-expansion-panel-header {
-			padding-left: 15px;
-			background: $ma-gray !important;
-		}
 	}
 }

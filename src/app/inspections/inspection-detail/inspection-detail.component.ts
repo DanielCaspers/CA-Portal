@@ -43,7 +43,7 @@ export class InspectionDetailComponent implements OnDestroy, OnInit {
 				},
 				{
 					label: 'By priority',
-					link: `/inspections/${this.inspectionId}/table`,
+					link: `/inspections/${this.inspectionId}/priority`,
 					isActive: false
 				}
 			];

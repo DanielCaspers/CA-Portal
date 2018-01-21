@@ -1,5 +1,5 @@
 <div fxLayout="column" fxLayoutGap="10px">
-	<div fxLayout="row" fxLayoutGap="30px">
+	<div *ngIf="!isCondensed" fxLayout="row" fxLayoutGap="30px">
 		<ma-recommeneded-service-severity [severity]="inspectionItem.Condition"></ma-recommeneded-service-severity>
 
 		<div class="mat-subheading-1">{{inspectionItem.Name}}</div>
@@ -36,7 +36,7 @@
 			        mat-button
 			        (click)="openGallery()">
 				View Images
-				<mat-icon color="accent">photo_library</mat-icon>
+				<!--<mat-icon color="accent">photo_library</mat-icon>-->
 			</button>
 		</div>
 	</div>
