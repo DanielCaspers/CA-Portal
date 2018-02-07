@@ -1,19 +1,19 @@
 import { Inject, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
-import { MA_HTTP_BASE_URL } from '../../environments/app-config.module';
+import { MA_HTTP_BASE_URL, MA_HTTP_OPTIONS } from '../../environments/app-config.module';
 
 @Injectable()
 export class InspectionService {
 
-	constructor(private httpClient: HttpClient, @Inject(MA_HTTP_BASE_URL) private readonly baseUrl ) { }
+	constructor(
+		private httpClient: HttpClient,
+		@Inject(MA_HTTP_BASE_URL) private readonly baseUrl,
+		@Inject(MA_HTTP_OPTIONS) private readonly httpOptions ) { }
 
-	public getInspectionReport(workOrderId = '004584155', isGrouped: boolean): Observable<any> {
-		return this.httpClient.get(
-			`${this.baseUrl}/Inspections/Report?workOrderId=${workOrderId}&grouped=${isGrouped}`,
-			{headers: new HttpHeaders({'Access-Control-Allow-Origin': '*' })}
-			);
+	public getInspectionReport(inspectionId: string, isGrouped: boolean): Observable<any> {
+		return this.httpClient.get(`${this.baseUrl}/Inspections/Report?inspectionId=${inspectionId}&grouped=${isGrouped}`, this.httpOptions);
 
 		// let obs;
 		// if(isGrouped){
