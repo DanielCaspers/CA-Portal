@@ -18,9 +18,9 @@ export class CoreViewComponent implements OnInit, OnDestroy {
 			NumberForWebLink: '+19524322454'
 		},
 		StoreWebAssets: {
-			LogoSmall: 'http://via.placeholder.com/109x69/b40000/b40000',
+			LogoSmall: 'https://via.placeholder.com/109x69/b40000/b40000',
 			// LogoSmall: 'https://www.protech-automotive.com/_images/logos/004.png',
-			WebAddress: 'http://www.protech-automotive.com/'
+			WebAddress: 'https://www.protech-automotive.com/'
 		}
 	};
 
