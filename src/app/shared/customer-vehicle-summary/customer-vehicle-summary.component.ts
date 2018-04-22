@@ -10,6 +10,9 @@ export class CustomerVehicleSummaryComponent {
 	@Input()
 	public vehicle;
 
+	@Input()
+	public viewMode: 'Full' | 'Condensed' = 'Condensed';
+
 	constructor() {
 	}
 }
