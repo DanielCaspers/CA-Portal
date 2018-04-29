@@ -13,7 +13,7 @@ export const MA_HTTP_OPTIONS = new InjectionToken<string>('MaHttpOptions');
 		},
 		{
 			provide: MA_HTTP_OPTIONS,
-			useValue: {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*' })}
+			useValue: { headers: new HttpHeaders({'Access-Control-Allow-Origin': '*' }) }
 		}
 	]
 })

@@ -1,15 +1,20 @@
 <mat-card *ngIf="workOrder">
 	<mat-card-content >
-		<div fxLayout="row" fxLayoutAlign="space-between center">
+		<div fxLayout="row" fxLayoutAlign="space-between baseline">
 			<span class="mat-headline">Inspection Report</span>
-			<!-- TODO: Figure out date parsing, or improved BE serialization -->
-			<!--<span>{{workOrder.CompletionDate}}</span>-->
+			<span *ngIf="workOrder && workOrder.InspectionCompletionDate" class="mat-body-1">
+				{{workOrder.InspectionCompletionDate.slice(6, -2) | date: 'shortDate' }}
+			</span>
 		</div>
 
-		Order # {{workOrder.Id?.substring(3)}}
-		<div class="mat-body-1">{{workOrder.Customer?.Name}}</div>
+		<div class="mat-body-1" fxLayout="column" fxLayoutGap="10px">
+			<div>
+				<div> Order #{{workOrder.Id?.substring(3)}}</div>
+				<div>{{workOrder.Customer?.Name}}</div>
+			</div>
 
-		<ma-customer-vehicle-summary [vehicle]="workOrder?.Vehicle"></ma-customer-vehicle-summary>
+			<ma-customer-vehicle-summary [vehicle]="workOrder?.Vehicle"></ma-customer-vehicle-summary>
+		</div>
 	</mat-card-content>
 </mat-card>
 

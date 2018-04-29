@@ -1,11 +1,22 @@
-<span class="mat-body-1">
-	{{vehicle?.Year}}
-	{{vehicle?.Make}}
-	{{vehicle?.Model}}
-</span>
-	<span class="mat-body-1">
-	{{vehicle?.License}}
-</span>
-
-<span *ngIf="vehicle?.Color" class="car-color-indicator" [ngStyle]="{'background-color': vehicle.Color}"></span>
-
+<div class="mat-body-1" fxLayout="column">
+	<div>
+		<span>
+			{{vehicle?.Year}}
+			{{vehicle?.Make}}
+			{{vehicle?.Model}}
+		</span>
+		<span>
+			{{vehicle?.License}}
+		</span>
+		<span *ngIf="vehicle?.Color"
+		      class="car-color-indicator"
+		      [ngStyle]="{'background-color': vehicle.Color}">
+		</span>
+	</div>
+	<div *ngIf="vehicle && vehicle.Odometer">
+		Odometer: {{vehicle.Odometer}}
+	</div>
+	<div *ngIf="vehicle && vehicle.VIN">
+		VIN: {{vehicle.VIN}}
+	</div>
+</div>

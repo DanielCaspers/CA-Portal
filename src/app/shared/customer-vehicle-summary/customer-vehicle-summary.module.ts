@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { CustomerVehicleSummaryComponent } from './customer-vehicle-summary.component';
 
@@ -8,7 +9,8 @@ import { CustomerVehicleSummaryComponent } from './customer-vehicle-summary.comp
 		CustomerVehicleSummaryComponent
 	],
 	imports: [
-		CommonModule
+		CommonModule,
+		FlexLayoutModule
 	],
 	exports: [
 		CustomerVehicleSummaryComponent
