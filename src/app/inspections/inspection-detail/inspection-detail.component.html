@@ -1,7 +1,7 @@
 <mat-card *ngIf="workOrder">
 	<mat-card-content >
 		<div fxLayout="row" fxLayoutAlign="space-between baseline">
-			<span class="mat-headline">Inspection Report</span>
+			<span class="mat-title">Vehicle Inspection Report</span>
 			<span *ngIf="workOrder && workOrder.InspectionCompletionDate" class="mat-body-1">
 				{{workOrder.InspectionCompletionDate.slice(6, -2) | date: 'shortDate' }}
 			</span>
@@ -9,11 +9,17 @@
 
 		<div class="mat-body-1" fxLayout="column" fxLayoutGap="10px">
 			<div>
-				<div> Order #{{workOrder.Id?.substring(3)}}</div>
 				<div>{{workOrder.Customer?.Name}}</div>
+				<ma-customer-vehicle-summary [vehicle]="workOrder?.Vehicle"></ma-customer-vehicle-summary>
 			</div>
 
-			<ma-customer-vehicle-summary [vehicle]="workOrder?.Vehicle"></ma-customer-vehicle-summary>
+			<div>
+				<div> Order #{{workOrder.Id?.substring(3)}}</div>
+				<div *ngIf="workOrder && workOrder.ServiceAdvisorName">
+					Service Advisor: {{workOrder.ServiceAdvisorName | titlecase }}
+				</div>
+			</div>
+
 		</div>
 	</mat-card-content>
 </mat-card>
