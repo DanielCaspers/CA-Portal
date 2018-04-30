@@ -6,6 +6,7 @@
 		<ng-container *ngSwitchCase="maintenance">date_range</ng-container>
 		<ng-container *ngSwitchCase="notes">description</ng-container>
 		<ng-container *ngSwitchCase="ok">check_circle</ng-container>
+		<ng-container *ngSwitchCase="unknown">flag</ng-container>
 		<ng-container *ngSwitchDefault>not_interested</ng-container>
 	</mat-icon>
 
@@ -16,6 +17,7 @@
 		<ng-container *ngSwitchCase="maintenance">Maintenance</ng-container>
 		<ng-container *ngSwitchCase="notes">Notes</ng-container>
 		<ng-container *ngSwitchCase="ok">OK</ng-container>
+		<ng-container *ngSwitchCase="unknown">Unknown</ng-container>
 		<ng-container *ngSwitchDefault>Not applicable</ng-container>
 	</div>
 </div>

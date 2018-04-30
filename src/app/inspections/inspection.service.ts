@@ -12,8 +12,10 @@ export class InspectionService {
 		@Inject(MA_HTTP_BASE_URL) private readonly baseUrl,
 		@Inject(MA_HTTP_OPTIONS) private readonly httpOptions ) { }
 
-	public getInspectionReport(inspectionId: string, isGrouped: boolean): Observable<any> {
-		return this.httpClient.get(`${this.baseUrl}/Inspections/Report?inspectionId=${inspectionId}&grouped=${isGrouped}`, this.httpOptions);
+	public getInspectionReport(inspectionId: string, isGrouped: boolean, includeUnknown = true): Observable<any> {
+		return this.httpClient.get(
+			`${this.baseUrl}/Inspections/Report?inspectionId=${inspectionId}&grouped=${isGrouped}&includeUnknown=${includeUnknown}`,
+			this.httpOptions);
 
 		// let obs;
 		// if(isGrouped){

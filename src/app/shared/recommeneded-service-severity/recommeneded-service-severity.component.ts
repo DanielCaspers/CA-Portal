@@ -7,8 +7,8 @@ export enum RecommendedServiceSeverityNumbers {
 	Maintenance = 4 as any,
 	Notes = 5 as any,
 	Ok = 10 as any,
-	NotApplicable = 10 as any,
-	Unknown = 12 as any
+	NotApplicable = 11 as any,
+	Unknown = 0 as any
 }
 
 export enum RecommendedServiceSeverityStrings {
@@ -38,6 +38,7 @@ export class RecommenededServiceSeverityComponent {
 	public maintenance = RecommendedServiceSeverityNumbers.Maintenance;
 	public notes = RecommendedServiceSeverityNumbers.Notes;
 	public ok = RecommendedServiceSeverityNumbers.Ok;
+	public unknown = RecommendedServiceSeverityNumbers.Unknown;
 
 	constructor() {
 	}
@@ -72,6 +73,9 @@ export class RecommenededServiceSeverityComponent {
 				break;
 			case RecommendedServiceSeverityNumbers.Ok:
 				classes.ok = true;
+				break;
+			case RecommendedServiceSeverityNumbers.Unknown:
+				classes.unknown = true;
 				break;
 			default:
 				break;

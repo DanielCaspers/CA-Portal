@@ -1,12 +1,26 @@
-:host ::ng-deep {
+:host {
+	mat-icon {
+		font-size: 30px;
 
-	.mat-card-header-text {
-		width: 100%;
+		&.customer-waiting {
+			color: royalblue;
+			margin-left: 15px;
+		}
+
+		&.action-required {
+			color: red;
+		}
 	}
 
-	.mat-card {
-		padding-top: 5px;
-		box-shadow: none !important;
+	::ng-deep {
+		.mat-card-header-text {
+			width: 100%;
+		}
+
+		.mat-card {
+			padding-top: 5px;
+			box-shadow: none !important;
+		}
 	}
 }
 

@@ -1,13 +1,4 @@
-<span class="mat-body-1">
-	{{vehicle?.Year}}
-	{{vehicle?.Make}}
-	{{vehicle?.Model}}
-</span>
-<span class="mat-body-1">
-	{{vehicle?.License}}
-</span>
-
-<span *ngIf="vehicle?.Color" class="car-color-indicator" [ngStyle]="{'background-color': vehicle.Color}"></span>
+<b>Vehicle Details</b>
 
 <div *ngIf="viewMode === 'Full'"
      fxLayout="column"
@@ -16,22 +7,32 @@
      fxFill
      class="mat-body-1">
 	<div  fxFill>
-		<b>Vehicle Details</b>
+		<div class="mat-subheading-2">
+			<span>
+				{{vehicle?.Year}}
+				{{vehicle?.Make}}
+				{{vehicle?.Model}}
+			</span>
+			<span>
+				{{vehicle?.License}}
+			</span>
+			<span *ngIf="vehicle?.Color" class="car-color-indicator" [ngStyle]="{'background-color': vehicle.Color}"></span>
+		</div>
 		<div fxLayout="row" fxLayoutAlign="space-between center">
-			<div>VIN</div>
 			<div>{{vehicle?.VIN}}</div>
+			<div>VIN</div>
 		</div>
 		<div fxLayout="row" fxLayoutAlign="space-between center">
-			<div>Odometer</div>
 			<div>{{vehicle?.Odometer}}</div>
+			<div>Odometer</div>
 		</div>
 		<div fxLayout="row" fxLayoutAlign="space-between center">
-			<div>Engine</div>
 			<div>{{vehicle?.Engine}}</div>
+			<div>Engine</div>
 		</div>
 		<div fxLayout="row" fxLayoutAlign="space-between center">
-			<div>Transmission</div>
 			<div>{{vehicle?.Transmission}}</div>
+			<div>Transmission</div>
 		</div>
 	</div>
 

@@ -22,13 +22,16 @@
 			<i><q>{{inspectionItem.Note}}</q></i>
 		</div>
 
+		<div fxLayout="column" *ngIf="inspectionItem.Measurements && inspectionItem.Measurements.length > 0">
+			<div class="mat-body-2">Measurements</div>
+
+			<div fxLayout="row" *ngFor="let measurement of inspectionItem.Measurements">
+				<div fxFlex="70" class="mat-body-1">{{measurement.Label}}</div>
+				<div class="mat-body-1">{{measurement.Value}} &nbsp; {{measurement.Unit}}</div>
+			</div>
+		</div>
+
 		<div fxLayout="row">
-			<button *ngIf="inspectionItem.Measurements && inspectionItem.Measurements.length > 0"
-					color="accent"
-					mat-button
-					(click)="openMeasurementsDialog()">
-				View Measurements
-			</button>
 			<div fxFlex></div>
 			<button *ngIf="inspectionItem.Images && inspectionItem.Images.length > 0"
 			        color="accent"

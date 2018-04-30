@@ -1,18 +1,15 @@
 <mat-card *ngIf="workOrder">
-	<mat-card-content fxLayout="column" fxLayoutAlign="space-between start" fxLayoutGap="20px">
+	<mat-card-content fxLayout="column" fxLayoutAlign="space-between start" fxLayoutGap="20px" fxFill>
 		<div fxLayout="row" fxLayoutAlign="space-between center">
-			<span class="mat-headline">Inspection Report</span>
-			<!-- TODO: Figure out date parsing, or improved BE serialization -->
-			<!--<span>{{workOrder.CompletionDate}}</span>-->
+			<span class="mat-headline">Inspection Report for Order #{{workOrder.Id?.substring(3)}} (Tech: {{workOrder?.EmployeeId}})</span>
 		</div>
 
-		<div>
-			<div>
-				Order # {{workOrder.Id?.substring(3)}}
-			</div>
-			<div class="mat-body-1" *ngIf="workOrder.Customer">
-				{{workOrder.Customer?.Name}} (ID: {{workOrder.Customer.Id}})
-			</div>
+		<div *ngIf="workOrder.Customer"
+			fxLayout="row"
+			fxLayoutAlign="start center" fxFill>
+			<span> {{workOrder.Customer.Name}} (ID: {{workOrder.Customer.Id}})</span>
+			<mat-icon *ngIf="!!workOrder.Customer.WaitingSinceDate" class="customer-waiting" title="Customer Waiting">assignment_ind</mat-icon>
+			<mat-icon *ngIf="!!workOrder.Status && workOrder.Status.Code == 22" class="action-required" title="Action Required">notifications_active</mat-icon>
 		</div>
 
 		<ma-customer-vehicle-summary [vehicle]="workOrder?.Vehicle" [viewMode]="'Full'"></ma-customer-vehicle-summary>

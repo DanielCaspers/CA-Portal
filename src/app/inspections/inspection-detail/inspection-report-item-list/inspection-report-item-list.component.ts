@@ -28,4 +28,11 @@ export class InspectionReportItemListComponent implements OnInit {
 		});
 	}
 
+	public shouldExpand(item): boolean {
+		return (item.Measurements && item.Measurements.length > 0) ||
+			(item.CannedResponses && item.CannedResponses.length > 0) ||
+			(item.Images && item.Images.length > 0) ||
+			!!item.Note;
+	}
+
 }
