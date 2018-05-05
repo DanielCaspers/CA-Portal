@@ -34,11 +34,14 @@ body {
 		visibility: visible !important;
 	}
 
-	// Auto hide accordion icons
-	.mat-expansion-panel-header {
-		ma-recommeneded-service-severity, .mat-expansion-indicator {
-			@extend %ma-digital-version-only;
-		}
+	// Auto hide accordion icons for both "By Area" and "By Priority"
+	.mat-expansion-panel-header .mat-expansion-indicator {
+		@extend %ma-digital-version-only;
+	}
+
+	// For "By Area", auto hide category severity
+	ma-inspection-report-group .mat-expansion-panel-header ma-recommeneded-service-severity {
+		@extend %ma-digital-version-only;
 	}
 
 	// Hide any ui buttons, since no interactions on paper
