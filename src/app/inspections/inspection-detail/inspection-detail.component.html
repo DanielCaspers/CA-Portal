@@ -14,14 +14,14 @@
 
 		<ma-customer-vehicle-summary [vehicle]="workOrder?.Vehicle" [viewMode]="'Full'"></ma-customer-vehicle-summary>
 
-		<div *ngIf="workOrder.WorkDescription">
+		<div class="mat-body-1" *ngIf="workOrder.WorkDescription">
 			<b>Work Description</b>
-			<div *ngFor="let line of workOrder.WorkDescription"> {{line}}</div>
+			<div class="long-text">{{workOrder.WorkDescription}}</div>
 		</div>
 
-		<div *ngIf="workOrder.Notes">
+		<div class="mat-body-1" *ngIf="workOrder.Notes">
 			<b>Work Order Notes</b>
-			<div *ngFor="let line of workOrder.Notes"> {{line}}</div>
+			<div class="long-text">{{workOrder.Notes}}</div>
 		</div>
 	</mat-card-content>
 </mat-card>

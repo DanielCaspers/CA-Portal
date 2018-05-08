@@ -4,7 +4,7 @@
 			[expanded]="shouldExpand(item)"
 			[disabled]="!shouldExpand(item)"
 			[hideToggle]="!shouldExpand(item)">
-		<mat-expansion-panel-header>
+		<mat-expansion-panel-header [collapsedHeight]="'40px'" [expandedHeight]="'40px'">
 			<mat-panel-title fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
 				<ma-recommeneded-service-severity [severity]="item.Condition"></ma-recommeneded-service-severity>
 				<div class="mat-body-2">{{item.Name}}</div>

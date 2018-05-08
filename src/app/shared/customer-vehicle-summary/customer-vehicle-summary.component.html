@@ -3,10 +3,10 @@
 <div *ngIf="viewMode === 'Full'"
      fxLayout="column"
      fxLayoutAlign="space-between start"
-     fxLayoutGap="20px"
+     fxLayoutGap="10px"
      fxFill
      class="mat-body-1">
-	<div  fxFill>
+	<div fxLayout="column">
 		<div class="mat-subheading-2">
 			<span>
 				{{vehicle?.Year}}
@@ -18,25 +18,24 @@
 			</span>
 			<span *ngIf="vehicle?.Color" class="car-color-indicator" [ngStyle]="{'background-color': vehicle.Color}"></span>
 		</div>
-		<div fxLayout="row" fxLayoutAlign="space-between center">
-			<div>{{vehicle?.VIN}}</div>
-			<div>VIN</div>
-		</div>
-		<div fxLayout="row" fxLayoutAlign="space-between center">
-			<div>{{vehicle?.Odometer}}</div>
-			<div>Odometer</div>
-		</div>
-		<div fxLayout="row" fxLayoutAlign="space-between center">
-			<div>{{vehicle?.Engine}}</div>
-			<div>Engine</div>
-		</div>
-		<div fxLayout="row" fxLayoutAlign="space-between center">
-			<div>{{vehicle?.Transmission}}</div>
-			<div>Transmission</div>
+
+		<div fxLayout="row" fxLayoutGap="20px">
+			<div fxLayout="column" fxLayoutAlign="center end">
+				<div>VIN</div>
+				<div>Odometer</div>
+				<div>Engine</div>
+				<div>Transmission</div>
+			</div>
+			<div fxLayout="column">
+				<div>{{vehicle?.VIN}}</div>
+				<div>{{vehicle?.Odometer}}</div>
+				<div>{{vehicle?.Engine}}</div>
+				<div>{{vehicle?.Transmission}}</div>
+			</div>
 		</div>
 	</div>
 
-	<div *ngIf="!!vehicle.Options" fxLayout="row" fxLayoutAlign="space-between center" fxFill>
+	<div fxLayout="row" *ngIf="!!vehicle.Options" fxLayoutAlign="space-between center" fxFill>
 		<mat-checkbox [disabled]="true" [(ngModel)]="vehicle.Options.Has4WD">4WD</mat-checkbox>
 		<mat-checkbox [disabled]="true" [(ngModel)]="vehicle.Options.HasAWD">AWD</mat-checkbox>
 		<mat-checkbox [disabled]="true" [(ngModel)]="vehicle.Options.HasAC">AC</mat-checkbox>
@@ -45,8 +44,7 @@
 
 	<div *ngIf="vehicle.Notes">
 		<b>Vehicle Notes</b>
-		<div *ngFor="let line of vehicle.Notes"> {{line}}</div>
+		<div class="long-text">{{vehicle.Notes}}</div>
 	</div>
 
 </div>
-
