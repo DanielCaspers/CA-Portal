@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatDialogModule, MatIconModule } from '@angular/material';
+import { MatButtonModule, MatDialogModule, MatIconModule } from '@angular/material';
 
 import { MeasurementsFormDialogComponent } from './measurements-form-dialog.component';
 import { MeasurementsFormDialogService } from './measurements-form-dialog.service';
@@ -16,6 +16,7 @@ import { MeasurementsFormDialogService } from './measurements-form-dialog.servic
 	imports: [
 		CommonModule,
 		FlexLayoutModule,
+		MatButtonModule,
 		MatDialogModule,
 		MatIconModule
 	],
