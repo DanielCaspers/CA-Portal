@@ -1,5 +1,8 @@
 <mat-accordion [displayMode]="'flat'">
-	<mat-expansion-panel *ngFor="let item of inspectionItems">
+	<mat-expansion-panel
+			*ngFor="let item of inspectionItems"
+			[disabled]="!shouldExpand(item)"
+			[hideToggle]="!shouldExpand(item)">
 		<mat-expansion-panel-header>
 			<mat-panel-title fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
 				<ma-recommeneded-service-severity [severity]="item.Condition"></ma-recommeneded-service-severity>
