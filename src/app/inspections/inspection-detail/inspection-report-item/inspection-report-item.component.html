@@ -10,7 +10,7 @@
 
 			<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px"
 			     *ngFor="let cannedResponse of inspectionItem.CannedResponses">
-				<div>{{cannedResponse.Response}}</div>
+				<div class="ma-respect-whitespace">{{cannedResponse.Response}}</div>
 				<a *ngIf="cannedResponse.Url" mat-button href="{{cannedResponse.Url}}" target="_blank">
 					<mat-icon color="accent">help_outline</mat-icon>
 				</a>
@@ -19,7 +19,7 @@
 
 		<div fxLayout="column" *ngIf="inspectionItem.Note">
 			<div class="mat-body-2">Tech says</div>
-			<i><q>{{inspectionItem.Note}}</q></i>
+			<i><q class="ma-respect-whitespace">{{inspectionItem.Note}}</q></i>
 		</div>
 
 		<div fxLayout="column" *ngIf="inspectionItem.Measurements && inspectionItem.Measurements.length > 0">
