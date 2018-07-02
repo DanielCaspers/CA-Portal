@@ -1,5 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import filter from 'lodash-es/filter';
+
 import { InspectionService } from '../../inspection.service';
 
 @Component({
@@ -10,6 +12,8 @@ import { InspectionService } from '../../inspection.service';
 export class InspectionReportItemListComponent implements OnInit {
 
 	public inspectionItems;
+
+	public customerConcernInspectionItems;
 	public inspectionId: string;
 
 	constructor(private inspectionService: InspectionService, private route: ActivatedRoute, private cdr: ChangeDetectorRef) {
@@ -21,11 +25,16 @@ export class InspectionReportItemListComponent implements OnInit {
 
 			console.log('ID is', this.inspectionId);
 
-			this.inspectionService.getInspectionReport(this.inspectionId, false)
+			const sub = this.inspectionService.getInspectionReport(this.inspectionId, false)
 				.subscribe((response) => {
+					sub.unsubscribe();
+
 					this.inspectionItems = response;
 					this.cdr.detectChanges();
-				});
+
+					this.customerConcernInspectionItems =
+						filter(this.inspectionItems, ['IsCustomerConcern', true]);
+					});
 		});
 	}
 
