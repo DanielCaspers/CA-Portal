@@ -1,12 +1,7 @@
-:host ::ng-deep {
-
-	.mat-card-header-text {
-		width: 100%;
-	}
-
-	.mat-card {
-		padding-top: 5px;
-		box-shadow: none !important;
+:host {
+	.work-order-details {
+		padding-bottom: 10px;
+		padding-left: 10px;
+		padding-right: 10px;
 	}
 }
-

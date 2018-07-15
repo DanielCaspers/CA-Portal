@@ -9,6 +9,7 @@ import {
 	MatIconModule,
 	MatTabsModule
 } from '@angular/material';
+
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import {
@@ -20,29 +21,29 @@ import {
 } from '../shared';
 
 import { InspectionsRoutingModule } from './inspections.routing';
-import { InspectionService } from './inspection.service';
+import { InspectionHttpService } from './inspection-http.service';
 
+import { InspectionCustomerConcernsComponent } from './inspection-customer-concerns/inspection-customer-concerns.component';
 import { InspectionDetailComponent } from './inspection-detail/inspection-detail.component';
-import { InspectionReportComponent } from './inspection-detail/inspection-report/inspection-report.component';
-import { InspectionTableComponent } from './inspection-detail/inspection-table/inspection-table.component';
+import { InspectionTableComponent } from './inspection-table/inspection-table.component';
 import {
 	InspectionReportItemComponent
-} from './inspection-detail/inspection-report-item/inspection-report-item.component';
+} from './inspection-report-item/inspection-report-item.component';
 import {
 	InspectionReportItemListComponent
-} from './inspection-detail/inspection-report-item-list/inspection-report-item-list.component';
+} from './inspection-report-item-list/inspection-report-item-list.component';
 import {
-	InspectionReportGroupComponent
-} from './inspection-detail/inspection-report/inspection-report-group/inspection-report-group.component';
+	InspectionReportGroupedComponent
+} from './inspection-report-grouped/inspection-report-grouped.component';
 
 @NgModule({
 	declarations: [
+		InspectionCustomerConcernsComponent,
 		InspectionDetailComponent,
-		InspectionReportComponent,
+		InspectionReportGroupedComponent,
 		InspectionTableComponent,
 		InspectionReportItemComponent,
 		InspectionReportItemListComponent,
-		InspectionReportGroupComponent
 	],
 	imports: [
 		CommonModule,
@@ -65,7 +66,7 @@ import {
 		MatTabsModule
 	],
 	providers: [
-		InspectionService
+		InspectionHttpService
 	]
 })
 export class InspectionsModule {

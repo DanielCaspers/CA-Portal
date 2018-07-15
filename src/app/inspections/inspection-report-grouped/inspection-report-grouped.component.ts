@@ -4,20 +4,21 @@ import { ActivatedRoute } from '@angular/router';
 import filter from 'lodash-es/filter';
 import reduce from 'lodash-es/reduce';
 import sortBy from 'lodash-es/sortBy';
-import { InspectionService } from '../../inspection.service';
+import { InspectionHttpService } from '../inspection-http.service';
+import { InspectionAccordionService } from '../inspection-accordion.service';
 
 @Component({
-	selector: 'ma-inspection-report',
-	templateUrl: './inspection-report.component.html',
-	styleUrls: [ './inspection-report.component.scss' ]
+	selector: 'ma-inspection-report-grouped',
+	templateUrl: './inspection-report-grouped.component.html',
+	styleUrls: [ './inspection-report-grouped.component.scss' ]
 })
-export class InspectionReportComponent implements OnInit {
+export class InspectionReportGroupedComponent implements OnInit {
 
 	public inspectionGroups;
 	public customerConcernInspectionItems;
 	public inspectionId: string;
 
-	constructor(private inspectionService: InspectionService, private route: ActivatedRoute) {
+	constructor(private inspectionService: InspectionHttpService, private route: ActivatedRoute) {
 	}
 
 	public ngOnInit(): void {
@@ -28,6 +29,13 @@ export class InspectionReportComponent implements OnInit {
 				.subscribe((response) => {
 					sub.unsubscribe();
 					this.inspectionGroups = response;
+
+					// Add client-side state to the group response model so that each group, when expanded,
+					// will hold its own client side expansion state independent of other groups.
+					// This state is used for toggling on/off the group's overall condition
+					for (let group of this.inspectionGroups) {
+						group.IsExpanded = false;
+					}
 
 					this.customerConcernInspectionItems =
 						// Accumulate all of the grouped items into a flattened array
@@ -45,10 +53,7 @@ export class InspectionReportComponent implements OnInit {
 	}
 
 	public shouldExpand(item): boolean {
-		return (item.Measurements && item.Measurements.length > 0) ||
-			(item.CannedResponses && item.CannedResponses.length > 0) ||
-			(item.Images && item.Images.length > 0) ||
-			!!item.Note;
+		return InspectionAccordionService.shouldExpand(item);
 	}
 
 }

@@ -1,12 +1,15 @@
-<mat-accordion [displayMode]="'flat'">
+<ma-inspection-customer-concerns [inspectionItems]="inspectionItems"></ma-inspection-customer-concerns>
 
-	<div class="mat-subheading-2">Your vehicle concerns</div>
+<mat-accordion>
+	<div class="mat-subheading-2">Full inspection report</div>
 	<mat-expansion-panel
-			*ngFor="let item of customerConcernInspectionItems"
+			*ngFor="let item of inspectionItems"
 			[disabled]="!shouldExpand(item)"
 			[hideToggle]="!shouldExpand(item)">
 		<mat-expansion-panel-header>
-			<mat-panel-title fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+			<mat-panel-title fxLayout="row"
+			                 fxLayoutAlign="start center"
+			                 fxLayoutGap="20px">
 				<ma-recommeneded-service-severity [severity]="item.Condition"></ma-recommeneded-service-severity>
 				<div class="mat-body-2">{{item.Name}}</div>
 			</mat-panel-title>
@@ -17,11 +20,4 @@
 				[isCondensed]="true">
 		</ma-inspection-report-item>
 	</mat-expansion-panel>
-
-	<div class="mat-subheading-2">Full inspection report</div>
-	<ma-inspection-report-group
-			*ngFor="let group of inspectionGroups;"
-			[inspectionGroup]="group"
-			[inspectionItems]="group.Items">
-	</ma-inspection-report-group>
 </mat-accordion>

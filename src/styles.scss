@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'murphy-auto.theme.scss';
+@import '_colors.scss';
 
 @import '~@swimlane/ngx-datatable/release/index.css';
 @import '~@swimlane/ngx-datatable/release/themes/material.css';
@@ -7,6 +8,7 @@
 
 body {
 	margin: 0;
+	background: $ma-gray;
 }
 
 .ma-divider {
@@ -44,7 +46,7 @@ body {
 	}
 
 	// For "By Area", auto hide category severity
-	ma-inspection-report-group .mat-expansion-panel-header ma-recommeneded-service-severity {
+	ma-inspection-report-grouped .mat-expansion-panel-header ma-recommeneded-service-severity {
 		@extend %ma-digital-version-only;
 	}
 

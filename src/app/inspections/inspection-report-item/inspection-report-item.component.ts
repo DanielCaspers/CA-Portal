@@ -3,7 +3,7 @@ import { Component, Input, ViewChild } from '@angular/core';
 import {
 	ImageGalleryComponent,
 	MeasurementsFormDialogService
-} from '../../../shared';
+} from '../../shared/index';
 
 @Component({
 	selector: 'ma-inspection-report-item',

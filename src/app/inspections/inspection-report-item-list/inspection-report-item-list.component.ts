@@ -2,7 +2,8 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import filter from 'lodash-es/filter';
 
-import { InspectionService } from '../../inspection.service';
+import { InspectionHttpService } from '../inspection-http.service';
+import { InspectionAccordionService } from '../inspection-accordion.service';
 
 @Component({
 	selector: 'ma-inspection-report-item-list',
@@ -16,7 +17,7 @@ export class InspectionReportItemListComponent implements OnInit {
 	public customerConcernInspectionItems;
 	public inspectionId: string;
 
-	constructor(private inspectionService: InspectionService, private route: ActivatedRoute, private cdr: ChangeDetectorRef) {
+	constructor(private inspectionService: InspectionHttpService, private route: ActivatedRoute, private cdr: ChangeDetectorRef) {
 	}
 
 	public ngOnInit(): void {
@@ -39,10 +40,7 @@ export class InspectionReportItemListComponent implements OnInit {
 	}
 
 	public shouldExpand(item): boolean {
-		return (item.Measurements && item.Measurements.length > 0) ||
-			(item.CannedResponses && item.CannedResponses.length > 0) ||
-			(item.Images && item.Images.length > 0) ||
-			!!item.Note;
+		return InspectionAccordionService.shouldExpand(item);
 	}
 
 }
