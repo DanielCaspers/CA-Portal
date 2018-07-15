@@ -1,11 +1,8 @@
-@import 'colors';
-
 @mixin ma-mat-accordion(){
 	:host {
 		::ng-deep {
 			mat-expansion-panel-header {
 				padding-left: 15px;
-				background: $ma-gray !important;
 			}
 
 			.mat-expansion-panel-body {

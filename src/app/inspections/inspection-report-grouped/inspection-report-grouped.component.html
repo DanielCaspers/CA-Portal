@@ -1,0 +1,22 @@
+<ma-inspection-customer-concerns [inspectionItems]="customerConcernInspectionItems"></ma-inspection-customer-concerns>
+
+<div class="mat-subheading-2">Full inspection report</div>
+
+<mat-accordion [displayMode]="'flat'">
+	<mat-expansion-panel *ngFor="let group of inspectionGroups;"
+						(opened)="group.IsExpanded = true"
+	                     (closed)="group.IsExpanded = false">
+		<mat-expansion-panel-header [collapsedHeight]="'40px'" [expandedHeight]="'40px'">
+			<mat-panel-title fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+				<ma-recommeneded-service-severity [hidden]="group.IsExpanded" [severity]="group.Condition"></ma-recommeneded-service-severity>
+				<div class="severity-placeholder" [hidden]="!group.IsExpanded"></div>
+				<div class="mat-body-2">{{group.Name}}</div>
+			</mat-panel-title>
+		</mat-expansion-panel-header>
+
+		<ng-container *ngFor="let ii of group.Items; let idx = index;">
+			<ma-inspection-report-item [inspectionItem]="ii"></ma-inspection-report-item>
+			<div *ngIf="idx < group.Items.length - 1" class="ma-divider"></div>
+		</ng-container>
+	</mat-expansion-panel>
+</mat-accordion>

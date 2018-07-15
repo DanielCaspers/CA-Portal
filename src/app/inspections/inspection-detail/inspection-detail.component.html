@@ -1,30 +1,28 @@
-<mat-card *ngIf="workOrder">
-	<mat-card-content fxLayout="column" fxLayoutAlign="space-between start" fxLayoutGap="20px" fxFill>
-		<div fxLayout="row" fxLayoutAlign="space-between center">
-			<span class="mat-headline">Inspection Report for Order #{{workOrder.Id?.substring(3)}} (Tech: {{workOrder?.EmployeeId}})</span>
-		</div>
+<div *ngIf="workOrder" class="work-order-details" fxLayout="column" fxLayoutAlign="space-between start" fxLayoutGap="20px" fxFill>
+	<div fxLayout="row" fxLayoutAlign="space-between center">
+		<span class="mat-headline">Inspection Report for Order #{{workOrder.Id?.substring(3)}} (Tech: {{workOrder?.EmployeeId}})</span>
+	</div>
 
-		<div *ngIf="workOrder.Customer"
-			fxLayout="row"
-			fxLayoutAlign="start center" fxFill>
-			<span> {{workOrder.Customer.Name}} (ID: {{workOrder.Customer.Id}})</span>
-			<mat-icon *ngIf="!!workOrder.Customer.WaitingSinceDate" class="customer-waiting" title="Customer Waiting">assignment_ind</mat-icon>
-			<mat-icon *ngIf="!!workOrder.Status && workOrder.Status.Code == 22" class="action-required" title="Action Required">notifications_active</mat-icon>
-		</div>
+	<div *ngIf="workOrder.Customer"
+	     fxLayout="row"
+	     fxLayoutAlign="start center" fxFill>
+		<span> {{workOrder.Customer.Name}} (ID: {{workOrder.Customer.Id}})</span>
+		<mat-icon *ngIf="!!workOrder.Customer.WaitingSinceDate" class="customer-waiting" title="Customer Waiting">assignment_ind</mat-icon>
+		<mat-icon *ngIf="!!workOrder.Status && workOrder.Status.Code == 22" class="action-required" title="Action Required">notifications_active</mat-icon>
+	</div>
 
-		<ma-customer-vehicle-summary [vehicle]="workOrder?.Vehicle" [viewMode]="'Full'"></ma-customer-vehicle-summary>
+	<ma-customer-vehicle-summary [vehicle]="workOrder?.Vehicle" [viewMode]="'Full'"></ma-customer-vehicle-summary>
 
-		<div class="mat-body-1" *ngIf="workOrder.WorkDescription">
-			<b>Work Description</b>
-			<div class="ma-respect-whitespace">{{workOrder.WorkDescription}}</div>
-		</div>
+	<div class="mat-body-1" *ngIf="workOrder.WorkDescription">
+		<b>Work Description</b>
+		<div class="ma-respect-whitespace">{{workOrder.WorkDescription}}</div>
+	</div>
 
-		<div class="mat-body-1" *ngIf="workOrder.Notes">
-			<b>Work Order Notes</b>
-			<div class="ma-respect-whitespace">{{workOrder.Notes}}</div>
-		</div>
-	</mat-card-content>
-</mat-card>
+	<div class="mat-body-1" *ngIf="workOrder.Notes">
+		<b>Work Order Notes</b>
+		<div class="ma-respect-whitespace">{{workOrder.Notes}}</div>
+	</div>
+</div>
 
 <nav mat-tab-nav-bar *ngIf="inspectionId">
 	<a mat-tab-link

@@ -6,9 +6,9 @@ import 'rxjs/add/operator/finally';
 import {
 	ImageGalleryComponent,
 	MeasurementsFormDialogService
-} from '../../../shared';
+} from '../../shared/index';
 
-import { InspectionService } from '../../inspection.service';
+import { InspectionHttpService } from '../inspection-http.service';
 
 @Component({
 	selector: 'ma-inspection-table',
@@ -28,7 +28,7 @@ export class InspectionTableComponent implements OnInit {
 	@ViewChild('inspectionTable') table: any;
 
 	constructor(
-		private inspectionService: InspectionService,
+		private inspectionService: InspectionHttpService,
 		private route: ActivatedRoute,
 		private measurementsDialog: MeasurementsFormDialogService ) {
 	}

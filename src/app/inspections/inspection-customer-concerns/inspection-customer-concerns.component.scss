@@ -1,0 +1,20 @@
+@import '../../../material-overrides';
+
+@include ma-mat-accordion();
+
+:host {
+	.mat-subheading-2 {
+		padding-top: 15px;
+		padding-left: 15px;
+	}
+
+	mat-card {
+		margin-bottom: 15px;
+	}
+
+	::ng-deep {
+		mat-card {
+			padding: 0 10px 0 !important;
+		}
+	}
+}

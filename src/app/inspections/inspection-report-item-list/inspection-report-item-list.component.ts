@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { InspectionService } from '../../inspection.service';
+import { InspectionHttpService } from '../inspection-http.service';
+import { InspectionAccordionService } from '../inspection-accordion.service';
 
 @Component({
 	selector: 'ma-inspection-report-item-list',
@@ -12,7 +13,7 @@ export class InspectionReportItemListComponent implements OnInit {
 	public inspectionItems;
 	public inspectionId: string;
 
-	constructor(private inspectionService: InspectionService, private route: ActivatedRoute) {
+	constructor(private inspectionService: InspectionHttpService, private route: ActivatedRoute) {
 	}
 
 	public ngOnInit(): void {
@@ -29,10 +30,7 @@ export class InspectionReportItemListComponent implements OnInit {
 	}
 
 	public shouldExpand(item): boolean {
-		return (item.Measurements && item.Measurements.length > 0) ||
-			(item.CannedResponses && item.CannedResponses.length > 0) ||
-			(item.Images && item.Images.length > 0) ||
-			!!item.Note;
+		return InspectionAccordionService.shouldExpand(item);
 	}
 
 }

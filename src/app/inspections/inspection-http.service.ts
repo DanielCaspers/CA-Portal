@@ -5,7 +5,7 @@ import 'rxjs/add/observable/of';
 import { MA_HTTP_BASE_URL, MA_HTTP_OPTIONS } from '../../environments/app-config.module';
 
 @Injectable()
-export class InspectionService {
+export class InspectionHttpService {
 
 	constructor(
 		private httpClient: HttpClient,
