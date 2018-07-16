@@ -33,14 +33,15 @@
 				<div>{{vehicle?.Transmission}}</div>
 			</div>
 		</div>
+
+		<div fxLayout="row" *ngIf="!!vehicle.Options" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+			<mat-checkbox [disabled]="true" [(ngModel)]="vehicle.Options.Has4WD">4WD</mat-checkbox>
+			<mat-checkbox [disabled]="true" [(ngModel)]="vehicle.Options.HasAWD">AWD</mat-checkbox>
+			<mat-checkbox [disabled]="true" [(ngModel)]="vehicle.Options.HasAC">AC</mat-checkbox>
+			<mat-checkbox [disabled]="true" [(ngModel)]="vehicle.Options.HasABS">ABS</mat-checkbox>
+		</div>
 	</div>
 
-	<div fxLayout="row" *ngIf="!!vehicle.Options" fxLayoutAlign="space-between center" fxFill>
-		<mat-checkbox [disabled]="true" [(ngModel)]="vehicle.Options.Has4WD">4WD</mat-checkbox>
-		<mat-checkbox [disabled]="true" [(ngModel)]="vehicle.Options.HasAWD">AWD</mat-checkbox>
-		<mat-checkbox [disabled]="true" [(ngModel)]="vehicle.Options.HasAC">AC</mat-checkbox>
-		<mat-checkbox [disabled]="true" [(ngModel)]="vehicle.Options.HasABS">ABS</mat-checkbox>
-	</div>
 
 	<div *ngIf="vehicle.Notes">
 		<b>Vehicle Notes</b>

@@ -1,7 +1,7 @@
-<div *ngIf="workOrder" class="work-order-details" fxLayout="column" fxLayoutAlign="space-between start" fxLayoutGap="20px" fxFill>
-	<div fxLayout="row" fxLayoutAlign="space-between center">
+<mat-card *ngIf="workOrder" class="work-order-details" fxLayout="column" fxLayoutAlign="space-between start" fxLayoutGap="20px">
+	<mat-card-content fxLayout="row" fxLayoutAlign="space-between center">
 		<span class="mat-headline">Inspection Report for Order #{{workOrder.Id?.substring(3)}} (Tech: {{workOrder?.EmployeeId}})</span>
-	</div>
+	</mat-card-content>
 
 	<div *ngIf="workOrder.Customer"
 	     fxLayout="row"
@@ -22,7 +22,7 @@
 		<b>Work Order Notes</b>
 		<div class="ma-respect-whitespace">{{workOrder.Notes}}</div>
 	</div>
-</div>
+</mat-card>
 
 <nav mat-tab-nav-bar *ngIf="inspectionId">
 	<a mat-tab-link
