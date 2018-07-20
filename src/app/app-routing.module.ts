@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { CoreViewComponent } from './core-view/core-view.component';
+import { inspectionRoutes } from './inspections/inspections.routing';
 
 const routes: Routes = [
 	{
@@ -11,7 +12,8 @@ const routes: Routes = [
 			{ path: '', redirectTo: 'inspections', pathMatch: 'full' },
 			{
 				path: 'inspections',
-				loadChildren: './inspections/inspections.module#InspectionsModule'
+				// loadChildren: './inspections/inspections.module#InspectionsModule'
+				children: inspectionRoutes
 			}
 		]
 	},

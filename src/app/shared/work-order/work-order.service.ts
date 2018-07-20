@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/of';
+import { Observable } from 'rxjs';
+
 import { MA_HTTP_BASE_URL, MA_HTTP_OPTIONS } from '../../../environments/app-config.module';
 
 @Injectable()

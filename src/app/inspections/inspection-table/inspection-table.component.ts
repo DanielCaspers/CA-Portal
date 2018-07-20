@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GALLERY_IMAGE } from 'ngx-image-gallery';
-import 'rxjs/add/operator/finally';
 
 import {
 	ImageGalleryComponent,
@@ -38,9 +37,6 @@ export class InspectionTableComponent implements OnInit {
 			this.inspectionId = params.id;
 
 			this.inspectionService.getInspectionReport(this.inspectionId, false)
-				.finally(() => {
-					this.showProgress = false;
-				})
 				.subscribe((response) => {
 					this.inspectionItems = response;
 					// Need to bind images during OnInit for proper initialization of ngxImageGallery

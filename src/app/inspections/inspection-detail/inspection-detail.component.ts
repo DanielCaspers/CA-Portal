@@ -1,7 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/filter';
+import { Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
+
 import { StoreInfoService, WorkOrderService } from '../../shared';
 
 interface IInspectionRouteLink {
@@ -61,7 +62,9 @@ export class InspectionDetailComponent implements OnDestroy, OnInit {
 		});
 
 		this.routerSubscription = this.router.events
-			.filter(event => event instanceof NavigationEnd)
+			.pipe(
+				filter(event => event instanceof NavigationEnd)
+			)
 			.subscribe(() => {
 				this.updateActiveTab();
 			});

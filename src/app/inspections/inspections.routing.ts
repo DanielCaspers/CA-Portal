@@ -4,7 +4,7 @@ import { InspectionDetailComponent } from './inspection-detail/inspection-detail
 import { InspectionReportGroupedComponent } from './inspection-report-grouped/inspection-report-grouped.component';
 import { InspectionReportItemListComponent } from './inspection-report-item-list/inspection-report-item-list.component';
 
-const routes: Routes = [
+export const inspectionRoutes: Routes = [
 	{
 		path: ':id',
 		component: InspectionDetailComponent,
@@ -23,7 +23,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-	imports: [ RouterModule.forChild(routes) ],
+	imports: [ RouterModule.forChild(inspectionRoutes) ],
 	exports: [ RouterModule ]
 })
 export class InspectionsRoutingModule {
