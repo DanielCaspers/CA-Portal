@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { StoreInfo, StoreInfoService } from '../shared/';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
 	selector: 'ma-core-view',
@@ -32,11 +33,13 @@ export class CoreViewComponent implements OnInit, OnDestroy {
 
 	public ngOnInit(): void {
 		this.storeInfoSubscription = this.storeInfoService.storeInfo$
-			.map(storeInfo => {
-				storeInfo.PhoneNumberToCall.NumberForWebLink = 'tel:' + storeInfo.PhoneNumberToCall.NumberForWebLink;
-				storeInfo.PhoneNumberToSMS.NumberForWebLink = 'sms:' + storeInfo.PhoneNumberToSMS.NumberForWebLink;
-				return storeInfo;
-			})
+			.pipe(
+				map(storeInfo => {
+					storeInfo.PhoneNumberToCall.NumberForWebLink = 'tel:' + storeInfo.PhoneNumberToCall.NumberForWebLink;
+					storeInfo.PhoneNumberToSMS.NumberForWebLink = 'sms:' + storeInfo.PhoneNumberToSMS.NumberForWebLink;
+					return storeInfo;
+				})
+			)
 			.subscribe(storeInfo => {
 				this.storeInfo = storeInfo;
 			});

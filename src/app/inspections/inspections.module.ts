@@ -24,7 +24,6 @@ import { InspectionHttpService } from './inspection-http.service';
 
 import { InspectionDetailComponent } from './inspection-detail/inspection-detail.component';
 import { InspectionReportGroupedComponent } from './inspection-report-grouped/inspection-report-grouped.component';
-import { InspectionTableComponent } from './inspection-table/inspection-table.component';
 import {
 	InspectionReportItemComponent
 } from './inspection-report-item/inspection-report-item.component';
@@ -37,7 +36,6 @@ import { InspectionCustomerConcernsComponent } from './inspection-customer-conce
 	declarations: [
 		InspectionDetailComponent,
 		InspectionReportGroupedComponent,
-		InspectionTableComponent,
 		InspectionReportItemComponent,
 		InspectionReportItemListComponent,
 		InspectionCustomerConcernsComponent
