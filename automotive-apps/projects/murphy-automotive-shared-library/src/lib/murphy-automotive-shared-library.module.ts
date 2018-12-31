@@ -6,15 +6,15 @@ import { ImageGalleryModule } from './image-gallery/image-gallery.module';
 import { MeasurementsFormDialogModule } from './measurements-form-dialog/measurements-form-dialog.module';
 
 @NgModule({
-    declarations: [],
-    imports: [],
-    exports: [
-        CustomerVehicleSummaryModule,
-        ImageGalleryModule,
-        MeasurementsFormDialogModule,
-        RecommendedServiceSeverityModule,
-        SafeUrlModule
-    ]
+	declarations: [],
+	imports: [],
+	exports: [
+		CustomerVehicleSummaryModule,
+		ImageGalleryModule,
+		MeasurementsFormDialogModule,
+		RecommendedServiceSeverityModule,
+		SafeUrlModule
+	]
 })
 export class MurphyAutomotiveSharedLibraryModule {
 }

@@ -34,7 +34,7 @@ export class InspectionReportGroupedComponent implements OnInit {
 					// Add client-side state to the group response model so that each group, when expanded,
 					// will hold its own client side expansion state independent of other groups.
 					// This state is used for toggling on/off the group's overall condition
-					for (let group of this.inspectionGroups) {
+					for (const group of this.inspectionGroups) {
 						group.IsExpanded = false;
 					}
 
