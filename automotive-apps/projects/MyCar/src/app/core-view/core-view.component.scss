@@ -1,0 +1,19 @@
+:host {
+	p[mat-line] {
+		opacity: 0.78;
+	}
+
+	.mat-title {
+		margin: 0;
+	}
+
+	.ma-router-container {
+		overflow: hidden;
+	}
+
+	mat-toolbar {
+		position: sticky;
+		top: 0px;
+		z-index: 1000;
+	}
+}

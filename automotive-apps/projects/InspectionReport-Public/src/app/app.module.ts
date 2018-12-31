@@ -4,7 +4,11 @@ import { MatIconModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { MurphyAutomotiveSharedLibraryModule, RecommendedServiceSeverityModule } from 'murphy-automotive-shared-library';
+import {
+	MurphyAutomotiveSharedLibraryModule,
+	NavTitleModule,
+	RecommendedServiceSeverityModule
+} from 'murphy-automotive-shared-library';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -24,6 +28,7 @@ import { InspectionsModule } from './inspections/inspections.module';
 
 		MurphyAutomotiveSharedLibraryModule,
 		RecommendedServiceSeverityModule,
+		NavTitleModule,
 
 		AppRoutingModule,
 		CoreModule,

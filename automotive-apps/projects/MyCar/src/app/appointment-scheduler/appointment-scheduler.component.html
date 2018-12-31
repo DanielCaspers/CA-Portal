@@ -1,0 +1,106 @@
+<mat-vertical-stepper [linear]="isLinear">
+	<!-- Step 1 - Need To Schedule? -->
+	<mat-step state="scheduling-viability">
+		<div fxLayout="column" fxLayoutGap="10px">
+			<ng-template matStepLabel icon>Need to schedule?</ng-template>
+			<div>
+				You don't need to schedule if the only services you need are
+				<ul>
+					<li>Oil change</li>
+					<li>Tire rotation</li>
+				</ul>
+			</div>
+			<div>
+				<button mat-button mat-raised-button color="primary" matStepperNext>Got it</button>
+			</div>
+		</div>
+	</mat-step>
+
+	<!-- Step 2 - Renting a car? -->
+	<mat-step optional="true" state="call-for-rental">
+		<div fxLayout="column" fxLayoutGap="10px">
+			<ng-template matStepLabel icon>Renting a car?</ng-template>
+			<div>
+				Rental cars are available for $30/day. Call for availability and to schedule.
+			</div>
+			<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+				<button mat-button mat-raised-button color="accent">Call</button>
+				<button mat-button mat-raised-button color="primary" matStepperNext>No thanks, I'll pass</button>
+			</div>
+		</div>
+	</mat-step>
+
+	<!-- Step 3 - Which day? -->
+	<mat-step [stepControl]="dateFormGroup" state="pick-day">
+		<div fxLayout="column" fxLayoutGap="10px">
+			<ng-template matStepLabel icon>Which day?</ng-template>
+			<div>Vehicles must be dropped off by 9am and left for the day.</div>
+			<div class="mat-caption">HOURS: M-F 7:00am to 8:00pm | SAT 8:00am to 5:00pm</div>
+			<form [formGroup]="dateFormGroup">
+				Datepicker goes here
+				<div>
+					<button mat-button mat-raised-button color="primary" matStepperNext>Next</button>
+				</div>
+			</form>
+		</div>
+	</mat-step>
+
+	<!-- Step 4 - Your vehicle's needs -->
+	<mat-step [stepControl]="vehicleFormGroup" state="list-needs">
+		<div fxLayout="column" fxLayoutGap="10px">
+			<ng-template matStepLabel icon>Your vehicle's needs</ng-template>
+			<div>Which vehicle should we look at?</div>
+			<form [formGroup]="vehicleFormGroup">
+				<mat-form-field style="width: 100%">
+					<mat-select formControlName="vehicle" placeholder="My vehicle">
+						<mat-option [value]="Saab">Saab</mat-option>
+						<mat-option [value]="Ford">A real brand</mat-option>
+					</mat-select>
+				</mat-form-field>
+				<mat-form-field style="width: 100%">
+					<mat-chip-list #chipList >
+						<mat-chip *ngFor="let fruit of fruits" [selectable]="selectable"
+						          [removable]="removable" (removed)="remove(fruit)">
+							{{fruit.name}}
+							<mat-icon matChipRemove>x</mat-icon>
+						</mat-chip>
+						<input placeholder="New fruit..."
+						       [matChipInputFor]="chipList"
+						       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+						       [matChipInputAddOnBlur]="addOnBlur"
+						       (matChipInputTokenEnd)="add($event)">
+					</mat-chip-list>
+				</mat-form-field>
+				<div>
+					<button mat-button mat-raised-button color="primary" matStepperNext>Next</button>
+				</div>
+			</form>
+		</div>
+	</mat-step>
+
+	<!-- Step 5 - You're all set -->
+	<mat-step state="done">
+		<div fxLayout="column" fxLayoutGap="10px">
+			<ng-template matStepLabel icon>You're all set!</ng-template>
+			<div>Your appointment is scheduled for X. We'll see you then.</div>
+		</div>
+	</mat-step>
+
+	<!-- Icon overrides. -->
+	<ng-template matStepperIcon="scheduling-viability">
+		<mat-icon>contact_support</mat-icon>
+	</ng-template>
+	<ng-template matStepperIcon="call-for-rental">
+		<mat-icon>call_end</mat-icon>
+	</ng-template>
+	<ng-template matStepperIcon="pick-day">
+		<mat-icon>event</mat-icon>
+	</ng-template>
+	<ng-template matStepperIcon="list-needs">
+		<mat-icon>assignment</mat-icon>
+	</ng-template>
+	<ng-template matStepperIcon="done">
+		<mat-icon>check_circle</mat-icon>
+	</ng-template>
+
+</mat-vertical-stepper>
