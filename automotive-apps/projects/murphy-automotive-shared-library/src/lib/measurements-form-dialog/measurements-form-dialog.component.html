@@ -1,0 +1,16 @@
+<h2 mat-dialog-title fxLayout="row" fxLayoutGap="30px">
+	<div>
+		Measurements for {{data.name?.toLowerCase()}}
+	</div>
+	<button mat-icon-button mat-dialog-close>
+		<mat-icon class="close-btn">close</mat-icon>
+	</button>
+</h2>
+<mat-dialog-content>
+	<div fxLayout="column" fxLayoutGap="15px">
+		<div fxLayout="row" *ngFor="let measurement of data.measurements">
+			<div fxFlex="70" class="mat-body-2">{{measurement.Label}}</div>
+			<div class="mat-body-1">{{measurement.Value}} &nbsp; {{measurement.Unit}}</div>
+		</div>
+	</div>
+</mat-dialog-content>

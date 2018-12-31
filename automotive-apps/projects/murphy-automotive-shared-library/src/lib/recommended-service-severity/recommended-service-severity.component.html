@@ -1,0 +1,22 @@
+<div fxLayout="column" fxLayoutAlign="space-between center">
+	<mat-icon [ngClass]="getIconColor()" [ngSwitch]="severity">
+		<ng-container *ngSwitchCase="immediate">warning</ng-container>
+		<ng-container *ngSwitchCase="moderate">alarm</ng-container>
+		<ng-container *ngSwitchCase="shouldWatch">remove_red_eye</ng-container>
+		<ng-container *ngSwitchCase="maintenance">date_range</ng-container>
+		<ng-container *ngSwitchCase="notes">description</ng-container>
+		<ng-container *ngSwitchCase="ok">check_circle</ng-container>
+		<ng-container *ngSwitchDefault>not_interested</ng-container>
+	</mat-icon>
+
+	<div class="mat-caption" [ngSwitch]="severity">
+		<ng-container *ngSwitchCase="immediate">Immediate</ng-container>
+		<ng-container *ngSwitchCase="moderate">Moderate</ng-container>
+		<ng-container *ngSwitchCase="shouldWatch">Should watch</ng-container>
+		<ng-container *ngSwitchCase="maintenance">Maintenance</ng-container>
+		<ng-container *ngSwitchCase="notes">Notes</ng-container>
+		<ng-container *ngSwitchCase="ok">OK</ng-container>
+		<ng-container *ngSwitchDefault>Not applicable</ng-container>
+	</div>
+</div>
+

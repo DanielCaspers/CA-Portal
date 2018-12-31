@@ -1,0 +1,14 @@
+@mixin ma-mat-accordion(){
+	:host {
+		::ng-deep {
+			mat-expansion-panel-header {
+				padding-left: 15px;
+			}
+
+			.mat-expansion-panel-body {
+				padding: 0 10px 16px;
+			}
+		}
+	}
+}
+
