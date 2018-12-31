@@ -1,18 +1,17 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { MA_HTTP_BASE_URL, MA_HTTP_OPTIONS } from '../../environments/app-config.module';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class InspectionHttpService {
 
-	constructor(
-		private httpClient: HttpClient,
-		@Inject(MA_HTTP_BASE_URL) private readonly baseUrl,
-		@Inject(MA_HTTP_OPTIONS) private readonly httpOptions ) { }
+	constructor(private httpClient: HttpClient ) { }
 
 	public getInspectionReport(inspectionId: string, isGrouped: boolean): Observable<any> {
-		return this.httpClient.get(`${this.baseUrl}/Inspections/Report?inspectionId=${inspectionId}&grouped=${isGrouped}`, this.httpOptions);
+		return this.httpClient.get(
+			`${environment.apiBaseUrl}/Inspections/Report?inspectionId=${inspectionId}&grouped=${isGrouped}`,
+			environment.httpOptions);
 
 		// let obs;
 		// if(isGrouped){

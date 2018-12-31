@@ -8,7 +8,6 @@ import { MurphyAutomotiveSharedLibraryModule, RecommendedServiceSeverityModule }
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MaAppConfigModule } from '../environments/app-config.module';
 import { CoreModule } from './core-view/core.module';
 import { InspectionsModule } from './inspections/inspections.module';
 
@@ -25,8 +24,6 @@ import { InspectionsModule } from './inspections/inspections.module';
 
 		MurphyAutomotiveSharedLibraryModule,
 		RecommendedServiceSeverityModule,
-
-		MaAppConfigModule,
 
 		AppRoutingModule,
 		CoreModule,

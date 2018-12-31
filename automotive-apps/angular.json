@@ -74,6 +74,30 @@
 									"maximumError": "5mb"
 								}
 							]
+						},
+						"staging": {
+							"fileReplacements": [
+								{
+									"replace": "projects/MyCar/src/environments/environment.ts",
+									"with": "projects/MyCar/src/environments/environment.staging.ts"
+								}
+							],
+							"optimization": true,
+							"outputHashing": "all",
+							"sourceMap": true,
+							"extractCss": true,
+							"namedChunks": false,
+							"aot": true,
+							"extractLicenses": true,
+							"vendorChunk": false,
+							"buildOptimizer": true,
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "2mb",
+									"maximumError": "5mb"
+								}
+							]
 						}
 					}
 				},
@@ -85,6 +109,9 @@
 					"configurations": {
 						"production": {
 							"browserTarget": "MyCar:build:production"
+						},
+						"staging": {
+							"browserTarget": "MyCar:build:staging"
 						}
 					}
 				},
@@ -178,6 +205,30 @@
 									"maximumError": "5mb"
 								}
 							]
+						},
+						"staging": {
+							"fileReplacements": [
+								{
+									"replace": "projects/InspectionReport-Public/src/environments/environment.ts",
+									"with": "projects/InspectionReport-Public/src/environments/environment.staging.ts"
+								}
+							],
+							"optimization": true,
+							"outputHashing": "all",
+							"sourceMap": true,
+							"extractCss": true,
+							"namedChunks": false,
+							"aot": true,
+							"extractLicenses": true,
+							"vendorChunk": false,
+							"buildOptimizer": true,
+							"budgets": [
+								{
+									"type": "initial",
+									"maximumWarning": "2mb",
+									"maximumError": "5mb"
+								}
+							]
 						}
 					}
 				},
@@ -189,6 +240,9 @@
 					"configurations": {
 						"production": {
 							"browserTarget": "InspectionReport-Public:build:production"
+						},
+						"staging": {
+							"browserTarget": "InspectionReport-Public:build:staging"
 						}
 					}
 				},

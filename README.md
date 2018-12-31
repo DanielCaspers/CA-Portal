@@ -1,15 +1,13 @@
-## Projects within this repo
+# Murphy Automotive Angular Projects
 This repository contains the following software products for Murphy Automotive
 1. **Digital Inspection Report (client only)**
 2. **MyCar** 
 3. **Shared Component Library**
 
-Read their respective sections for details on building, running, etc.
-
 ## Digital Inspection Report
 #### Summary 
-A public facing report of a vehicle inspection during a visit. Reporting data comes from 
-[the DigitalInspection project](https://github.com/DanielCaspers/DigitalInspection).
+A public facing report of a vehicle inspection during a visit. Reporting data comes from a running instance of
+[DigitalInspection](https://github.com/DanielCaspers/DigitalInspection).
 
 #### Purposes
 Allow anonymous users to
@@ -19,17 +17,14 @@ Allow anonymous users to
 4. Contact Murphy Automotive with any questions
 
 #### Serve
-- Run `ng report:serve` for a dev server.
-- Navigate to `http://localhost:4200/`.
+1. Run `ng report:serve:(local|staging|prod)` for a dev server.
+2. Navigate to `http://localhost:4200/`.
 
 _The app will automatically reload if you change any of the source files._
 
 #### Build
-- Run `ng report:build` to build the project. 
-- The build artifacts will be stored in the `dist/InspectionReport-Public` directory.
-- Use the `-prod` flag for a production build.
-
-_In the near future, environment flagging will be used to allow for changing base URLs of servers to communicate with._
+1. Run `ng report:build:(local|staging|prod)` to build the Digital Inspection report app. 
+2. The build artifacts will be stored in the `dist/InspectionReport-Public` directory.
 
 ## MyCar
 #### Summary 
@@ -43,14 +38,24 @@ Allow authenticated users to
 4. View VIP Rewards
 
 #### Serve
-- Run `ng mycar:serve` for a dev server.
-- Navigate to `http://localhost:4201/`.
+1. Run `ng mycar:serve:(local|staging|prod)` for a dev server.
+2. Navigate to `http://localhost:4201/`.
 
 _The app will automatically reload if you change any of the source files._
 
 #### Build
-- Run `ng mycar:build` to build the project. 
-- The build artifacts will be stored in the `dist/MyCar` directory.
-- Use the `-prod` flag for a production build.
+1. Run `ng mycar:build:(local|staging|prod)` to build the MyCar app.
+2. The build artifacts will be stored in the `dist/MyCar` directory.
 
-_In the near future, environment flagging will be used to allow for changing base URLs of servers to communicate with._
+## Shared Component Library
+#### Summary
+A module of sharable code that is custom to Murphy Automotive that is used by all client projects.
+
+#### Purposes
+1. Share code between Angular client projects for consistency
+2. Seamless updating between the library and consuming projects
+
+#### Build
+It can be built independently with `ng sharedlib:build`, but it is automatically re-built whenever serving or building one of the above apps.
+
+
