@@ -1,4 +1,4 @@
-<div class="mat-subheading-2">What you brought it in for</div>
+<div class="mat-subheading-2" *ngIf="customerConcernInspectionItems.length > 0">What you brought it in for</div>
 <mat-card *ngFor="let item of customerConcernInspectionItems">
 	<mat-card-content>
 		<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
