@@ -1,6 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { first } from 'rxjs/operators';
+
 import { NavTitleService } from 'murphy-automotive-shared-library';
+
+import { AuthService } from '../auth/auth.service';
 
 // import { StoreInfo, StoreInfoService } from '../store-info/store-info.module';
 
@@ -9,7 +13,7 @@ import { NavTitleService } from 'murphy-automotive-shared-library';
 	templateUrl: './core-view.component.html',
 	styleUrls: [ './core-view.component.scss' ]
 })
-export class CoreViewComponent implements OnInit, OnDestroy {
+export class CoreViewComponent implements OnInit {
 
 	// Defaulting to values until loaded for least disorienting experience
 	// TODO DJC Make store-info sharable
@@ -31,9 +35,8 @@ export class CoreViewComponent implements OnInit, OnDestroy {
 	public primaryEmail = 'steve.caspers@murphyauto.net';
 	public pointsBalance = 1234;
 	public navTitle;
-	private storeInfoSubscription: Subscription;
 
-	constructor(private navTitleService: NavTitleService) {
+	constructor(private navTitleService: NavTitleService, private authService: AuthService, private router: Router) {
 		this.navTitle = this.navTitleService.navTitle$;
 	}
 
@@ -51,7 +54,12 @@ export class CoreViewComponent implements OnInit, OnDestroy {
 		// 	});
 	}
 
-	public ngOnDestroy(): void {
-		this.storeInfoSubscription.unsubscribe();
+	public logout(): void {
+		console.log('Logout button clicked');
+		this.authService.logout()
+			.pipe(first())
+			.subscribe(() => {
+			this.router.navigate(['/login']);
+		});
 	}
 }

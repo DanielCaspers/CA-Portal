@@ -6,10 +6,14 @@ import { vehicleRoutes } from './my-vehicles/my-vehicles-routing.module';
 import { appointmentSchedulerRoutes } from './appointment-scheduler/appointment-scheduler-routing.module';
 import { couponRoutes } from './coupons/coupons-routing.module';
 import { vehicleHistoryRoutes } from './vehicle-history/vehicle-history-routing.module';
+import { AuthGuard } from './auth/auth.guard';
+import { LoginComponent } from './login/login.component';
 
 const routes: Routes = [
 	{
 		path: '',
+		canActivate: [AuthGuard],
+		canActivateChild: [AuthGuard],
 		component: CoreViewComponent,
 		children: [
 			{ path: '', redirectTo: 'vehicles', pathMatch: 'full' },
@@ -42,6 +46,10 @@ const routes: Routes = [
 				}
 			},
 		]
+	},
+	{
+		path: 'login',
+		component: LoginComponent
 	},
 	{ path: '**', redirectTo: '' }
 ];

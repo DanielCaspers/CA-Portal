@@ -1,6 +1,6 @@
 import { HttpHeaders } from '@angular/common/http';
 
-export interface MaEnvironment {
+export interface MaEnvironmentBase {
 	production: boolean;
 
 	/**

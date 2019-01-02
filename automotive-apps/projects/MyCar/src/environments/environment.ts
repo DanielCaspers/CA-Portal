@@ -2,11 +2,18 @@
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 import { HttpHeaders } from '@angular/common/http';
+import { MyCarEnvironment } from './environment.models';
 
-export const environment = {
+export const environment: MyCarEnvironment = {
 	production: false,
-	apiBaseUrl: 'http://localhost:54343',
-	httpOptions: { headers: new HttpHeaders({ 'Access-Control-Allow-Origin': '*' }) }
+	apiBaseUrl: 'https://d3-devel.murphyauto.net/api/v2',
+	httpOptions: {
+		headers: new HttpHeaders({
+			'Access-Control-Allow-Origin': '*',
+			'x-appkey': '82kkf452j2lL41430SpqFd6Dwe027zQ'
+		})
+	},
+	authorizationUrl: '/auth/logon'
 };
 
 /*

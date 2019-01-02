@@ -1,7 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
-import { MaEnvironment } from '../../../../environment.model';
+import { MaEnvironmentBase } from '../../../../environment.model';
 
-export const environment: MaEnvironment = {
+export const environment: MaEnvironmentBase = {
 	production: true,
 	apiBaseUrl: 'https://di.murphyauto.net',
 	httpOptions: { headers: new HttpHeaders({ 'Access-Control-Allow-Origin': '*' }) }
