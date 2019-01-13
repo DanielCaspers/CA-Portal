@@ -18,6 +18,7 @@ import { MyVehiclesModule } from '../my-vehicles/my-vehicles.module';
 import { AppointmentSchedulerModule } from '../appointment-scheduler/appointment-scheduler.module';
 import { CouponsModule } from '../coupons/coupons.module';
 import { VehicleHistoryModule } from '../vehicle-history/vehicle-history.module';
+import { VipRewardsModule } from '../vip-rewards/vip-rewards.module';
 // import { StoreInfoModule } from '../store-info/store-info.module';
 
 @NgModule({
@@ -43,7 +44,8 @@ import { VehicleHistoryModule } from '../vehicle-history/vehicle-history.module'
 		MyVehiclesModule,
 		AppointmentSchedulerModule,
 		CouponsModule,
-		VehicleHistoryModule
+		VehicleHistoryModule,
+		VipRewardsModule
 	],
 	providers: []
 })

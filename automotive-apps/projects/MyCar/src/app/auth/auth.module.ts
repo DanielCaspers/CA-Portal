@@ -8,7 +8,7 @@ import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment';
 import { LoginModule } from '../login/login.module';
 
-function jwtOptionsFactory(authTokenService) {
+export function jwtOptionsFactory(authTokenService) {
 	return {
 		tokenGetter: () => authTokenService.authToken,
 		whitelistedDomains: [environment.apiBaseUrl],

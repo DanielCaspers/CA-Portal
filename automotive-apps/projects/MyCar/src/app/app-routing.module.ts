@@ -8,6 +8,7 @@ import { couponRoutes } from './coupons/coupons-routing.module';
 import { vehicleHistoryRoutes } from './vehicle-history/vehicle-history-routing.module';
 import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './login/login.component';
+import { vipRewardsRoutes } from './vip-rewards/vip-rewards-routing.module';
 
 const routes: Routes = [
 	{
@@ -43,6 +44,13 @@ const routes: Routes = [
 				children: vehicleHistoryRoutes,
 				data: {
 					title: 'My vehicle history'
+				}
+			},
+			{
+				path: 'rewards',
+				children: vipRewardsRoutes,
+				data: {
+					title: 'My VIP Rewards'
 				}
 			},
 		]

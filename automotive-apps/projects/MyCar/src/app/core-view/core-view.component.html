@@ -15,7 +15,7 @@
 
 		</mat-toolbar>
 
-		<mat-sidenav #sidenav [mode]="over">
+		<mat-sidenav #sidenav mode="over">
 			<mat-toolbar color="primary" fxLayout="row" fxLayoutAlign="space-between center">
 				<a href="{{storeInfo?.StoreWebAssets?.WebAddress}}" target="_blank">
 					<img height="56" [src]="storeInfo?.StoreWebAssets?.LogoSmall" />
@@ -45,11 +45,11 @@
 					<h4 mat-line>{{customerName}}</h4>
 					<p mat-line>{{primaryEmail}}</p>
 				</mat-list-item>
-				<mat-list-item>
+				<a mat-list-item routerLink="/rewards" (click)="sidenav.toggle()">
 					<mat-icon mat-list-icon color="primary">card_membership</mat-icon>
 					<h4 mat-line>VIP Rewards</h4>
 					<p mat-line>{{pointsBalance}} points</p>
-				</mat-list-item>
+				</a>
 
 				<mat-divider></mat-divider>
 
