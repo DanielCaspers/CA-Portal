@@ -7,6 +7,8 @@ export * from './lib/murphy-automotive-shared-library.module';
 export * from './lib/auto-contrast/auto-contrast.directive';
 export * from './lib/auto-contrast/auto-contrast.module';
 
+export * from './lib/can-deactivate-guard/can-deactivate.guard';
+
 export * from './lib/customer-vehicle-summary/customer-vehicle-summary.component';
 export * from './lib/customer-vehicle-summary/customer-vehicle-summary.module';
 
