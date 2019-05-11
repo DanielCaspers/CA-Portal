@@ -13,4 +13,16 @@ export interface MaEnvironmentBase {
 	 * apiBaseUrl
 	 */
 	httpOptions: { headers: HttpHeaders };
+
+	/**
+	 * Google analytics integration settings
+	 * https://github.com/SnakeByteDevelopment/angulartics2/tree/master/src/lib/providers/ga
+	 */
+	googleAnalytics: {
+		/**
+		 * 'auto', 'none'
+		 */
+		domain: string;
+		trackingId: string;
+	}
 }

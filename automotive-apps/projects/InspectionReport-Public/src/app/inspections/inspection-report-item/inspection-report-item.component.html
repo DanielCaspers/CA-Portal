@@ -13,7 +13,14 @@
 					<ng-container *ngIf="!cannedResponse.Description">{{cannedResponse.Response}}</ng-container>
 					<ng-container *ngIf="!!cannedResponse.Description">{{cannedResponse.Description}}</ng-container>
 				</div>
-				<a *ngIf="cannedResponse.Url" mat-button href="{{cannedResponse.Url}}" target="_blank">
+				<a *ngIf="cannedResponse.Url"
+				   mat-button
+				   ngx-analyticsOn="click"
+				   angularticsAction="Viewed"
+				   angularticsLabel="Inspection item - {{inspectionItem.Name}}}"
+				   [angularticsCategory]="'Help Topics'"
+				   href="{{cannedResponse.Url}}"
+				   target="_blank">
 					<mat-icon color="accent">help_outline</mat-icon>
 				</a>
 			</div>
@@ -28,6 +35,11 @@
 			<button *ngIf="inspectionItem.Measurements && inspectionItem.Measurements.length > 0"
 					color="accent"
 					mat-button
+					ngx-analyticsOn="click"
+					angularticsAction="Viewed"
+					[angularticsLabel]="inspectionItem.Name"
+					[angularticsCategory]="'Measurements'"
+					[angularticsProperties]="{'Checklist Item': inspectionItem.Name, 'Condition': inspectionItem.condition }"
 					(click)="openMeasurementsDialog()">
 				View Measurements
 			</button>
@@ -35,6 +47,10 @@
 			<button *ngIf="inspectionItem.Images && inspectionItem.Images.length > 0"
 			        color="accent"
 			        mat-button
+			        ngx-analyticsOn="click"
+			        angularticsAction="Viewed"
+			        [angularticsLabel]="inspectionItem.Name"
+			        [angularticsCategory]="'Images'"
 			        (click)="openGallery()">
 				View Images
 				<!--<mat-icon color="accent">photo_library</mat-icon>-->

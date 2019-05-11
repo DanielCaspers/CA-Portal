@@ -8,9 +8,9 @@ import filter from 'lodash-es/filter';
 })
 export class InspectionCustomerConcernsComponent implements OnChanges {
 	@Input()
-	public inspectionItems;
+	public inspectionItems = [];
 
-	public customerConcernInspectionItems;
+	public customerConcernInspectionItems = [];
 
 	constructor() { }
 

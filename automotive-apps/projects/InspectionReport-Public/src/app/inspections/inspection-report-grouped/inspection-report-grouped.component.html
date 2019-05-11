@@ -3,8 +3,8 @@
 <mat-accordion>
 	<div class="mat-subheading-2">Full inspection report</div>
 	<mat-expansion-panel *ngFor="let inspectionGroup of inspectionGroups"
-						(opened)="inspectionGroup.IsExpanded = true"
-						(closed)="inspectionGroup.IsExpanded = false">
+						(opened)="onExpand(inspectionGroup)"
+						(closed)="onCollapse(inspectionGroup)">
 		<mat-expansion-panel-header>
 			<mat-panel-title
 					fxLayout="row"

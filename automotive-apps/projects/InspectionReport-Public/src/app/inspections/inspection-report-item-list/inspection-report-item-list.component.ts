@@ -1,23 +1,29 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import filter from 'lodash-es/filter';
+import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
 
 import { InspectionHttpService } from '../inspection-http.service';
-import { InspectionAccordionService } from '../inspection-accordion.service';
+import { InspectionReportItemContainerComponent } from '../inspection-report-item-container/inspection-report-item-container-component';
 
 @Component({
 	selector: 'ma-inspection-report-item-list',
 	templateUrl: './inspection-report-item-list.component.html',
 	styleUrls: [ './inspection-report-item-list.component.scss' ]
 })
-export class InspectionReportItemListComponent implements OnInit {
+export class InspectionReportItemListComponent extends InspectionReportItemContainerComponent implements OnInit {
 
 	public inspectionItems;
 
 	public customerConcernInspectionItems;
 	public inspectionId: string;
 
-	constructor(private inspectionService: InspectionHttpService, private route: ActivatedRoute, private cdr: ChangeDetectorRef) {
+	constructor(
+		private inspectionService: InspectionHttpService,
+		private route: ActivatedRoute,
+		private cdr: ChangeDetectorRef,
+		googleAnalyticsService: NgxAnalyticsGoogleAnalytics) {
+		super(googleAnalyticsService);
 	}
 
 	public ngOnInit(): void {
@@ -38,9 +44,4 @@ export class InspectionReportItemListComponent implements OnInit {
 					});
 		});
 	}
-
-	public shouldExpand(item): boolean {
-		return InspectionAccordionService.shouldExpand(item);
-	}
-
 }

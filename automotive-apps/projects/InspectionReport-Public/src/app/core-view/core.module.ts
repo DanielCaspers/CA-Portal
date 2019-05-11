@@ -1,8 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MatCardModule, MatIconModule, MatToolbarModule } from '@angular/material';
+import {
+	MatCardModule,
+	MatIconModule,
+	MatToolbarModule
+} from '@angular/material';
 import { RouterModule } from '@angular/router';
+import { NgxAnalyticsModule } from 'ngx-analytics';
 
 import { SafeUrlModule } from 'murphy-automotive-shared-library';
 
@@ -21,6 +26,7 @@ import { StoreInfoModule } from '../store-info/store-info.module';
 		MatCardModule,
 		MatIconModule,
 		MatToolbarModule,
+		NgxAnalyticsModule,
 
 		StoreInfoModule,
 		SafeUrlModule

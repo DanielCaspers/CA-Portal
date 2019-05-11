@@ -1,25 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import filter from 'lodash-es/filter';
 import reduce from 'lodash-es/reduce';
 import sortBy from 'lodash-es/sortBy';
+import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
 
 import { InspectionHttpService } from '../inspection-http.service';
-import { InspectionAccordionService } from '../inspection-accordion.service';
+import { InspectionReportItemContainerComponent } from '../inspection-report-item-container/inspection-report-item-container-component';
 
 @Component({
 	selector: 'ma-inspection-report-grouped',
 	templateUrl: './inspection-report-grouped.component.html',
 	styleUrls: [ './inspection-report-grouped.component.scss' ]
 })
-export class InspectionReportGroupedComponent implements OnInit {
+export class InspectionReportGroupedComponent extends InspectionReportItemContainerComponent implements OnInit {
 
 	public inspectionGroups;
 	public customerConcernInspectionItems;
 	public inspectionId: string;
 
-	constructor(private inspectionService: InspectionHttpService, private route: ActivatedRoute) {
+	constructor(
+		private inspectionService: InspectionHttpService,
+		private route: ActivatedRoute,
+		googleAnalyticsService: NgxAnalyticsGoogleAnalytics) {
+		super(googleAnalyticsService);
 	}
 
 	public ngOnInit(): void {
@@ -53,8 +57,13 @@ export class InspectionReportGroupedComponent implements OnInit {
 		});
 	}
 
-	public shouldExpand(item): boolean {
-		return InspectionAccordionService.shouldExpand(item);
+	public onCollapse(inspectionGroup): void {
+		super.onCollapse(inspectionGroup.Name, 'InspectionItemGroup');
+		inspectionGroup.IsExpanded = false;
 	}
 
+	public onExpand(inspectionGroup): void {
+		super.onCollapse(inspectionGroup.Name, 'InspectionItemGroup');
+		inspectionGroup.IsExpanded = true;
+	}
 }

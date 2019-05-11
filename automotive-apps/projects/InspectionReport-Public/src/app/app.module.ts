@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxAnalyticsModule, NgxAnalyticsSettings } from 'ngx-analytics';
+import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
 
 import {
 	MurphyAutomotiveSharedLibraryModule,
@@ -23,8 +25,8 @@ import { InspectionsModule } from './inspections/inspections.module';
 		BrowserModule,
 		BrowserAnimationsModule,
 		CommonModule,
-
 		MatIconModule,
+		NgxAnalyticsModule.forRoot([NgxAnalyticsGoogleAnalytics], { pageTracking: { clearIds: true }} as NgxAnalyticsSettings),
 
 		MurphyAutomotiveSharedLibraryModule,
 		RecommendedServiceSeverityModule,

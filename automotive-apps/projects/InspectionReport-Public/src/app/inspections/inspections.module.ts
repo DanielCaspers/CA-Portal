@@ -9,9 +9,11 @@ import {
 	MatIconModule,
 	MatTabsModule
 } from '@angular/material';
+import { NgxAnalyticsModule } from 'ngx-analytics';
 
 import {
-	CustomerVehicleSummaryModule, MurphyAutomotiveSharedLibraryModule,
+	CustomerVehicleSummaryModule,
+	MurphyAutomotiveSharedLibraryModule,
 	RecommendedServiceSeverityModule
 } from 'murphy-automotive-shared-library';
 
@@ -50,6 +52,7 @@ import { WorkOrderModule } from '../work-order/work-order.module';
 		MatExpansionModule,
 		MatIconModule,
 		MatTabsModule,
+		NgxAnalyticsModule,
 
 		MurphyAutomotiveSharedLibraryModule,
 		CustomerVehicleSummaryModule,

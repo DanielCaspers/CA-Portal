@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, of, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
@@ -17,7 +17,8 @@ export class StoreInfoService {
 		return this.httpClient.get<StoreInfo>(
 			`${environment.apiBaseUrl}/StoreInfo/Json?companyNumber=${companyNumber}`,
 			environment.httpOptions
-			).pipe(
+			)
+			.pipe(
 				map(storeInfo => {
 					this.storeInfoSubject.next(storeInfo);
 					return storeInfo;

@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
@@ -30,7 +31,8 @@ export class InspectionDetailComponent implements OnDestroy, OnInit {
 		private route: ActivatedRoute,
 		private router: Router,
 		public storeInfoService: StoreInfoService,
-		private workOrderService: WorkOrderService) {
+		private workOrderService: WorkOrderService,
+		private googleAnalyticsService: NgxAnalyticsGoogleAnalytics) {
 	}
 
 	public ngOnInit(): void {
@@ -56,10 +58,39 @@ export class InspectionDetailComponent implements OnDestroy, OnInit {
 				.subscribe((response) => {
 					this.workOrder = response;
 					// Store Info service passes info to core view, who doesn't have route parameter
-					this.storeInfoSubscription = this.storeInfoService.getStoreInfo(this.workOrder.Id.substring(0, 3))
-						.subscribe(() => {});
-				});
 
+					// TODO DJC Determine if this works appropriately once deployed to remote
+					// this.googleAnalyticsService.setUsername('004123456');
+					// this.googleAnalyticsService.setUserProperties({
+					// 	'Checklist Item': undefined,
+					// 	'Company Number': '004',
+					// 	'Vehicle Year': 2016,
+					// 	'Vehicle Make': 'Ford',
+					// 	'Vehicle Model': 'Mustang',
+					// 	'Vehicle Mileage': '27000',
+					// });
+					// (<any>window).ga('set', 'Company Number', '004');
+					// (<any>window).ga('set', 'Vehicle Year', 2016);
+					// (<any>window).ga('set', 'Vehicle Make', 'Ford');
+					// (<any>window).ga('set', 'Vehicle Model', 'Ford');
+					// (<any>window).ga('set', 'Vehicle Mileage', 27000);
+
+					if (!!this.workOrder && !!this.workOrder.Id) {
+						const companyNumber = this.workOrder.Id.substring(0, 3);
+						this.googleAnalyticsService.setUsername(this.workOrder.Id);
+						this.googleAnalyticsService.setUserProperties({
+							'Checklist Item': undefined,
+							'Company Number': companyNumber,
+							'Vehicle Year': this.workOrder.Vehicle.Year,
+							'Vehicle Make': this.workOrder.Vehicle.Make,
+							'Vehicle Model': this.workOrder.Vehicle.Model,
+							'Vehicle Mileage': this.workOrder.Vehicle.Odometer,
+						});
+
+						this.storeInfoSubscription = this.storeInfoService.getStoreInfo(companyNumber)
+							.subscribe(() => {});
+					}
+				});
 		});
 
 		this.routerSubscription = this.router.events
@@ -84,5 +115,4 @@ export class InspectionDetailComponent implements OnDestroy, OnInit {
 	private updateActiveTab(): void {
 		this.routeLinks.forEach(tab => tab.isActive = (tab.link === this.router.url));
 	}
-
 }

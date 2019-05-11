@@ -4,6 +4,8 @@
 	<div class="mat-subheading-2">Full inspection report</div>
 	<mat-expansion-panel
 			*ngFor="let item of inspectionItems"
+			(opened)="onExpand(item.Name, 'InspectionItem')"
+			(closed)="onCollapse(item.Name, 'InspectionItem')"
 			[disabled]="!shouldExpand(item)"
 			[hideToggle]="!shouldExpand(item)">
 		<mat-expansion-panel-header>
