@@ -24,5 +24,5 @@ export interface MaEnvironmentBase {
 		 */
 		domain: string;
 		trackingId: string;
-	}
+	};
 }
