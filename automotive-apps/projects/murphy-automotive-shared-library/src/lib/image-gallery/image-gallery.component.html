@@ -1,0 +1,9 @@
+<ng-container *ngIf="images && images.length > 0">
+	<!-- DJC I've submitted a PR, awaiting response from maintainer -->
+	<!-- https://github.com/thatisuday/ngx-image-gallery/pull/41 -->
+	<ngx-image-gallery
+			[images]="images"
+			[conf]="dialogGalleryConfig"
+			(onImageClicked)="galleryImageClicked($event)">
+	</ngx-image-gallery>
+</ng-container>

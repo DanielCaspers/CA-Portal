@@ -1,0 +1,25 @@
+<ma-inspection-customer-concerns [inspectionItems]="inspectionItems"></ma-inspection-customer-concerns>
+
+<mat-accordion>
+	<div class="mat-subheading-2">Full inspection report</div>
+	<mat-expansion-panel
+			*ngFor="let item of inspectionItems"
+			(opened)="onExpand(item.Name, 'InspectionItem')"
+			(closed)="onCollapse(item.Name, 'InspectionItem')"
+			[disabled]="!shouldExpand(item)"
+			[hideToggle]="!shouldExpand(item)">
+		<mat-expansion-panel-header>
+			<mat-panel-title fxLayout="row"
+			                 fxLayoutAlign="start center"
+			                 fxLayoutGap="20px">
+				<ma-recommended-service-severity [severity]="item.Condition"></ma-recommended-service-severity>
+				<div class="mat-body-2">{{item.Name}}</div>
+			</mat-panel-title>
+		</mat-expansion-panel-header>
+
+		<ma-inspection-report-item
+				[inspectionItem]="item"
+				[isCondensed]="true">
+		</ma-inspection-report-item>
+	</mat-expansion-panel>
+</mat-accordion>

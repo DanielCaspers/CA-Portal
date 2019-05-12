@@ -1,0 +1,193 @@
+<mat-vertical-stepper *ngIf="scheduleProgress === 'Entry'" [linear]="isLinear" color="accent">
+	<!-- Step 1 - Need To Schedule? -->
+	<mat-step state="scheduling-viability" color="accent">
+		<div fxLayout="column" fxLayoutGap="10px">
+			<ng-template matStepLabel icon>Need to schedule?</ng-template>
+			<div>
+				You don't need to schedule if the only services you need are
+				<ul>
+					<li>Oil change</li>
+					<li>Tire rotation</li>
+				</ul>
+			</div>
+			<div>
+				<button mat-button color="accent" matStepperNext>Got it</button>
+			</div>
+		</div>
+	</mat-step>
+
+	<!-- Step 2 - Renting a car? -->
+	<mat-step optional="true" state="call-for-rental">
+		<div fxLayout="column" fxLayoutGap="10px">
+			<ng-template matStepLabel icon>Renting a car?</ng-template>
+			<div>
+				Rental cars are available for $30/day. Call for availability and to schedule.
+			</div>
+			<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+				<button mat-button color="accent">Call</button>
+				<button mat-button color="primary" matStepperNext>No thanks, I'll pass</button>
+			</div>
+		</div>
+	</mat-step>
+
+	<!-- Step 3 - Which day? -->
+	<mat-step [stepControl]="dateFormGroup" state="pick-day">
+		<div fxLayout="column" fxLayoutGap="10px">
+			<ng-template matStepLabel icon>Which day?</ng-template>
+			<div>Vehicles must be dropped off by 9am and left for the day.</div>
+			<div class="mat-caption">Open M-F 7am to 8pm, SAT: 8am - 5pm</div>
+			<form [formGroup]="dateFormGroup" fxLayout="column" fxLayoutGap="15px">
+				<mat-form-field fxFlex color="accent">
+					<input
+							matInput
+							formControlName="date"
+							[min]="minDate"
+							[max]="maxDate"
+							[matDatepickerFilter]="dateFilter"
+							[matDatepicker]="picker"
+							placeholder="Choose a date *">
+					<mat-error *ngIf="date.hasError('required')">Date is required</mat-error>
+					<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+					<mat-datepicker touchUi #picker></mat-datepicker>
+				</mat-form-field>
+
+				<div>
+					<button mat-button color="accent" matStepperNext>Next</button>
+				</div>
+			</form>
+		</div>
+	</mat-step>
+
+	<!-- Step 4 - Which vehicle -->
+	<mat-step [stepControl]="vehicleFormGroup" state="pick-vehicle">
+		<div fxLayout="column" fxLayoutGap="10px">
+			<ng-template matStepLabel icon>Which vehicle?</ng-template>
+
+			<div>
+				<div fxFlex></div>
+				<mat-button-toggle-group [value]="isVehicleNewToCustomer" (change)="onNewOrExistingVehicleChange($event)">
+					<mat-button-toggle value="Existing">Existing</mat-button-toggle>
+					<mat-button-toggle value="New">New</mat-button-toggle>
+				</mat-button-toggle-group>
+				<div fxFlex></div>
+			</div>
+
+			<form [formGroup]="vehicleFormGroup" fxLayout="column" fxLayoutGap="10px">
+				<!-- Known vehicles -->
+				<ng-container *ngIf="isVehicleNewToCustomer === 'Existing'">
+					<mat-form-field style="width: 100%" color="accent">
+						<mat-select formControlName="knownVehicle" placeholder="Choose a vehicle *">
+							<mat-option *ngFor="let v of myVehicles" value="{{v.formValue}}">{{v.viewValue}}</mat-option>
+						</mat-select>
+						<mat-error *ngIf="knownVehicle.hasError('required')">Vehicle is required</mat-error>
+					</mat-form-field>
+				</ng-container>
+
+				<!-- Add a new vehicle -->
+				<ng-container *ngIf="isVehicleNewToCustomer === 'New'">
+					<mat-form-field style="width: 100%" color="accent">
+						<input matInput type="number" formControlName="year" placeholder="Year *">
+						<mat-error *ngIf="year.hasError('required')">Vehicle year is required</mat-error>
+					</mat-form-field>
+
+					<mat-form-field style="width: 100%" color="accent">
+						<mat-select formControlName="make" placeholder="Make *">
+							<mat-option *ngFor="let v of vehicleMakes" value="{{v.formValue}}">{{v.viewValue}}</mat-option>
+						</mat-select>
+						<mat-error *ngIf="make.hasError('required')">Vehicle make is required</mat-error>
+					</mat-form-field>
+
+					<mat-form-field style="width: 100%" color="accent">
+						<mat-select formControlName="model" placeholder="Model *">
+							<mat-option *ngFor="let v of vehicleModels" value="{{v.formValue}}">{{v.viewValue}}</mat-option>
+						</mat-select>
+						<mat-error *ngIf="model.hasError('required')">Vehicle model is required</mat-error>
+					</mat-form-field>
+				</ng-container>
+
+				<div>
+					<button mat-button color="accent" matStepperNext>Next</button>
+				</div>
+			</form>
+		</div>
+	</mat-step>
+
+	<!-- Step 5 - Your vehicle's needs -->
+	<mat-step [stepControl]="issuesFormGroup" state="list-needs">
+		<div fxLayout="column" fxLayoutGap="10px">
+			<ng-template matStepLabel icon>What should we look into?</ng-template>
+			<form [formGroup]="issuesFormGroup" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutGap="10px">
+				<mat-form-field style="width: 100%" color="accent">
+					<mat-chip-list #chipList>
+						<mat-chip *ngFor="let issue of issues" [selectable]="chipIsSelectable"
+						          [removable]="chipIsRemovable" (removed)="remove(issue)">
+							{{issue.viewValue}}
+							<mat-icon matChipRemove *ngIf="chipIsRemovable">cancel</mat-icon>
+						</mat-chip>
+						<input placeholder="Common concerns and issues"
+						       #issueInput
+						       formControlName="commonIssues"
+						       [matAutocomplete]="auto"
+						       [matChipInputFor]="chipList"
+						       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+						       [matChipInputAddOnBlur]="chipAddsOnBlur">
+					</mat-chip-list>
+					<mat-autocomplete #auto="matAutocomplete" (optionSelected)="addFromAutocomplete($event)">
+						<mat-option *ngFor="let issue of filteredIssues | async" [value]="issue">
+							{{issue.viewValue}}
+						</mat-option>
+					</mat-autocomplete>
+					<mat-error *ngIf="issuesFormGroup.hasError('atLeastOne')">A common issue or detailed description is required</mat-error>
+				</mat-form-field>
+
+				<mat-form-field color="accent">
+					<textarea matInput rows="6" formControlName="issueDescription" placeholder="Other needs or concerns"></textarea>
+					<mat-error *ngIf="issuesFormGroup.hasError('atLeastOne')">A common issue or detailed description is required</mat-error>
+				</mat-form-field>
+
+				<div>
+					<button mat-button color="accent" type="submit" matStepperNext>Schedule</button>
+				</div>
+			</form>
+		</div>
+	</mat-step>
+
+	<!-- Icon overrides. -->
+	<ng-template matStepperIcon="scheduling-viability">
+		<mat-icon>contact_support</mat-icon>
+	</ng-template>
+	<ng-template matStepperIcon="call-for-rental">
+		<mat-icon>call_end</mat-icon>
+	</ng-template>
+	<ng-template matStepperIcon="pick-day">
+		<mat-icon>event</mat-icon>
+	</ng-template>
+	<ng-template matStepperIcon="pick-vehicle">
+		<mat-icon>directions_car</mat-icon>
+	</ng-template>
+	<ng-template matStepperIcon="list-needs">
+		<mat-icon>assignment</mat-icon>
+	</ng-template>
+	<ng-template matStepperIcon="done">
+		<mat-icon>check_circle</mat-icon>
+	</ng-template>
+
+</mat-vertical-stepper>
+
+<!--<div *ngIf="scheduleProgress === 'IsSubmitting'" fxFill fxLayout="column" fxLayoutAlign="center center">-->
+	<!--<div fxFlex></div>-->
+	<!--<mat-progress-spinner color="accent" mode="indeterminate"></mat-progress-spinner>-->
+	<!--<div fxFlex></div>-->
+<!--</div>-->
+<div *ngIf="scheduleProgress === 'IsSubmitting'" class="loading-indicator">
+	<mat-progress-spinner color="accent" mode="indeterminate"></mat-progress-spinner>
+</div>
+
+
+<div *ngIf="scheduleProgress === 'Success'" class="success-message">
+	<div>
+		<mat-icon color="green">check_circle</mat-icon>
+		<div class="mat-body-2">Appointment scheduled</div>
+	</div>
+
+</div>

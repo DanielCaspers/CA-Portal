@@ -1,0 +1,15 @@
+<!--<div fxFlexFill fxLayout="column" fxLayoutGap="20px">-->
+	<div fxLayout.gt-sm="row" fxLayout.lt-md="column" fxLayoutAlign="space-around center" fxLayoutGap="8px" class="my-vehicles-container">
+
+		<ma-vehicle-card
+			fxFlex
+			*ngFor="let vehicle of vehicles"
+			[year]="vehicle.year"
+			[make]="vehicle.make"
+			[model]="vehicle.model"
+			[license]="vehicle.license"
+			[recommendedServiceSeverity]="vehicle.recommendedServiceSeverity">
+		</ma-vehicle-card>
+
+	</div>
+<!--</div>-->

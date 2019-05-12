@@ -1,0 +1,37 @@
+<div fxFill fxLayout="column" fxLayoutGap="10px">
+	<mat-toolbar color="primary">
+		<a href="{{storeInfo?.StoreWebAssets?.WebAddress}}"
+		   target="_blank"
+		   ngx-analyticsOn="click"
+		   angularticsAction="Opened Website"
+		   angularticsLabel="Company Logo"
+		   angularticsCategory="Store">
+			<img height="56" [src]="storeInfo?.StoreWebAssets?.LogoSmall" />
+		</a>
+		<div fxFlex></div>
+		<div class="button-container" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="25px">
+			<a mat-button
+			   [href]="storeInfo?.PhoneNumberToSMS?.NumberForWebLink | safeUrl"
+			   ngx-analyticsOn="click"
+			   angularticsAction="Sent SMS"
+			   angularticsCategory="Store">
+				<mat-icon>message</mat-icon>
+			</a>
+			<a mat-button
+			   [href]="storeInfo?.PhoneNumberToCall?.NumberForWebLink | safeUrl"
+			   ngx-analyticsOn="click"
+			   angularticsAction="Called"
+			   angularticsCategory="Store">
+				<mat-icon>call</mat-icon>
+			</a>
+		</div>
+	</mat-toolbar>
+
+	<div class="ma-print-version-only mat-subheading-2 ma-store-address">
+		<div>{{storeInfo?.StoreAddress?.Line1}}</div>
+		<div>{{storeInfo?.StoreAddress?.City}}, {{storeInfo?.StoreAddress?.StateShort}} {{storeInfo?.StoreAddress?.ZIP}}</div>
+		<div>{{storeInfo?.PhoneNumberToCall?.Number}}</div>
+	</div>
+
+	<router-outlet></router-outlet>
+</div>

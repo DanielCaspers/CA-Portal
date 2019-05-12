@@ -1,0 +1,127 @@
+<!--<ngx-charts-gauge-->
+		<!--[legend]="false"-->
+		<!--[results]="vipRewards"-->
+		<!--animations="true"-->
+		<!--[textValue]="gaugeTextValue"-->
+		<!--min="0"-->
+		<!--max="5000"-->
+		<!--units="points"-->
+		<!--angleSpan="180"-->
+		<!--startAngle="-90"-->
+		<!--[showAxis]="gaugeShowAxis"-->
+		<!--bigSegments="10"-->
+		<!--smallSegments="0"-->
+		<!--[margin]="margin ? [marginTop, marginRight, marginBottom, marginLeft] : null"-->
+		<!--tooltipDisabled="true">-->
+<!--</ngx-charts-gauge>-->
+<!--<ngx-gauge-->
+		<!--min="0"-->
+		<!--max="5000"-->
+		<!--thick="10"-->
+		<!--[thresholds]="thresholdConfig"-->
+		<!--[type]="gaugeType"-->
+		<!--[value]="gaugeValue"-->
+		<!--[append]="gaugeAppendText">-->
+<!--</ngx-gauge>-->
+
+<div fxLayout.lt-md="column" fxLayout.gt-sm="row" fxLayoutAlign="space-around center" fxLayoutGap="8px" class="vip-rewards-container">
+	<mat-card fxFlex>
+		<mat-card-title>Your points balance</mat-card-title>
+		<mat-card-content>
+			<div class="chart-container">
+				<div id="chartdiv" ></div>
+				<div class="mat-body-2" style="text-align: center">{{vipRewardsPoints}} points</div>
+			</div>
+		</mat-card-content>
+	</mat-card>
+
+	<mat-card flex>
+		<mat-card-title>Rewards schedule</mat-card-title>
+		<mat-card-content>
+
+			<div>
+				<div fxFlex></div>
+				<mat-button-toggle-group value="service" #group="matButtonToggleGroup" name="rewardSchedule">
+					<mat-button-toggle value="service">Service & Car Washes</mat-button-toggle>
+					<mat-button-toggle value="oil-change">Oil Changes</mat-button-toggle>
+				</mat-button-toggle-group>
+				<div fxFlex></div>
+			</div>
+
+
+			<mat-list>
+
+				<ng-container *ngIf="group.value == 'service'">
+					<mat-list-item class="reward-earned">
+						<mat-icon mat-list-icon>check</mat-icon>
+						<h4 mat-line>Time Saver car wash</h4>
+						<p mat-line>300 points</p>
+					</mat-list-item>
+					<mat-list-item class="reward-earned">
+						<mat-icon mat-list-icon>check</mat-icon>
+						<h4 mat-line>Ultimate car wash</h4>
+						<p mat-line>400 points</p>
+					</mat-list-item>
+					<mat-list-item class="reward-earned">
+						<mat-icon mat-list-icon>check</mat-icon>
+						<h4 mat-line>$20 Service Certificate</h4>
+						<p mat-line >1000 points</p>
+					</mat-list-item>
+					<mat-list-item class="reward-not-yet-earned">
+						<mat-icon mat-list-icon>close</mat-icon>
+						<h4 mat-line>Tire rotation</h4>
+						<p mat-line>1250 points</p>
+					</mat-list-item>
+					<mat-list-item class="reward-not-yet-earned">
+						<mat-icon mat-list-icon>close</mat-icon>
+						<h4 mat-line>Time Saver wash card (10 ct)</h4>
+						<p mat-line>2500 points</p>
+					</mat-list-item>
+					<mat-list-item class="reward-not-yet-earned">
+						<mat-icon mat-list-icon>close</mat-icon>
+						<h4 mat-line>$50 Service Certificate</h4>
+						<p mat-line>2500 points</p>
+					</mat-list-item>
+					<mat-list-item class="reward-not-yet-earned">
+						<mat-icon mat-list-icon>close</mat-icon>
+						<h4 mat-line>Ultimate wash card (10 ct)</h4>
+						<p mat-line>3000 points</p>
+					</mat-list-item>
+				</ng-container>
+
+				<ng-container *ngIf="group.value == 'oil-change'">
+					<mat-list-item class="reward-not-yet-earned">
+						<mat-icon mat-list-icon>close</mat-icon>
+						<h4 mat-line>$46 oil change</h4>
+						<p mat-line>2160 points</p>
+					</mat-list-item>
+					<mat-list-item class="reward-not-yet-earned">
+						<mat-icon mat-list-icon>close</mat-icon>
+						<h4 mat-line>$61 oil change</h4>
+						<p mat-line>2600 points</p>
+					</mat-list-item>
+					<mat-list-item class="reward-not-yet-earned">
+						<mat-icon mat-list-icon>close</mat-icon>
+						<h4 mat-line>$76 oil change</h4>
+						<p mat-line>3080 points</p>
+					</mat-list-item>
+					<mat-list-item class="reward-not-yet-earned">
+						<mat-icon mat-list-icon>close</mat-icon>
+						<h4 mat-line>$81 oil change</h4>
+						<p mat-line>3560 points</p>
+					</mat-list-item>
+					<mat-list-item class="reward-not-yet-earned">
+						<mat-icon mat-list-icon>close</mat-icon>
+						<h4 mat-line>$106 oil change</h4>
+						<p mat-line>4040 points</p>
+					</mat-list-item>
+					<mat-list-item class="reward-not-yet-earned">
+						<mat-icon mat-list-icon>close</mat-icon>
+						<h4 mat-line>$121 oil change</h4>
+						<p mat-line>4520 points</p>
+					</mat-list-item>
+				</ng-container>
+			</mat-list>
+		</mat-card-content>
+	</mat-card>
+</div>

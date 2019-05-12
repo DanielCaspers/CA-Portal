@@ -1,0 +1,63 @@
+<div fxLayout="column" fxLayoutGap="10px">
+	<div *ngIf="!isCondensed" fxLayout="row" fxLayoutGap="30px">
+		<ma-recommended-service-severity [severity]="inspectionItem.Condition"></ma-recommended-service-severity>
+
+		<div class="mat-subheading-1">{{inspectionItem.Name}}</div>
+	</div>
+	<div fxLayout="column" fxLayoutGap="10px">
+		<div fxLayout="column" fxLayoutGap="10px" *ngIf="inspectionItem.CannedResponses && inspectionItem.CannedResponses.length > 0">
+			<div class="mat-body-2">Description</div>
+
+			<div fxLayout="row" fxLayoutGap="10px" *ngFor="let cannedResponse of inspectionItem.CannedResponses">
+				<div>
+					<ng-container *ngIf="!cannedResponse.Description">{{cannedResponse.Response}}</ng-container>
+					<ng-container *ngIf="!!cannedResponse.Description">{{cannedResponse.Description}}</ng-container>
+				</div>
+				<a *ngIf="cannedResponse.Url"
+				   mat-button
+				   ngx-analyticsOn="click"
+				   angularticsAction="Viewed"
+				   angularticsLabel="Inspection item - {{inspectionItem.Name}}}"
+				   [angularticsCategory]="'Help Topics'"
+				   href="{{cannedResponse.Url}}"
+				   target="_blank">
+					<mat-icon color="accent">help_outline</mat-icon>
+				</a>
+			</div>
+		</div>
+
+		<div fxLayout="column" *ngIf="inspectionItem.Note">
+			<div class="mat-body-2">Your personalized note</div>
+			<i><q class="ma-respect-whitespace">{{inspectionItem.Note}}</q></i>
+		</div>
+
+		<div fxLayout="row">
+			<button *ngIf="inspectionItem.Measurements && inspectionItem.Measurements.length > 0"
+					color="accent"
+					mat-button
+					ngx-analyticsOn="click"
+					angularticsAction="Viewed"
+					[angularticsLabel]="inspectionItem.Name"
+					[angularticsCategory]="'Measurements'"
+					[angularticsProperties]="{'Checklist Item': inspectionItem.Name, 'Condition': inspectionItem.condition }"
+					(click)="openMeasurementsDialog()">
+				View Measurements
+			</button>
+			<div fxFlex></div>
+			<button *ngIf="inspectionItem.Images && inspectionItem.Images.length > 0"
+			        color="accent"
+			        mat-button
+			        ngx-analyticsOn="click"
+			        angularticsAction="Viewed"
+			        [angularticsLabel]="inspectionItem.Name"
+			        [angularticsCategory]="'Images'"
+			        (click)="openGallery()">
+				View Images
+				<!--<mat-icon color="accent">photo_library</mat-icon>-->
+			</button>
+		</div>
+	</div>
+</div>
+
+<ma-image-gallery [images]="inspectionItem.Images"></ma-image-gallery>
+

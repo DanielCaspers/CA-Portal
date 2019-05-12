@@ -1,0 +1,49 @@
+<mat-card>
+	<mat-card-header fxFlexFill>
+		<ma-recommended-service-severity mat-card-avatar [severity]="recommendedServiceSeverity"></ma-recommended-service-severity>
+		<!--<img mat-card-avatar-->
+		<!--src="https://lh3.googleusercontent.com/eqG_g_TFDpELS8kzXWhyfuW64nZYxZPQU2632DDGVVprkiYEAfhnhN27UOZtcr5syFOyeDRlE5qBU1p4OvBWZA5hL1OkD-3CUoeo2uV0VbP4BmLzWhKLhWRGBJwY-gfk5iMTp0Xlx5AgR5ISUA5jn5KYs_GgJSvQYTm_2pBNXkxw6CMPRVsJouY_jYlEmEFCORhI4IrXbi62nKQ1Gw3iVO_c5A5U_p3pdgoxwvyb8ITKjKSKfraQ1zk9s9ZBcikOMjJH7TT5RX0VEmmfcNChIvwmrO60T_5QwEIrJWwq-VfU92avRqXE1fuV-y-IYMj8Q-bUByBKx30YDCrGPGkMg1oIeaBSCiFexPruUCeq5EQyzGoZH1Gr5Ojo110UT6cw7szahAoI3KFlrCrPkJCf9KpC5cL2G6eVTJexD3A5p083ySdUkNIeY1Z3xPLm29dKJPQrWPJD_dvMi3DurhgglQeeELQ75qEABpWgzSewnQMo3teHUad3KceHdezSMCFQVi9TB6odvJDfy5HOgYIDgegkQh1F29XyJX1wb-b6SbO0RsdSL9jOx9tv3y6It_k-gRPJv4T1CwYHR1_tzWR5QjvhhFjVz4mLRELu0XnXKWQHPhzVhiWmZJw8g9b2rxdakEpGA6ExhqLuRHWdnb8HRGSl9ggNY0hI5Xj7T1TNZVu-wHSDnPTGu-jyullJTHCdkY6_vHbUnRYt-ENIvg=w1947-h1298-no"-->
+		<!--&gt;-->
+		<mat-card-title>
+			{{year}} {{make}} {{model}}
+		</mat-card-title>
+		<mat-card-subtitle>
+			{{license}}
+		</mat-card-subtitle>
+
+		<div fxFlex></div>
+
+		<button mat-icon-button [matMenuTriggerFor]="menu">
+			<mat-icon class="menu-button">more_vert</mat-icon>
+		</button>
+		<mat-menu #menu="matMenu">
+			<button mat-menu-item>
+				<mat-icon>loyalty</mat-icon>
+				<span>Coupons</span>
+			</button>
+			<button mat-menu-item>
+				<mat-icon>history</mat-icon>
+				<span>History</span>
+			</button>
+		</mat-menu>
+	</mat-card-header>
+
+	<mat-card-content>
+		<div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center">
+			<div>
+				<p>Next service due</p>
+				<ul>
+					<li>Date: 09/08/17, or</li>
+					<li>Mileage: 155,003</li>
+				</ul>
+			</div>
+		</div>
+	</mat-card-content>
+
+	<mat-card-actions>
+		<button mat-button color="accent">Services needed</button>
+		<!--<button mat-button color="accent">Coupons</button>-->
+		<button mat-button color="accent">Schedule</button>
+		<!--<button mat-button color="accent">History</button>-->
+	</mat-card-actions>
+</mat-card>

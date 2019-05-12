@@ -1,0 +1,29 @@
+:host {
+	.vip-rewards-container { // TODO Commonize since its same on all core container pages....
+		margin: 12px 12px;
+	}
+
+	mat-card {
+		width: 100%;
+		max-width: 500px;
+
+		height: 40%;
+		min-height: 250px;
+	}
+
+	mat-card-title {
+		text-align: center;
+	}
+
+	.reward-earned {
+		color: green; // TODO Theme
+	}
+
+	.reward-not-yet-earned {
+		color: darkred; // TODO Theme
+	}
+
+	mat-list-item {
+		height: 48px !important;
+	}
+}

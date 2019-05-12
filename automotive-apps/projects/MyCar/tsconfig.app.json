@@ -1,0 +1,13 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"outDir": "../../out-tsc/app",
+		"types": [],
+		"strictNullChecks": false,
+		"strictFunctionTypes": false
+	},
+	"exclude": [
+		"test.ts",
+		"**/*.spec.ts"
+	]
+}

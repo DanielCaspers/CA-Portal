@@ -1,27 +1,59 @@
-# CustomerAccessPortal
+# Murphy Automotive Angular Projects
+This repository contains the following software products for Murphy Automotive
+1. **Digital Inspection Report (client only)**
+2. **MyCar** 
+3. **Shared Component Library**
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.3.
+## Digital Inspection Report
+#### Summary 
+A public facing report of a vehicle inspection during a visit. Reporting data comes from a running instance of
+[DigitalInspection](https://github.com/DanielCaspers/DigitalInspection).
 
-## Development server
+#### Purposes
+Allow anonymous users to
+1. View the overall health of their vehicle
+2. See images and measurements taken from the inspection
+3. See service advisor's notes, as well as Murphy Automotive curated help content
+4. Contact Murphy Automotive with any questions
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+#### Serve
+1. Run `ng report:serve:(local|staging|prod)` for a dev server.
+2. Navigate to `http://localhost:4200/`.
 
-## Code scaffolding
+_The app will automatically reload if you change any of the source files._
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+#### Build
+1. Run `ng report:build:(local|staging|prod)` to build the Digital Inspection report app. 
+2. The build artifacts will be stored in the `dist/InspectionReport-Public` directory.
 
-## Build
+## MyCar
+#### Summary 
+A user membership site for Murphy Automotive customers to manage their account and vehicles
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+#### Purposes
+Allow authenticated users to 
+1. Monitor and manage services for vehicles
+2. Schedule appointments
+3. Adjust account settings
+4. View VIP Rewards
 
-## Running unit tests
+#### Serve
+1. Run `ng mycar:serve:(local|staging|prod)` for a dev server.
+2. Navigate to `http://localhost:4201/`.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+_The app will automatically reload if you change any of the source files._
 
-## Running end-to-end tests
+#### Build
+1. Run `ng mycar:build:(local|staging|prod)` to build the MyCar app.
+2. The build artifacts will be stored in the `dist/MyCar` directory.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Shared Component Library
+#### Summary
+A module of sharable code that is custom to Murphy Automotive that is used by all client projects.
 
-## Further help
+#### Purposes
+1. Share code between Angular client projects for consistency
+2. Seamless updating between the library and consuming projects
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+#### Build
+It can be built independently with `ng sharedlib:build`, but it is automatically re-built whenever serving or building one of the above apps.
