@@ -36,8 +36,14 @@ import { InspectionsModule } from './inspections/inspections.module';
 		CoreModule,
 		InspectionsModule
 	],
-	providers: [],
+	providers: [
+		{ provide: 'WINDOW', useFactory: getWindow }
+	],
 	bootstrap: [ AppComponent ]
 })
 export class AppModule {
+}
+
+export function getWindow() {
+	return (typeof window !== 'undefined') ? window : null;
 }

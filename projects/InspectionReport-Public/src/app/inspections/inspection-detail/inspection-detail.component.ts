@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
 import { Subscription } from 'rxjs';
@@ -32,7 +32,8 @@ export class InspectionDetailComponent implements OnDestroy, OnInit {
 		private router: Router,
 		public storeInfoService: StoreInfoService,
 		private workOrderService: WorkOrderService,
-		private googleAnalyticsService: NgxAnalyticsGoogleAnalytics) {
+		private googleAnalyticsService: NgxAnalyticsGoogleAnalytics,
+		@Inject('WINDOW') private window: any) {
 	}
 
 	public ngOnInit(): void {
@@ -69,22 +70,26 @@ export class InspectionDetailComponent implements OnDestroy, OnInit {
 					// 	'Vehicle Model': 'Mustang',
 					// 	'Vehicle Mileage': '27000',
 					// });
-					// (<any>window).ga('set', 'Company Number', '004');
-					// (<any>window).ga('set', 'Vehicle Year', 2016);
-					// (<any>window).ga('set', 'Vehicle Make', 'Ford');
-					// (<any>window).ga('set', 'Vehicle Model', 'Ford');
-					// (<any>window).ga('set', 'Vehicle Mileage', 27000);
+
+					// this.window.ga('set', {
+					// 	'dimension6': '004',
+					// 	'dimension3': 2016,
+					// 	'dimension4': 'Ford',
+					// 	'dimension5': 'Mustang',
+					// 	'dimension2': '27000',
+					// });
 
 					if (!!this.workOrder && !!this.workOrder.Id) {
 						const companyNumber = this.workOrder.Id.substring(0, 3);
 						this.googleAnalyticsService.setUsername(this.workOrder.Id);
-						this.googleAnalyticsService.setUserProperties({
-							'Checklist Item': undefined,
-							'Company Number': companyNumber,
-							'Vehicle Year': this.workOrder.Vehicle.Year,
-							'Vehicle Make': this.workOrder.Vehicle.Make,
-							'Vehicle Model': this.workOrder.Vehicle.Model,
-							'Vehicle Mileage': this.workOrder.Vehicle.Odometer,
+
+						this.window.ga('set', {
+							'dimension6': companyNumber,
+							'dimension3': this.workOrder.Vehicle.Year,
+							'dimension4': this.workOrder.Vehicle.Make,
+							'dimension5': this.workOrder.Vehicle.Model,
+							'dimension2': this.workOrder.Vehicle.Odometer,
+							'dimension7': this.workOrder.Id
 						});
 
 						this.storeInfoSubscription = this.storeInfoService.getStoreInfo(companyNumber)
