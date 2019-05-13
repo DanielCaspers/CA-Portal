@@ -16,7 +16,6 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
-    cd automotive-apps
     npm install -g @angular/cli
     npm install
   displayName: 'Install Angular CLI and NPM packages'
