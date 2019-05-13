@@ -1,3 +1,5 @@
+[![Build Status](https://dev.azure.com/DanielCaspers/daniel/_apis/build/status/DanielCaspers.CA-Portal?branchName=master)](https://dev.azure.com/DanielCaspers/daniel/_build/latest?definitionId=3&branchName=master)
+
 # Murphy Automotive Angular Projects
 This repository contains the following software products for Murphy Automotive
 1. **Digital Inspection Report (client only)**
