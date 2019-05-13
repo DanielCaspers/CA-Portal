@@ -16,7 +16,12 @@ steps:
   displayName: 'Install Node.js'
 
 - script: |
+    cd automotive-apps
     npm install -g @angular/cli
     npm install
-    ng build --prod
-  displayName: 'npm install and build'
+  displayName: 'Install Angular CLI and NPM packages'
+
+- script: |
+    npm run report:build:prod
+    npm run mycar:build:prod
+  displayName: 'Build all apps and libraries'
