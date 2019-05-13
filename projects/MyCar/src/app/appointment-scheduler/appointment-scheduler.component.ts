@@ -223,11 +223,11 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 	}
 
 	private filterIssues(value: DynamicFormData | string | null): DynamicFormData[] {
-		const filterValue: string = (value as DynamicFormData) && (value as DynamicFormData).viewValue ?
+		const filterValue = !!(value as DynamicFormData) && (value as DynamicFormData).viewValue ?
 			(value as DynamicFormData).viewValue :
 			value;
 
-		return this.allIssues.filter(i => i.viewValue.toLowerCase().includes(filterValue.toLowerCase()));
+		return this.allIssues.filter(i => i.viewValue.toLowerCase().includes((filterValue as any).toLowerCase()));
 	}
 
 	private buildVehicleForm(): void {

@@ -18,7 +18,7 @@ export class VipRewardsComponent implements OnInit, AfterViewInit, OnDestroy {
 
 	private chart: am4charts.GaugeChart;
 
-	private vipRewardsPoints = 1234;
+	public vipRewardsPoints = 1234;
 
 	private readonly maxRewardsPoints = 5000;
 	private readonly chartAnimationEasingInMs = 1000;
