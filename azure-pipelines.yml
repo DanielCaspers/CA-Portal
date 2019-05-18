@@ -23,8 +23,11 @@ steps:
 
 - script: |
     npm run report:build:prod
+  displayName: 'Build Public Inspection Report'
+
+- script: |
     npm run mycar:build:prod
-  displayName: 'Build all apps and libraries'
+  displayName: 'Build MyCar Membership Portal'
 
 - task: CopyFiles@2
   inputs:
