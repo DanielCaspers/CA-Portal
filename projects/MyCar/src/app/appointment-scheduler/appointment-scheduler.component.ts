@@ -69,7 +69,7 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 		const isSunday = d.getDay() === 0;
 		// TODO: Rest API call from D3-API to also check fully booked dates
 		return !isSunday;
-	};
+	}
 
 	// Step 4: Select vehicle
 	public vehicleFormGroup: FormGroup;
@@ -175,7 +175,7 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 
 		setTimeout(() => {
 			this.scheduleProgress = ScheduleProcess.Success;
-		}, 1000)
+		}, 1000);
 	}
 
 	/*
@@ -217,7 +217,7 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 		this.buildVehicleForm();
 
 		this.issuesFormGroup = this.formBuilder.group({
-			commonIssues: ['',],
+			commonIssues: [''],
 			issueDescription: ['']
 		}, { validators: AtLeastOne(Validators.required)});
 	}

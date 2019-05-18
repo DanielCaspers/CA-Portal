@@ -34,7 +34,7 @@ export class LoginComponent {
 					this.loginForm.controls.password.setErrors({
 						incorrect: true
 					});
-					console.error('Login failed', err)
+					console.error('Login failed', err);
 				}
 			);
 	}

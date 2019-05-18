@@ -20,7 +20,7 @@
 		"mycar:build:staging": "npm run sharedlib:build && ng build MyCar -c staging",
 		"mycar:build:prod": "npm run sharedlib:build && ng build MyCar -c production",
 		"mycar:lint": "ng lint MyCar",
-		"sharedlib:build": "ng build MurphyAutomotive-SharedLibrary"
+		"sharedlib:build": "ng build MurphyAutomotive-SharedLibrary && npm i dist/murphy-automotive-shared-library --save-optional"
 	},
 	"private": true,
 	"dependencies": {
@@ -51,8 +51,8 @@
 		"zone.js": "0.8.26"
 	},
 	"devDependencies": {
-		"@angular-devkit/build-angular": "0.11.4",
-		"@angular-devkit/build-ng-packagr": "0.11.4",
+		"@angular-devkit/build-angular": "0.13.9",
+		"@angular-devkit/build-ng-packagr": "0.13.9",
 		"@angular/cli": "7.1.4",
 		"@angular/compiler-cli": "7.1.4",
 		"@angular/language-service": "7.1.4",
@@ -67,12 +67,15 @@
 		"karma-coverage-istanbul-reporter": "2.0.4",
 		"karma-jasmine": "1.1.2",
 		"karma-jasmine-html-reporter": "0.2.2",
-		"ng-packagr": "4.4.5",
+		"ng-packagr": "4.7.1",
 		"protractor": "5.4.2",
 		"ts-node": "7.0.1",
 		"tsickle": "0.34.0",
 		"tslib": "1.9.3",
 		"tslint": "5.12.0",
 		"typescript": "3.1.6"
+	},
+	"optionalDependencies": {
+		"murphy-automotive-shared-library": "file:dist/murphy-automotive-shared-library"
 	}
 }

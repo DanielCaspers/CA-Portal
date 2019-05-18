@@ -17,7 +17,7 @@ export class ImageGalleryComponent {
 
 	@Input() public images: GALLERY_IMAGE[];
 
-	// @ViewChild(NgxImageGalleryComponent) public ngxImageGallery: NgxImageGalleryComponent;
+	@ViewChild(NgxImageGalleryComponent) public ngxImageGallery: NgxImageGalleryComponent;
 
 	constructor() {
 	}
@@ -27,6 +27,6 @@ export class ImageGalleryComponent {
 	}
 
 	public open(index: number = 0): void {
-		// this.ngxImageGallery.open(index);
+		this.ngxImageGallery.open(index);
 	}
 }
