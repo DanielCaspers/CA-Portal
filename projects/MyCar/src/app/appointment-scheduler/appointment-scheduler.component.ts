@@ -110,7 +110,7 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 
 	public filteredIssues: Observable<DynamicFormData[]>;
 
-	@ViewChild('issueInput') issueInput: ElementRef<HTMLInputElement>;
+	@ViewChild('issueInput', {static: false}) issueInput: ElementRef<HTMLInputElement>;
 
 	constructor(private formBuilder: FormBuilder, private dialogService: MatDialog) {
 		// Prevent users from scheduling too far in advance.

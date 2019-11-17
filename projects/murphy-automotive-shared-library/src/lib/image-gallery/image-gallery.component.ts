@@ -17,7 +17,7 @@ export class ImageGalleryComponent {
 
 	@Input() public images: GALLERY_IMAGE[];
 
-	@ViewChild(NgxImageGalleryComponent) public ngxImageGallery: NgxImageGalleryComponent;
+	@ViewChild(NgxImageGalleryComponent, {static: false}) public ngxImageGallery: NgxImageGalleryComponent;
 
 	constructor() {
 	}

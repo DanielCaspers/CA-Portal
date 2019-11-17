@@ -12,7 +12,7 @@ import {
 })
 export class InspectionReportItemComponent {
 
-	@ViewChild(ImageGalleryComponent) maImageGallery: ImageGalleryComponent;
+	@ViewChild(ImageGalleryComponent, {static: false}) maImageGallery: ImageGalleryComponent;
 
 	@Input()
 	public inspectionItem;

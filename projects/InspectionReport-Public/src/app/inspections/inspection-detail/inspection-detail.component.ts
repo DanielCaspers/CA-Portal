@@ -1,4 +1,4 @@
-import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
 import { Subscription } from 'rxjs';
@@ -18,7 +18,7 @@ interface IInspectionRouteLink {
 	templateUrl: './inspection-detail.component.html',
 	styleUrls: [ './inspection-detail.component.scss' ]
 })
-export class InspectionDetailComponent implements OnDestroy, OnInit {
+export class InspectionDetailComponent implements OnDestroy, OnInit, AfterViewInit {
 	public inspectionId: string = null;
 	public routeLinks: IInspectionRouteLink[];
 	public workOrder = null;
@@ -81,16 +81,6 @@ export class InspectionDetailComponent implements OnDestroy, OnInit {
 
 					if (!!this.workOrder && !!this.workOrder.Id) {
 						const companyNumber = this.workOrder.Id.substring(0, 3);
-						this.googleAnalyticsService.setUsername(this.workOrder.Id);
-
-						this.window.ga('set', {
-							'dimension6': companyNumber,
-							'dimension3': this.workOrder.Vehicle.Year,
-							'dimension4': this.workOrder.Vehicle.Make,
-							'dimension5': this.workOrder.Vehicle.Model,
-							'dimension2': this.workOrder.Vehicle.Odometer,
-							'dimension7': this.workOrder.Id
-						});
 
 						this.storeInfoSubscription = this.storeInfoService.getStoreInfo(companyNumber)
 							.subscribe(() => {});
@@ -105,6 +95,28 @@ export class InspectionDetailComponent implements OnDestroy, OnInit {
 			.subscribe(() => {
 				this.updateActiveTab();
 			});
+	}
+
+
+	public ngAfterViewInit(): void {
+		// Separated from ngOnInit() logic due to incompatabilities with Google Analytics and build time optimization
+		// https://stackoverflow.com/questions/45241131/angular-and-google-analytics-integration-ga-is-not-a-function
+		if (!!this.workOrder && !!this.workOrder.Id) {
+			const companyNumber = this.workOrder.Id.substring(0, 3);
+			this.googleAnalyticsService.setUsername(this.workOrder.Id);
+
+			this.window.ga('set', {
+				'dimension6': companyNumber,
+				'dimension3': this.workOrder.Vehicle.Year,
+				'dimension4': this.workOrder.Vehicle.Make,
+				'dimension5': this.workOrder.Vehicle.Model,
+				'dimension2': this.workOrder.Vehicle.Odometer,
+				'dimension7': this.workOrder.Id
+			});
+
+			this.storeInfoSubscription = this.storeInfoService.getStoreInfo(companyNumber)
+				.subscribe(() => {});
+		}
 	}
 
 	public ngOnDestroy(): void {
