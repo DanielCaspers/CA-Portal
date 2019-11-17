@@ -43,7 +43,6 @@
 		"core-js": "3.4.1",
 		"hammerjs": "2.0.8",
 		"lodash-es": "4.17.15",
-		"murphy-automotive-shared-library": "0.0.3",
 		"ngx-analytics": "4.6.3-patch1",
 		"ngx-gauge": "1.0.0-beta.11",
 		"ngx-image-gallery": "1.3.1",
@@ -75,5 +74,8 @@
 		"tslib": "1.10.0",
 		"tslint": "5.20.1",
 		"typescript": "3.4.5"
+	},
+	"optionalDependencies": {
+		"murphy-automotive-shared-library": "file:dist/murphy-automotive-shared-library"
 	}
 }
