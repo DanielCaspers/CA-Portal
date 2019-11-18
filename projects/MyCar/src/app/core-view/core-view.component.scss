@@ -16,4 +16,11 @@
 		top: 0px;
 		z-index: 1000;
 	}
+
+
+	@media screen and (max-width: 600px) {
+		mat-toolbar .main-toolbar-store-logo {
+			visibility: hidden;
+		}
+	}
 }

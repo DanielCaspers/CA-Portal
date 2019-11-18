@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { VehicleOverview } from './vehicle.models';
+import { VehiclesHttpService } from './vehicles-http.service';
+import { first } from 'rxjs/operators';
 
 @Component({
 	selector: 'ma-my-vehicles',
@@ -36,10 +38,16 @@ export class MyVehiclesComponent implements OnInit {
 		}
 	];
 
-	constructor() {
+	constructor(private vehiclesHttpService: VehiclesHttpService) {
 	}
 
-	ngOnInit() {
+	public ngOnInit(): void {
+		this.vehiclesHttpService.getVehiclesForClient()
+			.pipe(first())
+			.subscribe((vehicles) => {
+				// this.vehicles = vehicles;
+				console.debug(vehicles);
+			});
 	}
 
 }

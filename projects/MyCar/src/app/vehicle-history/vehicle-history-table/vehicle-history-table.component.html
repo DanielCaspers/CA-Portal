@@ -47,41 +47,35 @@
 <mat-table fxFlex #table [dataSource]="dataSource">
 	<ng-container matColumnDef="vehicle">
 		<mat-header-cell *matHeaderCellDef> Vehicle </mat-header-cell>
-		<mat-cell *matCellDef="let element">
-			<span class="mobile-label">Vehicle:</span>
+		<mat-cell *matCellDef="let element" data-label="Vehicle">
 			{{element.year}} {{element.make}} {{element.model}}
-
 		</mat-cell>
 	</ng-container>
 
 	<ng-container matColumnDef="date">
 		<mat-header-cell *matHeaderCellDef> Date </mat-header-cell>
-		<mat-cell *matCellDef="let element">
-			<span class="mobile-label">Date:</span>
+		<mat-cell *matCellDef="let element" data-label="Date">
 			{{element.date}}
 		</mat-cell>
 	</ng-container>
 
 	<ng-container matColumnDef="odometer">
 		<mat-header-cell *matHeaderCellDef> Odometer </mat-header-cell>
-		<mat-cell *matCellDef="let element">
-			<span class="mobile-label">Odometer:</span>
+		<mat-cell *matCellDef="let element" data-label="Odometer">
 			{{element.odometer}}
 		</mat-cell>
 	</ng-container>
 
 	<ng-container matColumnDef="description">
 		<mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
-		<mat-cell *matCellDef="let element">
-			<span class="mobile-label">Description:</span>
+		<mat-cell *matCellDef="let element" data-label="Description">
 			{{element.description}}
 		</mat-cell>
 	</ng-container>
 
 	<ng-container matColumnDef="amount">
 		<mat-header-cell *matHeaderCellDef> Amount </mat-header-cell>
-		<mat-cell *matCellDef="let element">
-			<span class="mobile-label">Amount:</span>
+		<mat-cell *matCellDef="let element" data-label="Amount">
 			${{element.amount}}
 		</mat-cell>
 	</ng-container>

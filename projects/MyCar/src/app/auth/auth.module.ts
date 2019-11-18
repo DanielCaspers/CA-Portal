@@ -7,6 +7,8 @@ import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment';
 import { LoginModule } from '../login/login.module';
+import { JwtInterceptor } from './auth-token.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 export function jwtOptionsFactory(authTokenService) {
 	return {
@@ -30,7 +32,7 @@ export function jwtOptionsFactory(authTokenService) {
 	exports: [
 		LoginModule
 	],
-	providers: [ AuthGuard, AuthService, AuthTokenService ],
+	providers: [ AuthGuard, AuthService, AuthTokenService, {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true}],
 })
 export class AuthModule {
 }

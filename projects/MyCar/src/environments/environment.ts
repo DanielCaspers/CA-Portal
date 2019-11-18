@@ -10,7 +10,7 @@ export const environment: MyCarEnvironment = {
 	httpOptions: {
 		headers: new HttpHeaders({
 			'Access-Control-Allow-Origin': '*',
-			'x-appkey': '82kkf452j2lL41430SpqFd6Dwe027zQ'
+			'x-appkey': 'D4LgRtMpfyZKXBaYSgRzah6jBf3w7W0v'
 		})
 	},
 	authorizationUrl: '/auth/logon'

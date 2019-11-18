@@ -17,7 +17,11 @@ const routes: Routes = [
 		canActivateChild: [AuthGuard],
 		component: CoreViewComponent,
 		children: [
-			{ path: '', redirectTo: 'vehicles', pathMatch: 'full' },
+			{
+				path: '',
+				redirectTo: 'vehicles',
+				pathMatch: 'full'
+			},
 			{
 				path: 'vehicles',
 				children: vehicleRoutes,
@@ -57,7 +61,10 @@ const routes: Routes = [
 	},
 	{
 		path: 'login',
-		component: LoginComponent
+		component: LoginComponent,
+		data: {
+			title: 'THIS SHOULD NOT BE VISIBLE'
+		}
 	},
 	{ path: '**', redirectTo: '' }
 ];

@@ -17,23 +17,32 @@ export class AuthService {
 		formData.set('username', username);
 		formData.set('password', password);
 
-		return this.http.post<{authToken: string}>(`${environment.apiBaseUrl}/auth/logon`, formData, environment.httpOptions)
+		return this.http.post<{authToken: string, refreshToken: string}>(`${environment.apiBaseUrl}/auth/logon`, formData, environment.httpOptions)
 			.pipe(
-				map(result => {
-					console.log('Angular got', result);
-
-					this.authTokenService.authToken = (result as any).authToken;
+				map((result) => {
+					this.authTokenService.authToken = result.authToken;
+					this.authTokenService.refreshToken = result.refreshToken;
 					return true;
 				})
 			);
 	}
 
 	public logout(): Observable<boolean> {
-		return this.http.get<any>(`${environment.apiBaseUrl}/auth/logoff`, environment.httpOptions)
+		return this.http.get(`${environment.apiBaseUrl}/auth/logoff`, {...environment.httpOptions, responseType: 'text' })
 			.pipe(
-				map(result => {
-					console.log('Angular got', result);
-					this.authTokenService.clear();
+				map(() => {
+					this.authTokenService.clearAuthToken();
+					this.authTokenService.clearRefreshToken();
+					return true;
+				})
+			);
+	}
+
+	public refreshToken(): Observable<boolean> {
+		return this.http.get(`${environment.apiBaseUrl}/auth/renew`, environment.httpOptions)
+			.pipe(
+				map((result) => {
+					this.authTokenService.authToken = (result as any).authToken;
 					return true;
 				})
 			);
