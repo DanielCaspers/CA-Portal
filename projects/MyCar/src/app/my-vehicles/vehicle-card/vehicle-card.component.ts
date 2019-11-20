@@ -18,7 +18,10 @@ export class VehicleCardComponent {
 	public license: string;
 
 	@Input()
-	public recommendedServiceSeverity: string;
+	public recommendedServices: any[] = [];
+
+	@Input()
+	public recommendedServiceSeverity: number;
 
 	@Input()
 	public year: string;

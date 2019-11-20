@@ -11,21 +11,21 @@
 			{{license}}
 		</mat-card-subtitle>
 
-		<div fxFlex></div>
+<!--		<div fxFlex></div>-->
 
-		<button mat-icon-button [matMenuTriggerFor]="menu">
-			<mat-icon class="menu-button">more_vert</mat-icon>
-		</button>
-		<mat-menu #menu="matMenu">
-			<button mat-menu-item>
-				<mat-icon>loyalty</mat-icon>
-				<span>Coupons</span>
-			</button>
-			<button mat-menu-item>
-				<mat-icon>history</mat-icon>
-				<span>History</span>
-			</button>
-		</mat-menu>
+<!--		<button mat-icon-button [matMenuTriggerFor]="menu">-->
+<!--			<mat-icon class="menu-button">more_vert</mat-icon>-->
+<!--		</button>-->
+<!--		<mat-menu #menu="matMenu">-->
+<!--			<button mat-menu-item>-->
+<!--				<mat-icon>loyalty</mat-icon>-->
+<!--				<span>Coupons</span>-->
+<!--			</button>-->
+<!--			<button mat-menu-item>-->
+<!--				<mat-icon>history</mat-icon>-->
+<!--				<span>History</span>-->
+<!--			</button>-->
+<!--		</mat-menu>-->
 	</mat-card-header>
 
 	<mat-card-content>
@@ -41,9 +41,32 @@
 	</mat-card-content>
 
 	<mat-card-actions>
-		<button mat-button color="accent">Services needed</button>
+		<button [disabled]="recommendedServices.length == 0" mat-button color="accent">
+			<ng-container *ngIf="recommendedServices.length == 0">
+				No services needed
+			</ng-container>
+			<ng-container *ngIf="recommendedServices.length > 0">
+				Services needed
+			</ng-container>
+		</button>
 		<!--<button mat-button color="accent">Coupons</button>-->
 		<button mat-button color="accent">Schedule</button>
 		<!--<button mat-button color="accent">History</button>-->
+
+		<div fxFlex></div>
+
+		<button mat-icon-button [matMenuTriggerFor]="menu">
+			<mat-icon class="menu-button">more_vert</mat-icon>
+		</button>
+		<mat-menu #menu="matMenu">
+			<button mat-menu-item>
+				<mat-icon>loyalty</mat-icon>
+				<span>Coupons</span>
+			</button>
+			<button mat-menu-item>
+				<mat-icon>history</mat-icon>
+				<span>History</span>
+			</button>
+		</mat-menu>
 	</mat-card-actions>
 </mat-card>

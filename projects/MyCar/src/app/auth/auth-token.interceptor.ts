@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { EMPTY, Observable, Subject, throwError } from 'rxjs';
-import { catchError, first, map, switchMap } from 'rxjs/operators';
+import { EMPTY, Observable, Subject, throwError, timer } from 'rxjs';
+import { catchError, first, flatMap, map, switchMap } from 'rxjs/operators';
 
 import { AuthTokenService } from './auth-token.service';
 import { AuthService } from './auth.service';
@@ -29,8 +29,6 @@ export class JwtInterceptor implements HttpInterceptor {
 
 						return this.refreshToken()
 							.pipe(
-								// Use switchmap to take the most recent request and re-attempt it if
-								// somehow this is invoked multiple times before finishing the previous invocations
 								switchMap(() => {
 									console.debug('We successfully renewed the authToken. Try the request again');
 
@@ -38,14 +36,14 @@ export class JwtInterceptor implements HttpInterceptor {
 									return next.handle(request);
 								}),
 								catchError(() => {
-									console.debug('The authToken could not be refreshed; The user will have to provide their credentials again');
+									console.debug('OUTER - The authToken could not be refreshed; The user will have to provide their credentials again');
 
 									this.logoutLocally();
 									return EMPTY;
 								})
 							)
-
 					}
+					console.debug('The error was uncaught');
 					// The error response cannot be fixed by refresh tokens; let it pass through.
 					return throwError(error);
 				})
@@ -79,12 +77,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
 	public refreshToken(): Observable<any> {
 		if (this.tokenRefreshIsInProgress) {
-			return new Observable(observer => {
-				this.tokenRefreshed$.subscribe(() => {
-					observer.next();
-					observer.complete();
-				});
-			});
+			return timer(5000); // FIXME DJC Determine how to appropriately signal via a mutex to prevent non-reentracy
 		} else {
 			this.tokenRefreshIsInProgress = true;
 
@@ -93,6 +86,12 @@ export class JwtInterceptor implements HttpInterceptor {
 					map(() => {
 						this.tokenRefreshIsInProgress = false;
 						this.tokenRefreshedSource.next();
+					}),
+					catchError(() => {
+						console.debug('INNER - The authToken could not be refreshed; The user will have to provide their credentials again');
+
+						this.logoutLocally();
+						return EMPTY;
 					})
 				);
 		}

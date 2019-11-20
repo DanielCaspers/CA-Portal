@@ -32,6 +32,9 @@ export class RecommendedServiceSeverityComponent {
 	@Input()
 	public severity: RecommendedServiceSeverityNumbers;
 
+	@Input()
+	public showHelpText = true;
+
 	public immediate = RecommendedServiceSeverityNumbers.Immediate;
 	public moderate = RecommendedServiceSeverityNumbers.Moderate;
 	public shouldWatch = RecommendedServiceSeverityNumbers.ShouldWatch;

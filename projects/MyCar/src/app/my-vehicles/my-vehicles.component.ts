@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { sortBy } from 'lodash-es';
+import { first } from 'rxjs/operators';
+
 import { VehicleOverview } from './vehicle.models';
 import { VehiclesHttpService } from './vehicles-http.service';
-import { first } from 'rxjs/operators';
 
 @Component({
 	selector: 'ma-my-vehicles',
@@ -11,32 +13,7 @@ import { first } from 'rxjs/operators';
 })
 export class MyVehiclesComponent implements OnInit {
 
-	public vehicles: VehicleOverview[] = [
-		{
-			year: '2006',
-			make: 'Chevrolet',
-			model: 'Impala',
-			license: 'Z25-7549',
-			color: 'Blue',
-			recommendedServiceSeverity: 1
-		},
-		{
-			year: '1989',
-			make: 'Ferrari',
-			model: 'F40',
-			license: 'AB12345',
-			color: 'Red',
-			recommendedServiceSeverity: 4
-		},
-		{
-			year: '2016',
-			make: 'Ford',
-			model: 'Mustang',
-			license: 'AJ64625',
-			color: 'Grey',
-			recommendedServiceSeverity: 10
-		}
-	];
+	public vehicles: VehicleOverview[] = [];
 
 	constructor(private vehiclesHttpService: VehiclesHttpService) {
 	}
@@ -45,9 +22,13 @@ export class MyVehiclesComponent implements OnInit {
 		this.vehiclesHttpService.getVehiclesForClient()
 			.pipe(first())
 			.subscribe((vehicles) => {
-				// this.vehicles = vehicles;
-				console.debug(vehicles);
+				this.vehicles = sortBy(vehicles, 'aggregateSeverity');
+				console.debug(this.vehicles);
 			});
+	}
+
+	public openVehicleNotesDialog(): void {
+		// this.
 	}
 
 }

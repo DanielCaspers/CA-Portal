@@ -9,7 +9,7 @@
 		<ng-container *ngSwitchDefault>not_interested</ng-container>
 	</mat-icon>
 
-	<div class="mat-caption" [ngSwitch]="severity">
+	<div class="mat-caption" *ngIf="showHelpText" [ngSwitch]="severity">
 		<ng-container *ngSwitchCase="immediate">Immediate</ng-container>
 		<ng-container *ngSwitchCase="moderate">Moderate</ng-container>
 		<ng-container *ngSwitchCase="shouldWatch">Should watch</ng-container>

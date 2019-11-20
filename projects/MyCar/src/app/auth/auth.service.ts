@@ -39,7 +39,7 @@ export class AuthService {
 	}
 
 	public refreshToken(): Observable<boolean> {
-		return this.http.get(`${environment.apiBaseUrl}/auth/renew`, environment.httpOptions)
+		return this.http.get(`${environment.apiBaseUrl}/auth/renew?refreshToken=${this.authTokenService.refreshToken}`, environment.httpOptions)
 			.pipe(
 				map((result) => {
 					this.authTokenService.authToken = (result as any).authToken;
