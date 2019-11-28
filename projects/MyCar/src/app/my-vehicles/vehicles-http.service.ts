@@ -2,8 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { sortBy } from 'lodash-es';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+
+import {
+	RecommendedService
+} from 'murphy-automotive-shared-library';
 
 import { environment } from '../../environments/environment';
 import { AuthTokenService } from '../auth/auth-token.service';
@@ -38,10 +42,10 @@ export class VehiclesHttpService {
 									NotificationCount: rs.notificationCnt,
 									Severity: parseInt(rs.level), // TODO DJC You really need to discuss this with Dad. Not cool....
 									CompanyNumber: rs.coNumber
-								};
+								} as RecommendedService;
 							});
 
-							v.recommendedServices = sortBy(v.recommendedServices, 'Severity').reverse();
+							v.recommendedServices = sortBy(v.recommendedServices, 'Severity', 'LastDateModified');
 							v.aggregateSeverity = v.recommendedServices[0].Severity;
 						}
 						 else {
@@ -55,9 +59,5 @@ export class VehiclesHttpService {
 					return vehiclesDto;
 				})
 		);
-		// Temporarily using this endpoint as it should not fail when unauthorized
-		// return this.httpClient.get(
-		// 	`${environment.apiBaseUrl}/004/orders/004568597`,
-		// 	environment.httpOptions);
 	}
 }

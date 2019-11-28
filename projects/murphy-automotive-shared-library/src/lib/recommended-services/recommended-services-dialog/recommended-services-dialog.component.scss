@@ -1,0 +1,17 @@
+:host {
+	.close-btn {
+		margin-top: -10px;
+	}
+
+	// Centers the leftmost header, since most of the padding is removed.
+	// This better aligns it with ma-recommended-service-severity
+	.table-column-header > :first-child {
+		text-align: center;
+	}
+
+	::ng-deep {
+		.mat-dialog-content {
+			padding: 0 6px !important;
+		}
+	}
+}

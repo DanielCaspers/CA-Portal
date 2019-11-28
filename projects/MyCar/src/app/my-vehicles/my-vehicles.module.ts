@@ -9,7 +9,9 @@ import {
 	MatMenuModule
 } from '@angular/material';
 
-import { RecommendedServiceSeverityModule } from 'murphy-automotive-shared-library';
+import {
+	RecommendedServicesModule,
+} from 'murphy-automotive-shared-library';
 
 import { MyVehiclesRoutingModule } from './my-vehicles-routing.module';
 import { MyVehiclesComponent } from './my-vehicles.component';
@@ -28,7 +30,7 @@ import { VehiclesHttpService } from './vehicles-http.service';
 		MatIconModule,
 		MatMenuModule,
 
-		RecommendedServiceSeverityModule,
+		RecommendedServicesModule,
 
 		MyVehiclesRoutingModule
 	],

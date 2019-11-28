@@ -1,0 +1,25 @@
+<h2 mat-dialog-title fxLayoutGap="30px">
+	<div>
+		Recommended Services <!-- for {{data.vehicleName?.toLowerCase()}} -->
+	</div>
+	<div fxFlex></div>
+	<button mat-icon-button mat-dialog-close>
+		<mat-icon class="close-btn">close</mat-icon>
+	</button>
+</h2>
+<mat-dialog-content>
+	<div fxLayout="column" fxLayoutAlign="space-between center" fxLayoutGap="15px">
+		<!-- Header -->
+		<div class="table-column-header" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxFill>
+			<div class="mat-body-2" fxFlex="80px">Severity</div>
+			<div class="mat-body-2" fxFlex="55px">Date</div>
+			<div class="mat-body-2" fxFlex>Description</div>
+		</div>
+		<!-- Data -->
+		<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px" fxFill *ngFor="let rs of data.recommendedServices">
+			<ma-recommended-service-severity [severity]="rs.Severity" fxFlex="80px"></ma-recommended-service-severity>
+			<div class="mat-body-1" fxFlex="55px">{{rs.LastModifiedDate | date:'shortDate'}}</div>
+			<div class="mat-body-2" fxFlex>{{rs.Description}}</div>
+		</div>
+	</div>
+</mat-dialog-content>

@@ -26,9 +26,4 @@ export class MyVehiclesComponent implements OnInit {
 				console.debug(this.vehicles);
 			});
 	}
-
-	public openVehicleNotesDialog(): void {
-		// this.
-	}
-
 }

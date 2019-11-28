@@ -1,5 +1,10 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 
+import {
+	RecommendedService,
+	RecommendedServicesDialogService
+} from 'murphy-automotive-shared-library';
+
 @Component({
 	selector: 'ma-vehicle-card',
 	templateUrl: './vehicle-card.component.html',
@@ -18,7 +23,7 @@ export class VehicleCardComponent {
 	public license: string;
 
 	@Input()
-	public recommendedServices: any[] = [];
+	public recommendedServices: RecommendedService[] = [];
 
 	@Input()
 	public recommendedServiceSeverity: number;
@@ -26,6 +31,10 @@ export class VehicleCardComponent {
 	@Input()
 	public year: string;
 
-	constructor() {
+	constructor(private recommendedServicesDialogService: RecommendedServicesDialogService) {
+	}
+
+	public openRecommendedServicesDialog(): void {
+		this.recommendedServicesDialogService.open(this.recommendedServices);
 	}
 }

@@ -36,7 +36,7 @@ export class CoreViewComponent implements OnInit {
 	};
 
 	public customerName = '';
-	public primaryEmail = 'steve.caspers@murphyauto.net';
+	// public primaryEmail = 'steve.caspers@murphyauto.net';
 	public pointsBalance = 1234;
 	public navTitle;
 

@@ -41,7 +41,7 @@
 	</mat-card-content>
 
 	<mat-card-actions>
-		<button [disabled]="recommendedServices.length == 0" mat-button color="accent">
+		<button [disabled]="recommendedServices.length == 0" mat-button (click)="openRecommendedServicesDialog()" color="accent">
 			<ng-container *ngIf="recommendedServices.length == 0">
 				No services needed
 			</ng-container>
