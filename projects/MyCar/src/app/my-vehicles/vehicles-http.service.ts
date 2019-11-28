@@ -20,9 +20,8 @@ export class VehiclesHttpService {
 	public getVehiclesForClient(): Observable<any> {
 		const token = this.jwtHelperService.decodeToken(this.authTokenService.authToken);
 
-		// TODO DJC get this from token when available
 		return this.httpClient.get<any>(
-			`${environment.apiBaseUrl}/${token.conos[ 0 ]}/vehicles/client/004001624`,
+			`${environment.apiBaseUrl}/${token.conos[0]}/vehicles/client/${token.conos[0]}${token.clientIDs[0]}`,
 			environment.httpOptions).pipe(
 				map(vehiclesDto => {
 					for (let v of vehiclesDto) {

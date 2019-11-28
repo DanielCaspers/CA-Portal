@@ -49,7 +49,7 @@ export class CoreViewComponent implements OnInit {
 		private router: Router) {
 		this.navTitle = this.navTitleService.navTitle$;
 		const token = this.jwtHelperService.decodeToken(this.authTokenService.authToken);
-		this.customerName = token.firstName + ' ' + token.lastName;
+		this.customerName = token.clientName;
 	}
 
 	public ngOnInit(): void {
