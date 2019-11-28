@@ -55,12 +55,7 @@ export class CoreViewComponent implements OnInit {
 	public ngOnInit(): void {
 		this.storeInfoService.getStoreInfo()
 			.pipe(
-				first(),
-				map(storeInfo => {
-					storeInfo.PhoneNumberToCall.NumberForWebLink = 'tel:' + storeInfo.PhoneNumberToCall.NumberForWebLink;
-					storeInfo.PhoneNumberToSMS.NumberForWebLink = 'sms:' + storeInfo.PhoneNumberToSMS.NumberForWebLink;
-					return storeInfo;
-				})
+				first()
 			)
 			.subscribe(storeInfo => {
 				this.storeInfo = storeInfo;

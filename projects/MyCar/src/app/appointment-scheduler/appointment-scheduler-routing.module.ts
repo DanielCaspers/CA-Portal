@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
+import {
+	CanDeactivateGuard
+} from 'murphy-automotive-shared-library';
+
 import { AppointmentSchedulerComponent } from './appointment-scheduler.component';
-import { CanDeactivateGuard } from '../../../../murphy-automotive-shared-library/src/lib/can-deactivate-guard/can-deactivate.guard';
 
 export const appointmentSchedulerRoutes: Routes = [
 	{
@@ -12,9 +15,10 @@ export const appointmentSchedulerRoutes: Routes = [
 	}
 ];
 @NgModule({
-	imports: [ RouterModule.forChild(appointmentSchedulerRoutes) ],
+	imports: [
+		RouterModule.forChild(appointmentSchedulerRoutes),
+	],
 	exports: [ RouterModule ],
-
 })
 export class AppointmentSchedulerRoutingModule {
 }

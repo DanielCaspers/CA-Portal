@@ -24,7 +24,7 @@
 				Rental cars are available for $30/day. Call for availability and to schedule.
 			</div>
 			<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-				<button mat-button color="accent">Call</button>
+				<a mat-button color="accent" [href]="storeInfo?.PhoneNumberToCall?.NumberForWebLink | safeUrl">Call</a>
 				<button mat-button color="primary" matStepperNext>No thanks, I'll pass</button>
 			</div>
 		</div>
@@ -48,7 +48,7 @@
 							placeholder="Choose a date *">
 					<mat-error *ngIf="date.hasError('required')">Date is required</mat-error>
 					<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-					<mat-datepicker touchUi #picker></mat-datepicker>
+					<mat-datepicker (opened)="onDatePickerOpened()" touchUi #picker></mat-datepicker>
 				</mat-form-field>
 
 				<div>

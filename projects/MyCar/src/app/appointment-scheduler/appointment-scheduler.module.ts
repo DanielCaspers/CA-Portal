@@ -13,14 +13,21 @@ import {
 	MatDialogModule,
 	MatIconModule,
 	MatInputModule,
-	MatNativeDateModule, MatProgressBarModule, MatProgressSpinnerModule,
+	MatNativeDateModule,
+	MatProgressBarModule,
+	MatProgressSpinnerModule,
 	MatSelectModule,
 	MatStepperModule
 } from '@angular/material';
 
+import {
+	CanDeactivateGuard,
+	SafeUrlModule
+} from 'murphy-automotive-shared-library';
+
 import { AppointmentSchedulerRoutingModule } from './appointment-scheduler-routing.module';
 import { AppointmentSchedulerComponent } from './appointment-scheduler.component';
-import { CanDeactivateGuard } from '../../../../murphy-automotive-shared-library/src/lib/can-deactivate-guard/can-deactivate.guard';
+import { AppointmentSchedulerHttpService } from './appointment-scheduler-http.service';
 
 @NgModule({
 	declarations: [ AppointmentSchedulerComponent ],
@@ -45,10 +52,13 @@ import { CanDeactivateGuard } from '../../../../murphy-automotive-shared-library
 		MatSelectModule,
 		MatStepperModule,
 
+		SafeUrlModule,
+
 		AppointmentSchedulerRoutingModule
 	],
 	entryComponents: [ AppointmentSchedulerComponent ],
 	providers: [
+		AppointmentSchedulerHttpService,
 		CanDeactivateGuard,
 		{
 			provide: STEPPER_GLOBAL_OPTIONS,

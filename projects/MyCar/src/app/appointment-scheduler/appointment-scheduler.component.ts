@@ -18,7 +18,12 @@ import { CanDeactivate } from '@angular/router';
 import uniqBy from 'lodash-es/uniqBy';
 
 import { Observable, of } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { first, map, startWith } from 'rxjs/operators';
+
+import { StoreInfo } from '../store-info/store-info.models';
+import { StoreInfoService } from '../store-info/store-info.module';
+import { AppointmentSchedulerHttpService } from './appointment-scheduler-http.service';
+import { AppointmentScheduleResponse } from './appointment-scheduler.models';
 
 export const AtLeastOne = (validator: ValidatorFn) => (
 	group: FormGroup,
@@ -52,6 +57,14 @@ export enum ScheduleProcess {
 export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<AppointmentSchedulerComponent> {
 	public scheduleProgress: ScheduleProcess = ScheduleProcess.Entry;
 
+	public appointmentSchedulerResponse: AppointmentScheduleResponse;
+
+	public storeInfo: StoreInfo = {
+		PhoneNumberToCall: {
+			NumberForWebLink: '+19524322454'
+		}
+	};
+
 	// Stepper config
 	public isLinear = true;
 
@@ -66,10 +79,9 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 	public minDate = new Date();
 	public maxDate = new Date();
 	public dateFilter = (d: Date) => {
-		const isSunday = d.getDay() === 0;
-		// TODO: Rest API call from D3-API to also check fully booked dates
-		return !isSunday;
-	}
+		// TODO DJC Discuss with dad to see if he can easily do ISO strings
+		return this.appointmentSchedulerResponse.daysAvailable.includes(d.toISOString());
+	};
 
 	// Step 4: Select vehicle
 	public vehicleFormGroup: FormGroup;
@@ -112,7 +124,11 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 
 	@ViewChild('issueInput', {static: false}) issueInput: ElementRef<HTMLInputElement>;
 
-	constructor(private formBuilder: FormBuilder, private dialogService: MatDialog) {
+	constructor(
+		private appointmentSchedulerHttpService: AppointmentSchedulerHttpService,
+		private dialogService: MatDialog,
+		private formBuilder: FormBuilder,
+		private storeInfoService: StoreInfoService) {
 		// Prevent users from scheduling too far in advance.
 		this.maxDate.setMonth(this.maxDate.getMonth() + 1);
 	}
@@ -124,6 +140,16 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 			startWith(null),
 			map((issue: string | null) => !!issue ? this.filterIssues(issue) : [...this.allIssues] )
 		);
+
+		this.storeInfoService.getStoreInfo()
+			.pipe(
+				first()
+			)
+			.subscribe(storeInfo => {
+				this.storeInfo = storeInfo;
+			});
+
+		this.getAvailableDates();
 	}
 
 	public canDeactivate(): Observable<boolean> | boolean {
@@ -135,6 +161,22 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 		const confirmation = window.confirm('Discard unsaved changes and leave the page?');
 
 		return of(confirmation);
+	}
+
+	/*
+	 * Date filtering and date picker methods
+	 */
+	public onDatePickerOpened(): void {
+		this.getAvailableDates();
+	}
+
+	private getAvailableDates(): void {
+		this.appointmentSchedulerHttpService.getAvaliableDates()
+			.pipe(
+				first()
+			).subscribe((response: AppointmentScheduleResponse) => {
+			this.appointmentSchedulerResponse = response;
+		});
 	}
 
 	/*
