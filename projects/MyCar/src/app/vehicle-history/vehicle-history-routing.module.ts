@@ -7,6 +7,10 @@ export const vehicleHistoryRoutes: Routes = [
 	{
 		path: '',
 		component: VehicleHistoryComponent
+	},
+	{
+		path: ':vehicleId',
+		component: VehicleHistoryComponent
 	}
 ];
 

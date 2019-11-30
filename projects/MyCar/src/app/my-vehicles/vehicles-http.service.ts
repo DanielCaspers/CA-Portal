@@ -11,6 +11,7 @@ import {
 
 import { environment } from '../../environments/environment';
 import { AuthTokenService } from '../auth/auth-token.service';
+import { VehicleOverview } from './vehicle.models';
 
 @Injectable()
 export class VehiclesHttpService {
@@ -21,7 +22,7 @@ export class VehiclesHttpService {
 		private jwtHelperService: JwtHelperService) {
 	}
 
-	public getVehiclesForClient(): Observable<any> {
+	public getVehiclesForClient(): Observable<VehicleOverview[]> {
 		const token = this.jwtHelperService.decodeToken(this.authTokenService.authToken);
 
 		return this.httpClient.get<any>(
@@ -56,7 +57,7 @@ export class VehiclesHttpService {
 						 delete v.vehicleRS;
 					}
 
-					return vehiclesDto;
+					return vehiclesDto as VehicleOverview[];
 				})
 		);
 	}

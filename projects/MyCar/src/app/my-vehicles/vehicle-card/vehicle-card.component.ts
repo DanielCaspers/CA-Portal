@@ -29,6 +29,9 @@ export class VehicleCardComponent {
 	public recommendedServiceSeverity: number;
 
 	@Input()
+	public vehicleId: string;
+
+	@Input()
 	public year: string;
 
 	constructor(private recommendedServicesDialogService: RecommendedServicesDialogService) {

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { CouponsRoutingModule } from './coupons-routing.module';
 import { MyCouponsComponent } from './my-coupons/my-coupons.component';
 import { CouponCardComponent } from './coupon-card/coupon-card.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { CouponHttpService } from './coupon-http.service';
 
 @NgModule({
 	declarations: [ MyCouponsComponent, CouponCardComponent ],
@@ -14,10 +14,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 		CommonModule,
 		FlexLayoutModule,
 
-		MatCardModule,
-
 		CouponsRoutingModule
-	]
+	],
+	providers: [CouponHttpService]
 })
 export class CouponsModule {
 }

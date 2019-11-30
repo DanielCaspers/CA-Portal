@@ -13,4 +13,8 @@ export class CouponCardComponent {
 
 	constructor() {
 	}
+
+	public onClick(): void {
+		window.open(this.imgSrc, '_blank');
+	}
 }

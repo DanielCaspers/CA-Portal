@@ -1,24 +1,38 @@
-<div fxLayout.gt-sm="row" fxLayout.lt-md="column" fxLayoutAlign="space-around center" fxLayoutGap="8px" class="my-coupons-container">
-	<!--<ma-coupon-card-->
-			<!--fxFlex-->
-			<!--*ngFor="let coupon of coupons"-->
-			<!--[imgSrc]="coupon.imgSrc">-->
-	<!--</ma-coupon-card>-->
+<div class="my-coupons-container">
+	<ng-container *ngIf="generalOffers.length > 0">
+		<h2 class="mat-headline" style="text-align: center;" >General offers</h2>
 
-	<h2 class="mat-title">General offers</h2>
+		<div
+				fxLayout="row wrap"
+				fxLayout.lt-sm="column"
+				fxLayoutGap="32px"
+				fxLayoutAlign="space-evenly">
+			<ma-coupon-card
+					fxFlex="0 1 calc(33.3% - 32px)"
+					fxFlex.lt-md="0 1 calc(50% - 32px)"
+					fxFlex.lt-sm="100%"
+					*ngFor="let coupon of generalOffers"
+					[imgSrc]="coupon.imgSrc">
+			</ma-coupon-card>
+		</div>
+	</ng-container>
 
-	<ma-coupon-card
-			fxFlex
-			*ngFor="let coupon of generalOffers"
-			[imgSrc]="coupon.imgSrc">
-	</ma-coupon-card>
+	<ng-container *ngIf="tireOffers.length > 0">
+		<div style="height: 50px"></div>
+		<h2 class="mat-headline" style="text-align: center;">Tire offers</h2>
 
-	<div style="height: 50px"></div>
-	<h2 class="mat-title">Tire offers</h2>
-
-	<ma-coupon-card
-			fxFlex
-			*ngFor="let coupon of tireOffers"
-			[imgSrc]="coupon.imgSrc">
-	</ma-coupon-card>
+		<div
+				fxLayout="row wrap"
+				fxLayout.lt-sm="column"
+				fxLayoutGap="32px"
+				fxLayoutAlign="space-evenly">
+			<ma-coupon-card
+					fxFlex="0 1 calc(33.3% - 32px)"
+					fxFlex.lt-md="0 1 calc(50% - 32px)"
+					fxFlex.lt-sm="100%"
+					*ngFor="let coupon of tireOffers"
+					[imgSrc]="coupon.imgSrc">
+			</ma-coupon-card>
+		</div>
+	</ng-container>
 </div>

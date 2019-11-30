@@ -7,6 +7,10 @@ export const couponRoutes: Routes = [
 		path: '',
 		component: MyCouponsComponent
 	},
+	{
+		path: ':vehicleId',
+		component: MyCouponsComponent
+	},
 ];
 
 @NgModule({
