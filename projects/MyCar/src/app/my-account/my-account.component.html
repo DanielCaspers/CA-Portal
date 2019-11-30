@@ -1,0 +1,53 @@
+<div class="my-account-container">
+	<form [formGroup]="accountFormGroup" fxLayout="column" fxLayoutGap="10px" fxFill>
+		<mat-form-field fxFlex>
+			<input
+					formControlName="name"
+					matInput
+					placeholder="Name *"
+					type="text">
+		</mat-form-field>
+
+		<mat-form-field fxFlex>
+			<input
+					formControlName="line1"
+					matInput
+					placeholder="Address Line 1 *"
+					type="text">
+		</mat-form-field>
+
+		<mat-form-field fxFlex>
+			<input
+					formControlName="line2"
+					matInput
+					placeholder="Address Line 2"
+					type="text">
+		</mat-form-field>
+
+		<mat-form-field fxFlex>
+			<input
+					formControlName="city"
+					matInput
+					placeholder="City *"
+					type="text">
+		</mat-form-field>
+
+		<div>
+			<mat-form-field fxFlex="25">
+				<input
+						formControlName="state"
+						matInput
+						placeholder="State *"
+						type="text">
+			</mat-form-field>
+
+			<mat-form-field fxFlex>
+				<input
+						formControlName="zip"
+						matInput
+						placeholder="Zip *"
+						type="text">
+			</mat-form-field>
+		</div>
+	</form>
+</div>

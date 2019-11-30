@@ -19,6 +19,7 @@ import { AppointmentSchedulerModule } from '../appointment-scheduler/appointment
 import { CouponsModule } from '../coupons/coupons.module';
 import { VehicleHistoryModule } from '../vehicle-history/vehicle-history.module';
 import { VipRewardsModule } from '../vip-rewards/vip-rewards.module';
+import { MyAccountModule } from '../my-account/my-account.module';
 // import { StoreInfoModule } from '../store-info/store-info.module';
 
 @NgModule({
@@ -41,6 +42,7 @@ import { VipRewardsModule } from '../vip-rewards/vip-rewards.module';
 		SafeUrlModule,
 		NavTitleModule,
 
+		MyAccountModule,
 		MyVehiclesModule,
 		AppointmentSchedulerModule,
 		CouponsModule,

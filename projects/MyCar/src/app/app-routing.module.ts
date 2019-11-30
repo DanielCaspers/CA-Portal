@@ -9,6 +9,7 @@ import { vehicleHistoryRoutes } from './vehicle-history/vehicle-history-routing.
 import { AuthGuard } from './auth/auth.guard';
 import { LoginComponent } from './login/login.component';
 import { vipRewardsRoutes } from './vip-rewards/vip-rewards-routing.module';
+import { accountRoutes } from './my-account/my-account-routing.module';
 
 const routes: Routes = [
 	{
@@ -21,6 +22,13 @@ const routes: Routes = [
 				path: '',
 				redirectTo: 'vehicles',
 				pathMatch: 'full'
+			},
+			{
+				path: 'account',
+				children: accountRoutes,
+				data: {
+					title: 'My account'
+				}
 			},
 			{
 				path: 'vehicles',

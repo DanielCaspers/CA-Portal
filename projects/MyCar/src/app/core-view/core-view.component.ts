@@ -9,6 +9,8 @@ import { AuthService } from '../auth/auth.service';
 import { AuthTokenService } from '../auth/auth-token.service';
 import { StoreInfoService } from '../store-info/store-info.service';
 import { StoreInfo } from '../store-info/store-info.models';
+import { AccountHttpService } from '../my-account/account-http.service';
+import { AccountOverview } from '../my-account/account.models';
 
 // import { StoreInfo, StoreInfoService } from '../store-info/store-info.module';
 
@@ -35,21 +37,27 @@ export class CoreViewComponent implements OnInit {
 		}
 	};
 
+	public account: AccountOverview;
 	public customerName = '';
 	// public primaryEmail = 'steve.caspers@murphyauto.net';
-	public pointsBalance = 1234;
+	public pointsBalance: number;
 	public navTitle;
 
+	private token;
+
 	constructor(
-		private navTitleService: NavTitleService,
+		private accountHttpService: AccountHttpService,
 		private authService: AuthService,
 		private authTokenService: AuthTokenService,
 		private jwtHelperService: JwtHelperService,
-		private storeInfoService: StoreInfoService,
-		private router: Router) {
+		private navTitleService: NavTitleService,
+		private router: Router,
+		private storeInfoService: StoreInfoService) {
+
 		this.navTitle = this.navTitleService.navTitle$;
-		const token = this.jwtHelperService.decodeToken(this.authTokenService.authToken);
-		this.customerName = token.clientName;
+
+		this.token = this.jwtHelperService.decodeToken(this.authTokenService.authToken);
+		this.customerName = this.token.clientName;
 	}
 
 	public ngOnInit(): void {
@@ -59,6 +67,15 @@ export class CoreViewComponent implements OnInit {
 			)
 			.subscribe(storeInfo => {
 				this.storeInfo = storeInfo;
+			});
+
+		this.accountHttpService.getAccount()
+			.pipe(
+				first()
+			)
+			.subscribe(account => {
+				this.account = account;
+				this.pointsBalance = account.loyaltyAccount.vipPointBalance;
 			});
 	}
 
