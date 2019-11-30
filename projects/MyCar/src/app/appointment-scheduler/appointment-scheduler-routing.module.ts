@@ -12,6 +12,11 @@ export const appointmentSchedulerRoutes: Routes = [
 		path: '',
 		component: AppointmentSchedulerComponent,
 		canDeactivate: [CanDeactivateGuard]
+	},
+	{
+		path: ':vehicleId',
+		component: AppointmentSchedulerComponent,
+		canDeactivate: [CanDeactivateGuard]
 	}
 ];
 @NgModule({

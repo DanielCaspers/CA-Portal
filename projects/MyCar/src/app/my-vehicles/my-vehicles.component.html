@@ -1,17 +1,21 @@
-<!--<div fxFlexFill fxLayout="column" fxLayoutGap="20px">-->
-	<div fxLayout.gt-sm="row" fxLayout.lt-md="column" fxLayoutAlign="space-around center" fxLayoutGap="8px" class="my-vehicles-container">
-
+<div class="my-vehicles-container">
+	<div
+			fxLayout="row wrap"
+			fxLayout.lt-sm="column"
+			fxLayoutGap="32px"
+			fxLayoutAlign="space-evenly">
 		<ma-vehicle-card
-			fxFlex
-			*ngFor="let vehicle of vehicles"
-			[year]="vehicle.year"
-			[make]="vehicle.make"
-			[model]="vehicle.model"
-			[license]="vehicle.license"
-			[recommendedServices]="vehicle.recommendedServices"
-			[recommendedServiceSeverity]="vehicle.aggregateSeverity"
-			[vehicleId]="vehicle.vehicleID">
+				fxFlex="0 1 calc(33.3% - 32px)"
+				fxFlex.lt-md="0 1 calc(50% - 32px)"
+				fxFlex.lt-sm="100%"
+				*ngFor="let vehicle of vehicles"
+				[year]="vehicle.year"
+				[make]="vehicle.make"
+				[model]="vehicle.model"
+				[license]="vehicle.license"
+				[recommendedServices]="vehicle.recommendedServices"
+				[recommendedServiceSeverity]="vehicle.aggregateSeverity"
+				[vehicleId]="vehicle.vehicleID">
 		</ma-vehicle-card>
-
 	</div>
-<!--</div>-->
+</div>

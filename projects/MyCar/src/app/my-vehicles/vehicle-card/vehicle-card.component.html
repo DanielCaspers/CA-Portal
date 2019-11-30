@@ -1,9 +1,9 @@
 <mat-card>
 	<mat-card-header fxFlexFill>
-		<ma-recommended-service-severity mat-card-avatar [severity]="recommendedServiceSeverity"></ma-recommended-service-severity>
-		<!--<img mat-card-avatar-->
-		<!--src="https://lh3.googleusercontent.com/eqG_g_TFDpELS8kzXWhyfuW64nZYxZPQU2632DDGVVprkiYEAfhnhN27UOZtcr5syFOyeDRlE5qBU1p4OvBWZA5hL1OkD-3CUoeo2uV0VbP4BmLzWhKLhWRGBJwY-gfk5iMTp0Xlx5AgR5ISUA5jn5KYs_GgJSvQYTm_2pBNXkxw6CMPRVsJouY_jYlEmEFCORhI4IrXbi62nKQ1Gw3iVO_c5A5U_p3pdgoxwvyb8ITKjKSKfraQ1zk9s9ZBcikOMjJH7TT5RX0VEmmfcNChIvwmrO60T_5QwEIrJWwq-VfU92avRqXE1fuV-y-IYMj8Q-bUByBKx30YDCrGPGkMg1oIeaBSCiFexPruUCeq5EQyzGoZH1Gr5Ojo110UT6cw7szahAoI3KFlrCrPkJCf9KpC5cL2G6eVTJexD3A5p083ySdUkNIeY1Z3xPLm29dKJPQrWPJD_dvMi3DurhgglQeeELQ75qEABpWgzSewnQMo3teHUad3KceHdezSMCFQVi9TB6odvJDfy5HOgYIDgegkQh1F29XyJX1wb-b6SbO0RsdSL9jOx9tv3y6It_k-gRPJv4T1CwYHR1_tzWR5QjvhhFjVz4mLRELu0XnXKWQHPhzVhiWmZJw8g9b2rxdakEpGA6ExhqLuRHWdnb8HRGSl9ggNY0hI5Xj7T1TNZVu-wHSDnPTGu-jyullJTHCdkY6_vHbUnRYt-ENIvg=w1947-h1298-no"-->
-		<!--&gt;-->
+<!--		<ma-recommended-service-severity -->
+<!--				mat-card-avatar-->
+<!--				[severity]="recommendedServiceSeverity">-->
+<!--		</ma-recommended-service-severity>-->
 		<mat-card-title>
 			{{year}} {{make}} {{model}}
 		</mat-card-title>
@@ -42,6 +42,8 @@
 
 	<mat-card-actions>
 		<button [disabled]="recommendedServices.length == 0" mat-button (click)="openRecommendedServicesDialog()" color="accent">
+			<ma-recommended-service-severity [showHelpText]="false" [severity]="recommendedServiceSeverity"></ma-recommended-service-severity>
+
 			<ng-container *ngIf="recommendedServices.length == 0">
 				No services needed
 			</ng-container>
@@ -49,9 +51,7 @@
 				Services needed
 			</ng-container>
 		</button>
-		<!--<button mat-button color="accent">Coupons</button>-->
-		<button mat-button color="accent">Schedule</button>
-		<!--<button mat-button color="accent">History</button>-->
+		<button [routerLink]="['/schedule/', vehicleId]" mat-button color="accent">Schedule</button>
 
 		<div fxFlex></div>
 

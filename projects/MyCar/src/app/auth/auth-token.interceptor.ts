@@ -6,6 +6,7 @@ import { catchError, first, flatMap, map, switchMap } from 'rxjs/operators';
 
 import { AuthTokenService } from './auth-token.service';
 import { AuthService } from './auth.service';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -17,6 +18,11 @@ export class JwtInterceptor implements HttpInterceptor {
 	constructor(private authService: AuthService, private authTokenService: AuthTokenService, private router: Router) { }
 
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+		// For requests which are not to our own API, avoid adding the authorization header or refresh token handling.
+		if (!request.url.startsWith(environment.apiBaseUrl)) {
+			return next.handle(request);
+		}
+
 		request = this.addAuthHeader(request);
 
 		return next.handle(request)
@@ -77,7 +83,7 @@ export class JwtInterceptor implements HttpInterceptor {
 
 	public refreshToken(): Observable<any> {
 		if (this.tokenRefreshIsInProgress) {
-			return timer(5000); // FIXME DJC Determine how to appropriately signal via a mutex to prevent non-reentracy
+			return timer(2000); // FIXME DJC Determine how to appropriately signal via a mutex to prevent non-reentracy
 		} else {
 			this.tokenRefreshIsInProgress = true;
 
