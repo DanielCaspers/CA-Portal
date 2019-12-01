@@ -16,6 +16,7 @@ import {
 import { MyAccountRoutingModule } from './my-account-routing.module';
 import { MyAccountComponent } from './my-account.component';
 import { AccountHttpService } from './account-http.service';
+import { VipRewardsModule } from './vip-rewards/vip-rewards.module';
 
 @NgModule({
 	declarations: [ MyAccountComponent ],
@@ -30,6 +31,7 @@ import { AccountHttpService } from './account-http.service';
 		MatInputModule,
 		MatFormFieldModule,
 
+		VipRewardsModule,
 		MyAccountRoutingModule
 	],
 	entryComponents: [ MyAccountComponent ],

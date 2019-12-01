@@ -2,13 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { CoreViewComponent } from './core-view/core-view.component';
+import { AuthGuard } from './auth/auth.guard';
+import { LoginComponent } from './login/login.component';
+
 import { vehicleRoutes } from './my-vehicles/my-vehicles-routing.module';
 import { appointmentSchedulerRoutes } from './appointment-scheduler/appointment-scheduler-routing.module';
 import { couponRoutes } from './coupons/coupons-routing.module';
 import { vehicleHistoryRoutes } from './vehicle-history/vehicle-history-routing.module';
-import { AuthGuard } from './auth/auth.guard';
-import { LoginComponent } from './login/login.component';
-import { vipRewardsRoutes } from './vip-rewards/vip-rewards-routing.module';
+import { vipRewardsRoutes } from './my-account/vip-rewards/vip-rewards-routing.module';
 import { accountRoutes } from './my-account/my-account-routing.module';
 
 const routes: Routes = [

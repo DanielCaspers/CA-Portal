@@ -18,7 +18,6 @@ import { MyVehiclesModule } from '../my-vehicles/my-vehicles.module';
 import { AppointmentSchedulerModule } from '../appointment-scheduler/appointment-scheduler.module';
 import { CouponsModule } from '../coupons/coupons.module';
 import { VehicleHistoryModule } from '../vehicle-history/vehicle-history.module';
-import { VipRewardsModule } from '../vip-rewards/vip-rewards.module';
 import { MyAccountModule } from '../my-account/my-account.module';
 // import { StoreInfoModule } from '../store-info/store-info.module';
 
@@ -47,7 +46,6 @@ import { MyAccountModule } from '../my-account/my-account.module';
 		AppointmentSchedulerModule,
 		CouponsModule,
 		VehicleHistoryModule,
-		VipRewardsModule
 	],
 	providers: []
 })
