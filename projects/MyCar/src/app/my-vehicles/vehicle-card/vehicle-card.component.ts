@@ -34,6 +34,12 @@ export class VehicleCardComponent {
 	@Input()
 	public year: string;
 
+	@Input()
+	public nextOilChangeDate: string;
+
+	@Input()
+	public nextOilChangeOdometer: Date;
+
 	constructor(private recommendedServicesDialogService: RecommendedServicesDialogService) {
 	}
 

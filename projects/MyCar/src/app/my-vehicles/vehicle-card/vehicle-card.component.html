@@ -30,11 +30,11 @@
 
 	<mat-card-content>
 		<div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center">
-			<div>
+			<div *ngIf="nextOilChangeDate && nextOilChangeOdometer">
 				<p>Next service due</p>
 				<ul>
-					<li>Date: 09/08/17, or</li>
-					<li>Mileage: 155,003</li>
+					<li>Date: {{nextOilChangeDate | date:'shortDate'}}, or</li>
+					<li>Mileage: {{nextOilChangeOdometer | number: '': 'en-US' }}</li>
 				</ul>
 			</div>
 		</div>
@@ -45,10 +45,10 @@
 			<ma-recommended-service-severity [showHelpText]="false" [severity]="recommendedServiceSeverity"></ma-recommended-service-severity>
 
 			<ng-container *ngIf="recommendedServices.length == 0">
-				No services needed
+				No service needed
 			</ng-container>
 			<ng-container *ngIf="recommendedServices.length > 0">
-				Services needed
+				Service needed
 			</ng-container>
 		</button>
 		<button [routerLink]="['/schedule/', vehicleId]" mat-button color="accent">Schedule</button>

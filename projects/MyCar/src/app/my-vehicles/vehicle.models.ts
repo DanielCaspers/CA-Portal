@@ -12,4 +12,6 @@ export interface VehicleOverview {
 	recommendedServices: RecommendedService[],
 	aggregateSeverity: number;
 	vehicleID: string;
+	nextOilChangeOdometer: number;
+	nextOilChangeDate: Date;
 }

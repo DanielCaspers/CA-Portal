@@ -22,7 +22,7 @@ export class MyVehiclesComponent implements OnInit {
 		this.vehiclesHttpService.getVehiclesForClient()
 			.pipe(first())
 			.subscribe((vehicles) => {
-				this.vehicles = sortBy(vehicles, 'aggregateSeverity');
+				this.vehicles = sortBy(vehicles, 'aggregateSeverity', 'make', 'model');
 				console.debug(this.vehicles);
 			});
 	}

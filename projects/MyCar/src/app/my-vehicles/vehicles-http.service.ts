@@ -36,7 +36,7 @@ export class VehiclesHttpService {
 									Id: rs.id,
 									Description: rs.desc,
 									OrderId: rs.orderId,
-									LastModifiedDate: new Date(rs.date),
+									LastModifiedDate: new Date(rs.date * 1000),
 									TechnicianId: rs.techNum,
 									AppLink: rs.DIlink,
 									EstimateId: rs.estID,
@@ -55,6 +55,23 @@ export class VehiclesHttpService {
 						}
 
 						 delete v.vehicleRS;
+
+						 // Only set this data if null/non-negative
+						 if (!!v.vehicleMaintDetails &&
+							 v.vehicleMaintDetails.length > 0 &&
+						 	Math.sign(v.vehicleMaintDetails[0].lofLastOdometer) == 1 &&
+							 Math.sign(v.vehicleMaintDetails[0].lofLastDate) == 1 &&
+							 Math.sign(v.vehicleMaintDetails[0].lofIntervalDays) == 1 &&
+							 Math.sign(v.vehicleMaintDetails[0].lofIntervalMiles) == 1) {
+
+						 	v.nextOilChangeDate = new Date(
+								(v.vehicleMaintDetails[0].lofLastDate * 1000) +
+								v.vehicleMaintDetails[0].lofIntervalDays);
+
+						 	v.nextOilChangeOdometer = v.vehicleMaintDetails[0].lofLastOdometer + v.vehicleMaintDetails[0].lofIntervalMiles;
+
+						 	delete v.vehicleMaintDetails;
+						 }
 					}
 
 					return vehiclesDto as VehicleOverview[];
