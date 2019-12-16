@@ -15,7 +15,9 @@ export class CouponHttpService {
 		return couponDtos.map((dto) => {
 			return {
 				imgSrc: dto.cpnURL,
-				offerType: CouponOfferType.General
+				offerType: dto.offerCategory === 'tires' ?
+						CouponOfferType.Tire :
+						CouponOfferType.General
 			} as Coupon;
 		});
 	}

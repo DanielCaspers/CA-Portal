@@ -15,7 +15,6 @@ import { CouponHttpService } from '../coupon-http.service';
 })
 export class MyCouponsComponent implements OnInit {
 
-	public coupons: Coupon[] = [];
 	public tireOffers: Coupon[] = [];
 	public generalOffers: Coupon[] = [];
 
@@ -39,9 +38,8 @@ export class MyCouponsComponent implements OnInit {
 				first()
 			)
 			.subscribe(coupons => {
-				this.coupons = coupons;
-				this.tireOffers = this.coupons.filter(c => c.offerType === CouponOfferType.Tire);
-				this.generalOffers = this.coupons.filter(c => c.offerType === CouponOfferType.General);
+				this.tireOffers = coupons.filter(c => c.offerType === CouponOfferType.Tire);
+				this.generalOffers = coupons.filter(c => c.offerType === CouponOfferType.General);
 			});
 	}
 }
