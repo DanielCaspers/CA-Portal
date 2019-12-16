@@ -15,7 +15,7 @@ export class CouponHttpService {
 		return couponDtos.map((dto) => {
 			return {
 				imgSrc: dto.cpnURL,
-				offerType: dto.offerCategory === 'tires' ?
+				offerType: dto.offerCategory.toLowerCase() === 'tires' ?
 						CouponOfferType.Tire :
 						CouponOfferType.General
 			} as Coupon;
