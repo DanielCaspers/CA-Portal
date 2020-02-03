@@ -33,6 +33,9 @@ export class StoreInfoService {
 				// Map D3-API Model to Cleaner, Internal Model
 				map((dto) => {
 					return {
+						EmailAddress: {
+							DisplayValue: dto.emailAddress
+						},
 						PhoneNumberToCall: {
 							ContactName: dto.conameShort,
 							Number: dto.cophone,
@@ -52,6 +55,7 @@ export class StoreInfoService {
 				map(storeInfo => {
 					storeInfo.PhoneNumberToCall.NumberForWebLink = 'tel:' + storeInfo.PhoneNumberToCall.NumberForWebLink;
 					storeInfo.PhoneNumberToSMS.NumberForWebLink = 'sms:' + storeInfo.PhoneNumberToSMS.NumberForWebLink;
+					storeInfo.EmailAddress.MailtoLink = 'mailto:' + storeInfo.EmailAddress.DisplayValue;
 					return storeInfo;
 				})
 			);

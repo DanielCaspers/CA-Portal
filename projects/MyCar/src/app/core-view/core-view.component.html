@@ -82,12 +82,11 @@
 					<h4 mat-line>Call Us</h4>
 					<p mat-line>{{storeInfo?.PhoneNumberToCall?.Number}}</p>
 				</a>
-				<!-- Pending API expansion provided. See #38. -->
-<!--				<a mat-list-item [href]="storeInfo?.PhoneNumberToSMS?.NumberForWebLink | safeUrl">-->
-<!--					<mat-icon mat-list-icon color="primary">email</mat-icon>-->
-<!--					<h4 mat-line>Email Us</h4>-->
-<!--					<p mat-line>{{storeInfo?.PhoneNumberToSMS?.Number}}</p>-->
-<!--				</a>-->
+				<a mat-list-item [href]="storeInfo?.EmailAddress.MailtoLink | safeUrl" target="_top">
+					<mat-icon mat-list-icon color="primary">email</mat-icon>
+					<h4 mat-line>Email Us</h4>
+					<p mat-line>{{storeInfo?.EmailAddress.DisplayValue}}</p>
+				</a>
 				<a mat-list-item [href]="storeInfo?.PhoneNumberToSMS?.NumberForWebLink | safeUrl">
 					<mat-icon mat-list-icon color="primary">message</mat-icon>
 					<h4 mat-line>Text Us</h4>

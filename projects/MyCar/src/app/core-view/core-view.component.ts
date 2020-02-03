@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { first, map } from 'rxjs/operators';
+import { first } from 'rxjs/operators';
 
 import { NavTitleService } from 'murphy-automotive-shared-library';
 
@@ -21,25 +21,11 @@ import { AccountOverview } from '../my-account/account.models';
 })
 export class CoreViewComponent implements OnInit {
 
-	// Defaulting to values until loaded for least disorienting experience
 	// TODO DJC Make store-info sharable
-	public storeInfo: StoreInfo = {
-		PhoneNumberToCall: {
-			NumberForWebLink: '+19524322454'
-		},
-		PhoneNumberToSMS: {
-			NumberForWebLink: '+19524322454'
-		},
-		StoreWebAssets: {
-			// LogoSmall: 'https://via.placeholder.com/109x69/b40000/b40000',
-			LogoSmall: 'https://www.protech-automotive.com/_images/logos/004.png',
-			WebAddress: 'https://www.protech-automotive.com/'
-		}
-	};
+	public storeInfo: StoreInfo;
 
 	public account: AccountOverview;
 	public customerName = '';
-	// public primaryEmail = 'steve.caspers@murphyauto.net';
 	public pointsBalance: number;
 	public navTitle;
 

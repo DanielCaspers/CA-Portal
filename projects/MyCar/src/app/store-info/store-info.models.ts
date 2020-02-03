@@ -1,8 +1,14 @@
 export interface StoreInfo {
+	EmailAddress: EmailAddress;
 	PhoneNumberToCall?: WebPhoneNumber;
 	PhoneNumberToSMS?: WebPhoneNumber;
 	StoreWebAssets?: StoreWebAssets;
 	StoreAddress?: StoreAddress;
+}
+
+export interface EmailAddress {
+	DisplayValue: string;
+	MailtoLink: string;
 }
 
 export interface WebPhoneNumber {

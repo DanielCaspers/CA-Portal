@@ -62,11 +62,7 @@ export enum ScheduleProcess {
 export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<AppointmentSchedulerComponent> {
 	public scheduleProgress: ScheduleProcess = ScheduleProcess.Entry;
 
-	public storeInfo: StoreInfo = {
-		PhoneNumberToCall: {
-			NumberForWebLink: '+19524322454'
-		}
-	};
+	public storeInfo: StoreInfo;
 
 	// Autocomplete inputs config
 	public readonly separatorKeysCodes: number[] = [ENTER];
