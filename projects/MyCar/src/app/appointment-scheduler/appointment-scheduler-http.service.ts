@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 
 import { environment } from '../../environments/environment';
 import { AuthTokenService } from '../auth/auth-token.service';
-import { AppointmentScheduleResponse } from './appointment-scheduler.models';
+import { AppointmentScheduleResponse, AppointmentSchedulerRequest, AppointmentType } from './appointment-scheduler.models';
 import { DynamicFormData } from './appointment-scheduler.component';
 
 @Injectable()
@@ -77,5 +77,44 @@ export class AppointmentSchedulerHttpService {
 			.pipe(
 				map(AppointmentSchedulerHttpService.fuelEconomyApiMapper)
 			);
+	}
+
+	public scheduleAppointment(request: AppointmentSchedulerRequest): Observable<any> {
+		const token = this.jwtHelperService.decodeToken(this.authTokenService.authToken);
+
+		const requestDto = this.appointmentMapper(request, token.clientIDs[0], token.conos[0]);
+
+		return this.httpClient.post<any>(
+			`${environment.apiBaseUrl}/${token.conos[0]}/orders`,
+				requestDto,
+				environment.httpOptions
+			)
+			.pipe(
+				map(dto => {
+					return dto;
+				})
+			);
+	}
+
+	private appointmentMapper(request: AppointmentSchedulerRequest, clientId: string, companyNumber: number): any {
+		let dto = {
+			cono: companyNumber,
+			schedDate: request.ScheduleDate.getTime() / 1000, // D3-API expects *seconds* from epoch
+			clientID: clientId,
+			// preferredContacts: undefined, // Do not use for now according to Dad. NYI, YAGNI
+			newVehicle: request.AppointmentType == AppointmentType.NewVehicle,
+			vehicleID: request.vehicleID,
+			vehicleYear: request.year,
+			vehicleMake: request.make,
+			vehicleModel: request.model,
+			vehicleLicense: request.license,
+			vehicleColor: request.color,
+			vehicleEngine: request.engine,
+			vehicleTransmission: request.transmission,
+			workDesc: request.WorkDescription,
+			sendConfirmation: true
+		};
+
+		return dto;
 	}
 }

@@ -26,9 +26,9 @@ import { first, map, startWith } from 'rxjs/operators';
 import { StoreInfo } from '../store-info/store-info.models';
 import { StoreInfoService } from '../store-info/store-info.module';
 import { AppointmentSchedulerHttpService } from './appointment-scheduler-http.service';
-import { AppointmentScheduleResponse } from './appointment-scheduler.models';
+import { AppointmentScheduleResponse, AppointmentSchedulerRequest, AppointmentType } from './appointment-scheduler.models';
 import { VehiclesHttpService } from '../my-vehicles/vehicles-http.service';
-import { VehicleOverview } from '../my-vehicles/vehicle.models';
+import { VehicleBase, VehicleOverview } from '../my-vehicles/vehicle.models';
 
 export const AtLeastOne = (validator: ValidatorFn) => (
 	group: FormGroup,
@@ -97,15 +97,20 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 
 	// Step 4: Select vehicle
 	public vehicleFormGroup: FormGroup;
-	public isVehicleNewToCustomer: 'New' | 'Existing' = 'Existing';
+	public appointmentType: AppointmentType = AppointmentType.ExistingVehicle;
 
 	private vehicleId: string;
+
+	/**
+	 * Used to provide vehicle scheduling information for when an existing vehicle is chosen for an appointment.
+	 */
+	private myVehicles: VehicleOverview[] = [];
 
 	/**
 	 * A user's vehicles if the schedule an appointment for
 	 * an existing vehicle
 	 */
-	public myVehicles: DynamicFormData[] = [];
+	public myVehicleOptions: DynamicFormData[] = [];
 
 	/**
 	 * Valid vehicle years if scheduling an appointment
@@ -215,13 +220,24 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 		this.vehiclesHttpService.getVehiclesForClient()
 			.pipe(first())
 			.subscribe((vehicles: VehicleOverview[]) => {
-				this.myVehicles = vehicles.map((v) => {
-					return {
-						formValue: v.vehicleID,
-						viewValue: `${v.year} ${v.make} ${v.model} (${v.license})`
-					}
-				});
-				this.myVehicles = sortBy(this.myVehicles, 'viewValue');
+				this.myVehicles = vehicles;
+				this.myVehicleOptions = vehicles
+					.map((v) => {
+						// When clients schedule vehicles which have not yet been serviced,
+						// they are entered into the vehicles collection without having been
+						// inserted with an ID. Therefore, we make the following identifier which is
+						// *unlikely* to collide for normal cases.
+						// In the event that the user has identical new vehicles of some year, make and model,
+						// picking one arbitrarily will have the same effect on the back end of making a new record.
+						const vehicleIdentifier = v.vehicleID == '' ?
+							this.getVehicleOptionViewValue(v) :
+							v.vehicleID;
+						return {
+							formValue: vehicleIdentifier,
+							viewValue: this.getVehicleOptionViewValue(v)
+						}
+					});
+				this.myVehicleOptions = sortBy(this.myVehicleOptions, 'viewValue');
 
 				// If the is scheduling an appointment with an existing vehicle, auto-select the input
 				if (!!this.vehicleId) {
@@ -260,6 +276,10 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 		});
 	}
 
+	private getVehicleOptionViewValue(v: VehicleBase): string {
+		return `${v.year} ${v.make} ${v.model} (${v.license})`;
+	}
+
 	/*
 	 * Date filtering and date picker methods
 	 */
@@ -282,25 +302,6 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 		this.commonIssues.setValue(null);
 		this.issueInput.nativeElement.value = '';
 	}
-	// public addFromAutocomplete(event) {
-	// 	const input = event.option.input;
-	// 	const value = event.option.value.formValue;
-	// 	if ((value.trim() !== '')) {
-	// 		this.commonIssues.setErrors(null);   // 1
-	// 		if (this.commonIssues.valid) {              // 4
-	// 			this.commonIssues.markAsDirty();
-	// 			this.issueInput.nativeElement.value = '';
-	// 			this.commonIssues.setValue(null);
-	// 		} else {
-	// 			const index = this.issues.findIndex(value1 => value1 === value.trim());
-	// 			if (index !== -1) {
-	// 				this.issues.splice(index, 1);           // 6
-	// 			}
-	// 		}
-	// 	} else {
-	// 		this.commonIssues.updateValueAndValidity();  // 7
-	// 	}
-	// }
 
 	public remove(item): void {
 		const index = this.issues.indexOf(item);
@@ -317,7 +318,7 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 	 * Step 4: Vehicle Selection
 	 */
 	public onNewOrExistingVehicleChange($event): void {
-		this.isVehicleNewToCustomer = $event.value;
+		this.appointmentType = $event.value;
 
 		this.buildVehicleForm();
 	}
@@ -333,16 +334,50 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 	/*
 	 * Final Step: Submit!
 	 */
-
 	public onSubmit(): void {
 		this.scheduleProgress = ScheduleProcess.IsSubmitting;
-		console.log('VehicleFormGroup', this.vehicleFormGroup);
-		console.log('DateFormGroup', this.dateFormGroup);
-		console.log('IssuesFormGroup', this.issuesFormGroup);
+		const request: any = {
+			ScheduleDate: this.date.value,
+			WorkDescription: [...this.issues.map(i => i.viewValue), this.issueDescription.value],
+			AppointmentType: this.appointmentType,
+		};
 
-		setTimeout(() => {
-			this.scheduleProgress = ScheduleProcess.Success;
-		}, 1000);
+		// If the vehicle is already known (by VIN match), fill out all known details for request model
+		if (!!this.knownVehicle && !!this.knownVehicle.value) {
+			let vehicle = this.myVehicles.find(v => v.vehicleID == this.knownVehicle.value);
+			if (vehicle == null) {
+				console.warn('Attempted to submit a vehicle which has no VIN associated. The search will be re-attempted by year, make and model.');
+				vehicle = this.myVehicles.find(v => this.getVehicleOptionViewValue(v) == this.knownVehicle.value)
+			}
+			else {
+				request.license = vehicle.license;
+				request.color = vehicle.color;
+				request.engine = vehicle.engine;
+				request.transmission = vehicle.transmission;
+				request.vehicleID = vehicle.vehicleID;
+			}
+			request.year = vehicle.year;
+			request.make = vehicle.make;
+			request.model = vehicle.model;
+
+		}
+		// If the vehicle has not been here before, underpost.
+		else {
+			request.year = this.year.value;
+			request.make = this.make.value;
+			request.model = this.model.value;
+		}
+
+		this.appointmentSchedulerHttpService.scheduleAppointment(request)
+			.pipe(first())
+			.subscribe((confirmationDto) => {
+				console.log(confirmationDto);
+				this.scheduleProgress = ScheduleProcess.Success;
+			},
+			(error) => {
+				console.error(error);
+				this.scheduleProgress = ScheduleProcess.Fail;
+			});
 	}
 
 	/*
@@ -398,7 +433,9 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 	}
 
 	private buildVehicleForm(): void {
-		this.vehicleFormGroup = this.isVehicleNewToCustomer === 'New' ? this.newVehicleForm : this.existingVehicleForm;
+		this.vehicleFormGroup = this.appointmentType === AppointmentType.NewVehicle ?
+			this.newVehicleForm :
+			this.existingVehicleForm;
 
 		this.vehicleFormGroup.markAsPristine();
 	}
@@ -416,4 +453,6 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 			knownVehicle: ['', Validators.required]
 		});
 	}
+
+
 }

@@ -22,7 +22,10 @@ const routes: Routes = [
 			{
 				path: '',
 				redirectTo: 'vehicles',
-				pathMatch: 'full'
+				pathMatch: 'full',
+				data: {
+					title: 'THIS SHOULD BE INVISIBLE'
+				}
 			},
 			{
 				path: 'account',
@@ -75,7 +78,13 @@ const routes: Routes = [
 			title: 'THIS SHOULD NOT BE VISIBLE'
 		}
 	},
-	{ path: '**', redirectTo: '' }
+	{
+		path: '**',
+		redirectTo: '',
+		data: {
+			title: "Why does this route expect data?"
+		}
+	}
 ];
 
 @NgModule({

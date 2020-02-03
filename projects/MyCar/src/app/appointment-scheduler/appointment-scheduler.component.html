@@ -65,7 +65,7 @@
 
 			<div>
 				<div fxFlex></div>
-				<mat-button-toggle-group [value]="isVehicleNewToCustomer" (change)="onNewOrExistingVehicleChange($event)">
+				<mat-button-toggle-group [value]="appointmentType" (change)="onNewOrExistingVehicleChange($event)">
 					<mat-button-toggle value="Existing">Existing</mat-button-toggle>
 					<mat-button-toggle value="New">New</mat-button-toggle>
 				</mat-button-toggle-group>
@@ -74,18 +74,18 @@
 
 			<form [formGroup]="vehicleFormGroup" fxLayout="column" fxLayoutGap="10px">
 				<!-- Known vehicles -->
-				<ng-container *ngIf="isVehicleNewToCustomer === 'Existing' && myVehicles.length > 0">
+				<ng-container *ngIf="appointmentType === 'Existing' && myVehicleOptions.length > 0">
 					<mat-form-field style="width: 100%" color="accent">
 						<mat-select [formControl]="knownVehicle" placeholder="Choose a vehicle *">
 							<mat-option selected>--</mat-option>
-							<mat-option *ngFor="let v of myVehicles" [value]="v.formValue">{{v.viewValue}}</mat-option>
+							<mat-option *ngFor="let v of myVehicleOptions" [value]="v.formValue">{{v.viewValue}}</mat-option>
 						</mat-select>
 						<mat-error *ngIf="knownVehicle.hasError('required')">Vehicle is required</mat-error>
 					</mat-form-field>
 				</ng-container>
 
 				<!-- Add a new vehicle -->
-				<ng-container *ngIf="isVehicleNewToCustomer === 'New'">
+				<ng-container *ngIf="appointmentType === 'New'">
 					<mat-form-field style="width: 100%" color="accent">
 						<mat-select formControlName="year" placeholder="Year *" (selectionChange)="onYearChange()">
 							<mat-option selected>--</mat-option>
@@ -185,15 +185,9 @@
 
 </mat-vertical-stepper>
 
-<!--<div *ngIf="scheduleProgress === 'IsSubmitting'" fxFill fxLayout="column" fxLayoutAlign="center center">-->
-	<!--<div fxFlex></div>-->
-	<!--<mat-progress-spinner color="accent" mode="indeterminate"></mat-progress-spinner>-->
-	<!--<div fxFlex></div>-->
-<!--</div>-->
 <div *ngIf="scheduleProgress === 'IsSubmitting'" class="loading-indicator">
 	<mat-progress-spinner color="accent" mode="indeterminate"></mat-progress-spinner>
 </div>
-
 
 <div *ngIf="scheduleProgress === 'Success'" class="success-message">
 	<div>
