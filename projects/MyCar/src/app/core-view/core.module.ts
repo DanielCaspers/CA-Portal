@@ -19,6 +19,7 @@ import { AppointmentSchedulerModule } from '../appointment-scheduler/appointment
 import { CouponsModule } from '../coupons/coupons.module';
 import { VehicleHistoryModule } from '../vehicle-history/vehicle-history.module';
 import { MyAccountModule } from '../my-account/my-account.module';
+import { LoaderModule } from '../loader/loader.module';
 // import { StoreInfoModule } from '../store-info/store-info.module';
 
 @NgModule({
@@ -46,6 +47,7 @@ import { MyAccountModule } from '../my-account/my-account.module';
 		AppointmentSchedulerModule,
 		CouponsModule,
 		VehicleHistoryModule,
+		LoaderModule
 	],
 	providers: []
 })

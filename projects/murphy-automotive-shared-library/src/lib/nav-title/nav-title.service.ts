@@ -32,9 +32,10 @@ export class NavTitleService {
 			.pipe(
 				filter(event => event instanceof NavigationEnd),
 				map(() => this.activatedRoute),
+				filter(route => !!route.firstChild.firstChild), // Introducing auth or routing changes can break this.
 				map(route => route.firstChild.firstChild), // Introducing auth or routing changes can break this.
-				switchMap(route => route.data),
-				map((data) => {
+				switchMap((route) => route.data),
+				map((data: {title: string}) => {
 					console.log('Toolbar title is ', data.title);
 					return data.title ? data.title : 'Missing title';
 				})

@@ -103,9 +103,11 @@
 
 		</mat-sidenav>
 		<!--<mat-sidenav-content>-->
-			<div fxLayout="column" class="ma-router-container">
-				<router-outlet></router-outlet>
-			</div>
+		<app-loader></app-loader>
+
+		<div fxLayout="column" class="ma-router-container">
+			<router-outlet></router-outlet>
+		</div>
 		<!--</mat-sidenav-content>-->
 	</mat-sidenav-container>
 </div>
