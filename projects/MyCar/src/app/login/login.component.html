@@ -1,8 +1,8 @@
-<div fxFill fxLayout="column" fxLayoutAlign="center center">
+<div fxFill fxLayout="column" fxLayoutAlign="center center" class="primary-background">
 	<mat-card fxFlex>
 		<mat-progress-bar *ngIf="showProgress" mode="indeterminate" color="accent"></mat-progress-bar>
 		<form fxLayout="column" fxLayoutGap="20px" [formGroup]="loginForm" (ngSubmit)="submit()">
-			<h2 class="mat-title">MyCar</h2>
+			<h2 class="mat-title">Login</h2>
 
 			<mat-form-field>
 				<input matInput placeholder="Username *" type="text" formControlName="username">

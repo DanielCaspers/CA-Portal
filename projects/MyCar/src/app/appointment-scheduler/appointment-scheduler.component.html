@@ -24,7 +24,15 @@
 				Rental cars are available for $30/day. Call for availability and to schedule.
 			</div>
 			<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
-				<a mat-button color="accent" [href]="storeInfo?.PhoneNumberToCall?.NumberForWebLink | safeUrl">Call</a>
+				<a mat-button
+					color="accent"
+					[href]="storeInfo?.PhoneNumberToCall?.NumberForWebLink | safeUrl"
+					ngx-analyticsOn="click"
+					angularticsAction="Called"
+					angularticsLabel="Appointment scheduling - interested in rental car."
+					angularticsCategory="Store">
+					Call
+				</a>
 				<button mat-button color="primary" matStepperNext>No thanks, I'll pass</button>
 			</div>
 		</div>

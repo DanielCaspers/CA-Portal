@@ -28,6 +28,7 @@ import {
 import { AppointmentSchedulerRoutingModule } from './appointment-scheduler-routing.module';
 import { AppointmentSchedulerComponent } from './appointment-scheduler.component';
 import { AppointmentSchedulerHttpService } from './appointment-scheduler-http.service';
+import { NgxAnalyticsModule } from 'ngx-analytics';
 
 @NgModule({
 	declarations: [ AppointmentSchedulerComponent ],
@@ -51,6 +52,8 @@ import { AppointmentSchedulerHttpService } from './appointment-scheduler-http.se
 		MatProgressSpinnerModule,
 		MatSelectModule,
 		MatStepperModule,
+
+		NgxAnalyticsModule,
 
 		SafeUrlModule,
 

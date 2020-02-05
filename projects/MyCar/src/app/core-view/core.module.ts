@@ -10,6 +10,7 @@ import {
 	MatToolbarModule
 } from '@angular/material';
 import { RouterModule } from '@angular/router';
+import { NgxAnalyticsModule } from 'ngx-analytics';
 
 import { NavTitleModule, SafeUrlModule } from 'murphy-automotive-shared-library';
 
@@ -37,6 +38,8 @@ import { LoaderModule } from '../loader/loader.module';
 		MatListModule,
 		MatSidenavModule,
 		MatToolbarModule,
+
+		NgxAnalyticsModule,
 
 		// StoreInfoModule,
 		SafeUrlModule,

@@ -10,5 +10,9 @@ export const environment: MyCarEnvironment = {
 			'x-appkey': 'D4LgRtMpfyZKXBaYSgRzah6jBf3w7W0v'
 		})
 	},
-	authorizationUrl: '/auth/login'
+	authorizationUrl: '/auth/login',
+	googleAnalytics: {
+		domain: 'auto',
+		trackingId: 'UA-10667959-10'
+	}
 };

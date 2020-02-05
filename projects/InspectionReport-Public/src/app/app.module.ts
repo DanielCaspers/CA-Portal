@@ -26,6 +26,7 @@ import { InspectionsModule } from './inspections/inspections.module';
 		BrowserAnimationsModule,
 		CommonModule,
 		MatIconModule,
+
 		NgxAnalyticsModule.forRoot([NgxAnalyticsGoogleAnalytics], { pageTracking: { clearIds: true }} as NgxAnalyticsSettings),
 
 		MurphyAutomotiveSharedLibraryModule,

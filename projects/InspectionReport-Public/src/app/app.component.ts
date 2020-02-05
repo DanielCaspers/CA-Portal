@@ -7,6 +7,6 @@ import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
 })
 export class AppComponent {
 	// Required: Import analytics providers in the root component. This starts the tracking of route changes.
+	// https://www.npmjs.com/package/ngx-analytics
 	constructor(googleAnalyticsService: NgxAnalyticsGoogleAnalytics) { }
-
 }
