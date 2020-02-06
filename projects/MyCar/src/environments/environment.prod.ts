@@ -13,6 +13,6 @@ export const environment: MyCarEnvironment = {
 	authorizationUrl: '/auth/login',
 	googleAnalytics: {
 		domain: 'auto',
-		trackingId: 'UA-10667959-10'
+		trackingId: 'UA-10667959-7'
 	}
 };

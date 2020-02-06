@@ -7,7 +7,7 @@ import { environment } from './environments/environment';
 
 import 'hammerjs';
 
-NgxAnalyticsGoogleAnalytics.prototype.createGaSession(environment.googleAnalytics);
+// NgxAnalyticsGoogleAnalytics.prototype.createGaSession(environment.googleAnalytics);
 
 if (environment.production) {
 	enableProdMode();
