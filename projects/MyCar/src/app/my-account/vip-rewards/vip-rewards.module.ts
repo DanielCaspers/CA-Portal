@@ -2,9 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
-	MatButtonToggleModule,
 	MatCardModule,
-	MatIconModule,
+	MatDividerModule,
 	MatListModule
 } from '@angular/material';
 
@@ -17,10 +16,9 @@ import { VipRewardsComponent } from './vip-rewards.component';
 		CommonModule,
 		FlexLayoutModule,
 
-		MatButtonToggleModule,
 		MatCardModule,
+		MatDividerModule,
 		MatListModule,
-		MatIconModule,
 
 		VipRewardsRoutingModule
 	],

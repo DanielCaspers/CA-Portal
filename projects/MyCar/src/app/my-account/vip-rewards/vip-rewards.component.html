@@ -10,67 +10,182 @@
 
 	<mat-card flex>
 		<mat-card-title>Service and car wash rewards</mat-card-title>
-		<mat-card-content>
+		<mat-card-content fxLayout="row">
+			<mat-list fxFlex="45px" class="points-list">
+				<mat-list-item>
+					<b>Points</b>
+				</mat-list-item>
+				<mat-divider></mat-divider>
+
+				<ng-container *ngIf="shouldShowReward">
+					<mat-list-item>
+						300
+					</mat-list-item>
+					<mat-divider></mat-divider>
+
+					<mat-list-item>
+						400
+					</mat-list-item>
+					<mat-divider></mat-divider>
+				</ng-container>
+
+				<mat-list-item>
+					1000
+				</mat-list-item>
+				<mat-divider></mat-divider>
+
+				<mat-list-item>
+					1500
+				</mat-list-item>
+				<mat-divider></mat-divider>
+
+				<ng-container *ngIf="shouldShowReward">
+					<mat-list-item>
+						2500
+					</mat-list-item>
+					<mat-divider></mat-divider>
+				</ng-container>
+
+				<mat-list-item>
+					2500
+				</mat-list-item>
+
+				<ng-container *ngIf="shouldShowReward">
+					<mat-divider></mat-divider>
+
+					<mat-list-item>
+						3000
+					</mat-list-item>
+				</ng-container>
+
+			</mat-list>
+
+			<mat-divider class="point-reward-divider" [vertical]="true"></mat-divider>
+
 			<mat-list>
 				<mat-list-item>
-					<h4 mat-line>Time Saver car wash</h4>
-					<p mat-line>300 points</p>
+					<b>Reward</b>
 				</mat-list-item>
+				<mat-divider></mat-divider>
+
+				<ng-container *ngIf="shouldShowReward">
+					<mat-list-item>
+						Time Saver car wash
+					</mat-list-item>
+					<mat-divider></mat-divider>
+
+					<mat-list-item>
+						Ultimate car wash
+					</mat-list-item>
+					<mat-divider></mat-divider>
+				</ng-container>
+
 				<mat-list-item>
-					<h4 mat-line>Ultimate car wash</h4>
-					<p mat-line>400 points</p>
+					$20 Service Certificate
 				</mat-list-item>
+				<mat-divider></mat-divider>
+
 				<mat-list-item>
-					<h4 mat-line>$20 Service Certificate</h4>
-					<p mat-line >1000 points</p>
+					Tire rotation
 				</mat-list-item>
+				<mat-divider></mat-divider>
+
+				<ng-container *ngIf="shouldShowReward">
+					<mat-list-item>
+						Time Saver wash card (10 ct)
+					</mat-list-item>
+					<mat-divider></mat-divider>
+				</ng-container>
+
 				<mat-list-item>
-					<h4 mat-line>Tire rotation</h4>
-					<p mat-line>1250 points</p>
+					$50 Service Certificate
 				</mat-list-item>
-				<mat-list-item>
-					<h4 mat-line>Time Saver wash card (10 ct)</h4>
-					<p mat-line>2500 points</p>
-				</mat-list-item>
-				<mat-list-item>
-					<h4 mat-line>$50 Service Certificate</h4>
-					<p mat-line>2500 points</p>
-				</mat-list-item>
-				<mat-list-item>
-					<h4 mat-line>Ultimate wash card (10 ct)</h4>
-					<p mat-line>3000 points</p>
-				</mat-list-item>
+
+				<ng-container *ngIf="shouldShowReward">
+					<mat-divider></mat-divider>
+
+					<mat-list-item>
+						Ultimate wash card (10 ct)
+					</mat-list-item>
+				</ng-container>
 			</mat-list>
 		</mat-card-content>
 	</mat-card>
 
 	<mat-card flex>
-		<mat-card-title>Oil change rewards</mat-card-title>
+		<mat-card-title>Express Lube oil change rewards</mat-card-title>
 		<mat-card-content>
+			<mat-list fxFlex="45px" class="points-list">
+				<mat-list-item>
+					<b>Points</b>
+				</mat-list-item>
+				<mat-divider></mat-divider>
+
+				<mat-list-item>
+					2120
+				</mat-list-item>
+				<mat-divider></mat-divider>
+
+				<mat-list-item>
+					2600
+				</mat-list-item>
+				<mat-divider></mat-divider>
+
+				<mat-list-item>
+					3080
+				</mat-list-item>
+				<mat-divider></mat-divider>
+
+				<mat-list-item>
+					3560
+				</mat-list-item>
+				<mat-divider></mat-divider>
+
+				<mat-list-item>
+					4040
+				</mat-list-item>
+				<mat-divider></mat-divider>
+
+				<mat-list-item>
+					4520
+				</mat-list-item>
+			</mat-list>
+
+			<mat-divider class="point-reward-divider" [vertical]="true"></mat-divider>
+
 			<mat-list>
 				<mat-list-item>
-					<h4 mat-line>$46 oil change</h4>
-					<p mat-line>2160 points</p>
+					<b>Reward</b>
 				</mat-list-item>
+				<mat-divider></mat-divider>
+
 				<mat-list-item>
-					<h4 mat-line>$61 oil change</h4>
-					<p mat-line>2600 points</p>
+					Up to $46
 				</mat-list-item>
+				<mat-divider></mat-divider>
+
 				<mat-list-item>
-					<h4 mat-line>$76 oil change</h4>
-					<p mat-line>3080 points</p>
+					Up to $61
 				</mat-list-item>
+				<mat-divider></mat-divider>
+
 				<mat-list-item>
-					<h4 mat-line>$81 oil change</h4>
-					<p mat-line>3560 points</p>
+					Up to $76
 				</mat-list-item>
+				<mat-divider></mat-divider>
+
 				<mat-list-item>
-					<h4 mat-line>$106 oil change</h4>
-					<p mat-line>4040 points</p>
+					Up to $81
 				</mat-list-item>
+				<mat-divider></mat-divider>
+
 				<mat-list-item>
-					<h4 mat-line>$121 oil change</h4>
-					<p mat-line>4520 points</p>
+					Up to $106
+				</mat-list-item>
+				<mat-divider></mat-divider>
+
+				<mat-list-item>
+					Up to $121
 				</mat-list-item>
 			</mat-list>
 		</mat-card-content>

@@ -33,6 +33,7 @@ export class StoreInfoService {
 				// Map D3-API Model to Cleaner, Internal Model
 				map((dto) => {
 					return {
+						CompanyNumber: dto.cono,
 						EmailAddress: {
 							DisplayValue: dto.emailAddress
 						},
