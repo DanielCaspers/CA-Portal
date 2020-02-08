@@ -84,7 +84,7 @@
 				<!-- Known vehicles -->
 				<ng-container *ngIf="appointmentType === 'Existing' && myVehicleOptions.length > 0">
 					<mat-form-field style="width: 100%" color="accent">
-						<mat-select [formControl]="knownVehicle" placeholder="Choose a vehicle *">
+						<mat-select [formControl]="knownVehicle" placeholder="Choose a vehicle *" (selectionChange)="onKnownVehicleChange()">
 							<mat-option selected>--</mat-option>
 							<mat-option *ngFor="let v of myVehicleOptions" [value]="v.formValue">{{v.viewValue}}</mat-option>
 						</mat-select>
@@ -129,6 +129,18 @@
 		<div fxLayout="column" fxLayoutGap="10px">
 			<ng-template matStepLabel icon>What should we look into?</ng-template>
 			<form [formGroup]="issuesFormGroup" (ngSubmit)="onSubmit()" fxLayout="column" fxLayoutGap="10px">
+
+				<mat-selection-list color="accent" *ngIf="recommendedServices.length > 0" formControlName="recommendedServices">
+					<h3 mat-subheader>Recommended Services</h3>
+					<ng-container *ngFor="let rs of recommendedServices">
+						<mat-list-option [value]="rs.Id">
+							<ma-recommended-service-severity mat-list-icon [severity]="rs.Severity"></ma-recommended-service-severity>
+							<h4 mat-line>{{rs.Description}}</h4>
+							<i mat-line>{{rs.LastModifiedDate | date:'shortDate'}}</i>
+						</mat-list-option>
+					</ng-container>
+				</mat-selection-list>
+
 				<mat-form-field style="width: 100%" color="accent">
 					<mat-chip-list #chipList>
 						<mat-chip
@@ -156,12 +168,12 @@
 							{{issue.viewValue}}
 						</mat-option>
 					</mat-autocomplete>
-					<mat-error *ngIf="issuesFormGroup.hasError('atLeastOne')">A common issue or detailed description is required</mat-error>
+					<mat-error *ngIf="issuesFormGroup.hasError('atLeastOne')">{{atLeastOneFormFieldRequiredText}}</mat-error>
 				</mat-form-field>
 
 				<mat-form-field color="accent">
 					<textarea matInput rows="6" formControlName="issueDescription" placeholder="Other needs or concerns"></textarea>
-					<mat-error *ngIf="issuesFormGroup.hasError('atLeastOne')">A common issue or detailed description is required</mat-error>
+					<mat-error *ngIf="issuesFormGroup.hasError('atLeastOne')">{{atLeastOneFormFieldRequiredText}}</mat-error>
 				</mat-form-field>
 
 				<div>

@@ -12,7 +12,7 @@ export class LoaderComponent {
 
 	constructor(private loaderService: LoaderService) {
 		this.loaderService.isLoading.subscribe((v) => {
-			console.log('Is displaying global loading indicator?', v);
+			// console.log('Is displaying global loading indicator?', v);
 			this.isLoading = v;
 		});
 	}

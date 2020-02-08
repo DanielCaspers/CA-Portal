@@ -13,22 +13,24 @@ import {
 	MatDialogModule,
 	MatIconModule,
 	MatInputModule,
+	MatListModule,
 	MatNativeDateModule,
 	MatProgressBarModule,
 	MatProgressSpinnerModule,
 	MatSelectModule,
 	MatStepperModule
 } from '@angular/material';
+import { NgxAnalyticsModule } from 'ngx-analytics';
 
 import {
 	CanDeactivateGuard,
+	RecommendedServiceSeverityModule,
 	SafeUrlModule
 } from 'murphy-automotive-shared-library';
 
 import { AppointmentSchedulerRoutingModule } from './appointment-scheduler-routing.module';
 import { AppointmentSchedulerComponent } from './appointment-scheduler.component';
 import { AppointmentSchedulerHttpService } from './appointment-scheduler-http.service';
-import { NgxAnalyticsModule } from 'ngx-analytics';
 
 @NgModule({
 	declarations: [ AppointmentSchedulerComponent ],
@@ -47,6 +49,7 @@ import { NgxAnalyticsModule } from 'ngx-analytics';
 		MatDialogModule,
 		MatInputModule,
 		MatIconModule,
+		MatListModule,
 		MatNativeDateModule,
 		MatProgressBarModule,
 		MatProgressSpinnerModule,
@@ -55,6 +58,7 @@ import { NgxAnalyticsModule } from 'ngx-analytics';
 
 		NgxAnalyticsModule,
 
+		RecommendedServiceSeverityModule,
 		SafeUrlModule,
 
 		AppointmentSchedulerRoutingModule

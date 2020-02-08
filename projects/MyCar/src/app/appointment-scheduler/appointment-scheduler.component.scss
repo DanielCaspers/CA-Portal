@@ -35,4 +35,16 @@
 			text-align: center;
 		}
 	}
+
+	// Required to make room for selecting recommended services.
+	// This removes both the vertical divider line drawn down from the icons
+	// in the final step
+	::ng-deep mat-vertical-stepper .mat-step:last-of-type .mat-vertical-content-container {
+		margin: 0;
+
+		ma-recommended-service-severity {
+			margin-bottom: 24px;
+			margin-right: 6px;
+		}
+	}
 }

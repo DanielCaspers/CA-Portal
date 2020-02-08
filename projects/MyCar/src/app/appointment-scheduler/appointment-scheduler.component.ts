@@ -20,13 +20,15 @@ import { ActivatedRoute, CanDeactivate } from '@angular/router';
 import sortBy from 'lodash-es/sortBy';
 import uniqBy from 'lodash-es/uniqBy';
 
-import { Observable, of } from 'rxjs';
+import { Observable, of, Subscription } from 'rxjs';
 import { first, map, startWith } from 'rxjs/operators';
+
+import { RecommendedService } from 'murphy-automotive-shared-library/lib/recommended-services/recommended-services.models';
 
 import { StoreInfo } from '../store-info/store-info.models';
 import { StoreInfoService } from '../store-info/store-info.module';
 import { AppointmentSchedulerHttpService } from './appointment-scheduler-http.service';
-import { AppointmentScheduleResponse, AppointmentSchedulerRequest, AppointmentType } from './appointment-scheduler.models';
+import { AppointmentScheduleResponse, AppointmentType } from './appointment-scheduler.models';
 import { VehiclesHttpService } from '../my-vehicles/vehicles-http.service';
 import { VehicleBase, VehicleOverview } from '../my-vehicles/vehicle.models';
 
@@ -149,6 +151,12 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 	public filteredIssues: Observable<DynamicFormData[]>;
 
 	@ViewChild('issueInput', {static: false}) issueInput: ElementRef<HTMLInputElement>;
+
+	public atLeastOneFormFieldRequiredText = 'A recommended service, common issue, detailed description is required';
+
+	public recommendedServices: RecommendedService[] = [];
+
+	private knownVehicleChangeSubscription: Subscription = null;
 
 	constructor(
 		private appointmentSchedulerHttpService: AppointmentSchedulerHttpService,
@@ -320,7 +328,13 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 	public onNewOrExistingVehicleChange($event): void {
 		this.appointmentType = $event.value;
 
+		this.issuesFormGroup.controls['recommendedServices'].setValue([]);
+		this.recommendedServices = [];
+
 		this.buildVehicleForm();
+		if (this.knownVehicle != null) {
+			this.knownVehicle.setValue(null);
+		}
 	}
 
 	public onYearChange(): void {
@@ -331,6 +345,27 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 		this.getVehicleModelsByYearAndMake();
 	}
 
+	private getRecommendedServicesForKnownVehicle(): void {
+		if (!!this.knownVehicle && !!this.knownVehicle.value) {
+			let vehicle = this.myVehicles.find(v => v.vehicleID == this.knownVehicle.value);
+			if (vehicle == null) {
+				console.warn('Attempted to fetch recommended services for a vehicle which has no VIN associated. No recommended services will be reported.');
+			}
+			else {
+				this.recommendedServices = vehicle.recommendedServices;
+			}
+		}
+		else {
+			console.info('A known vehicle was not provided. Recommended services will not be available for selection.');
+		}
+	}
+
+	public onKnownVehicleChange() {
+		this.issuesFormGroup.controls['recommendedServices'].setValue([]);
+		this.recommendedServices = [];
+		this.getRecommendedServicesForKnownVehicle();
+	}
+
 	/*
 	 * Final Step: Submit!
 	 */
@@ -338,7 +373,6 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 		this.scheduleProgress = ScheduleProcess.IsSubmitting;
 		const request: any = {
 			ScheduleDate: this.date.value,
-			WorkDescription: [...this.issues.map(i => i.viewValue), this.issueDescription.value],
 			AppointmentType: this.appointmentType,
 		};
 
@@ -355,6 +389,12 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 				request.engine = vehicle.engine;
 				request.transmission = vehicle.transmission;
 				request.vehicleID = vehicle.vehicleID;
+
+				const recommendedServiceIds = this.issuesFormGroup.get('recommendedServices').value;
+				const recommendedServicesToAddress = recommendedServiceIds.map(rsId => this.recommendedServices.find(rs => rs.Id == rsId));
+				const recommendedServiceWorkDescriptions = recommendedServicesToAddress.map(rs => `${rs.Description} LVL=${rs.Severity} [${rs.OrderId}] ${rs.TechnicianId}`);
+
+				request.WorkDescription = [...recommendedServiceWorkDescriptions,...this.issues.map(i => i.viewValue), this.issueDescription.value];
 			}
 			request.year = vehicle.year;
 			request.make = vehicle.make;
@@ -366,6 +406,7 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 			request.year = this.year.value;
 			request.make = this.make.value;
 			request.model = this.model.value;
+			request.WorkDescription = [...this.issues.map(i => i.viewValue), this.issueDescription.value];
 		}
 
 		this.appointmentSchedulerHttpService.scheduleAppointment(request)
@@ -420,7 +461,8 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 
 		this.issuesFormGroup = this.formBuilder.group({
 			commonIssues: [''],
-			issueDescription: ['']
+			issueDescription: [''],
+			recommendedServices: ['']
 		}, { validators: AtLeastOne(Validators.required)});
 	}
 
@@ -433,6 +475,10 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 	}
 
 	private buildVehicleForm(): void {
+		if (this.knownVehicleChangeSubscription !== null) {
+			this.knownVehicleChangeSubscription.unsubscribe();
+		}
+
 		this.vehicleFormGroup = this.appointmentType === AppointmentType.NewVehicle ?
 			this.newVehicleForm :
 			this.existingVehicleForm;
@@ -449,9 +495,13 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 	}
 
 	private get existingVehicleForm(): FormGroup {
-		return this.formBuilder.group({
+		const fg =  this.formBuilder.group({
 			knownVehicle: ['', Validators.required]
 		});
+
+		this.knownVehicleChangeSubscription = fg.controls['knownVehicle'].valueChanges.subscribe(() => this.getRecommendedServicesForKnownVehicle());
+
+		return fg;
 	}
 
 
