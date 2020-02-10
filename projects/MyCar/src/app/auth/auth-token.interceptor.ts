@@ -47,7 +47,7 @@ export class JwtInterceptor implements HttpInterceptor {
 									this.logoutLocally();
 									return EMPTY;
 								})
-							)
+							);
 					}
 					console.debug('The error was uncaught');
 					// The error response cannot be fixed by refresh tokens; let it pass through.
@@ -66,8 +66,8 @@ export class JwtInterceptor implements HttpInterceptor {
 				}
 			});
 			console.debug('Authorization header was added to request', request);
-		}
-		else {
+
+		} else {
 			console.debug('Authorization header WAS NOT added to request', request);
 		}
 

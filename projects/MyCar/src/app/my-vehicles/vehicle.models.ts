@@ -2,14 +2,6 @@ import {
 	RecommendedService
 } from 'murphy-automotive-shared-library';
 
-export interface VehicleOverview extends VehicleBase {
-	recommendedServiceSeverity: number;
-	recommendedServices: RecommendedService[],
-	aggregateSeverity: number;
-	nextOilChangeOdometer: number;
-	nextOilChangeDate: Date;
-}
-
 export interface VehicleBase {
 	year: string | number;
 	make: string;
@@ -19,4 +11,12 @@ export interface VehicleBase {
 	engine: string;
 	transmission: string;
 	vehicleID: string;
+}
+
+export interface VehicleOverview extends VehicleBase {
+	recommendedServiceSeverity: number;
+	recommendedServices: RecommendedService[];
+	aggregateSeverity: number;
+	nextOilChangeOdometer: number;
+	nextOilChangeDate: Date;
 }

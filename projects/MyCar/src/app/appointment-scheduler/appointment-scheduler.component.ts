@@ -84,7 +84,7 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 	public dateFilter = (d: Date) => {
 		const formattedDate = this.dateFormatter(d);
 		return this.daysAvailable.includes(formattedDate);
-	};
+	}
 
 	/**
 	 * A list of days available for the calendar view-model to
@@ -192,7 +192,7 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 		}
 
 		// Allow navigation away if the form was successfully submitted
-		if (this.scheduleProgress == ScheduleProcess.Success) {
+		if (this.scheduleProgress === ScheduleProcess.Success) {
 			return true;
 		}
 
@@ -237,21 +237,21 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 						// *unlikely* to collide for normal cases.
 						// In the event that the user has identical new vehicles of some year, make and model,
 						// picking one arbitrarily will have the same effect on the back end of making a new record.
-						const vehicleIdentifier = v.vehicleID == '' ?
+						const vehicleIdentifier = v.vehicleID === '' ?
 							this.getVehicleOptionViewValue(v) :
 							v.vehicleID;
 						return {
 							formValue: vehicleIdentifier,
 							viewValue: this.getVehicleOptionViewValue(v)
-						}
+						};
 					});
 				this.myVehicleOptions = sortBy(this.myVehicleOptions, 'viewValue');
 
 				// If the is scheduling an appointment with an existing vehicle, auto-select the input
 				if (!!this.vehicleId) {
 					this.knownVehicle.setValue(this.vehicleId);
-				}
-				else {
+
+				} else {
 					this.knownVehicle.setValue(null);
 				}
 			});
@@ -262,8 +262,8 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 			.pipe(
 				first()
 			).subscribe((response: DynamicFormData[]) => {
-			this.vehicleYears = response;
-		});
+				this.vehicleYears = response;
+			});
 	}
 
 	private getVehicleMakesByYear(): void {
@@ -271,8 +271,8 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 			.pipe(
 				first()
 			).subscribe((response: DynamicFormData[]) => {
-			this.vehicleMakes = response;
-		});
+				this.vehicleMakes = response;
+			});
 	}
 
 	private getVehicleModelsByYearAndMake(): void {
@@ -280,8 +280,8 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 			.pipe(
 				first()
 			).subscribe((response: DynamicFormData[]) => {
-			this.vehicleModels = response;
-		});
+				this.vehicleModels = response;
+			});
 	}
 
 	private getVehicleOptionViewValue(v: VehicleBase): string {
@@ -299,7 +299,7 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 	 * Autocomplete chip list methods
 	 */
 	public addFromAutocomplete(event) {
-		let value: DynamicFormData = event.option.value;
+		const value: DynamicFormData = event.option.value;
 
 		// Add our issue
 		if (value.viewValue.trim()) {
@@ -347,15 +347,15 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 
 	private getRecommendedServicesForKnownVehicle(): void {
 		if (!!this.knownVehicle && !!this.knownVehicle.value) {
-			let vehicle = this.myVehicles.find(v => v.vehicleID == this.knownVehicle.value);
-			if (vehicle == null) {
+			const vehicle = this.myVehicles.find(v => v.vehicleID === this.knownVehicle.value);
+			if (vehicle === null) {
 				console.warn('Attempted to fetch recommended services for a vehicle which has no VIN associated. No recommended services will be reported.');
-			}
-			else {
+
+			} else {
 				this.recommendedServices = vehicle.recommendedServices;
 			}
-		}
-		else {
+
+		} else {
 			console.info('A known vehicle was not provided. Recommended services will not be available for selection.');
 		}
 	}
@@ -378,12 +378,12 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 
 		// If the vehicle is already known (by VIN match), fill out all known details for request model
 		if (!!this.knownVehicle && !!this.knownVehicle.value) {
-			let vehicle = this.myVehicles.find(v => v.vehicleID == this.knownVehicle.value);
-			if (vehicle == null) {
+			let vehicle = this.myVehicles.find(v => v.vehicleID === this.knownVehicle.value);
+			if (vehicle === null) {
 				console.warn('Attempted to submit a vehicle which has no VIN associated. The search will be re-attempted by year, make and model.');
-				vehicle = this.myVehicles.find(v => this.getVehicleOptionViewValue(v) == this.knownVehicle.value)
-			}
-			else {
+				vehicle = this.myVehicles.find(v => this.getVehicleOptionViewValue(v) === this.knownVehicle.value);
+
+			} else {
 				request.license = vehicle.license;
 				request.color = vehicle.color;
 				request.engine = vehicle.engine;
@@ -391,18 +391,17 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 				request.vehicleID = vehicle.vehicleID;
 
 				const recommendedServiceIds = this.issuesFormGroup.get('recommendedServices').value;
-				const recommendedServicesToAddress = recommendedServiceIds.map(rsId => this.recommendedServices.find(rs => rs.Id == rsId));
+				const recommendedServicesToAddress = recommendedServiceIds.map(rsId => this.recommendedServices.find(rs => rs.Id === rsId));
 				const recommendedServiceWorkDescriptions = recommendedServicesToAddress.map(rs => `${rs.Description} LVL=${rs.Severity} [${rs.OrderId}] ${rs.TechnicianId}`);
 
-				request.WorkDescription = [...recommendedServiceWorkDescriptions,...this.issues.map(i => i.viewValue), this.issueDescription.value];
+				request.WorkDescription = [...recommendedServiceWorkDescriptions, ...this.issues.map(i => i.viewValue), this.issueDescription.value];
 			}
 			request.year = vehicle.year;
 			request.make = vehicle.make;
 			request.model = vehicle.model;
 
-		}
-		// If the vehicle has not been here before, underpost.
-		else {
+		} else {
+			// If the vehicle has not been here before, underpost.
 			request.year = this.year.value;
 			request.make = this.make.value;
 			request.model = this.model.value;
@@ -499,7 +498,8 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 			knownVehicle: ['', Validators.required]
 		});
 
-		this.knownVehicleChangeSubscription = fg.controls['knownVehicle'].valueChanges.subscribe(() => this.getRecommendedServicesForKnownVehicle());
+		this.knownVehicleChangeSubscription =
+			fg.controls['knownVehicle'].valueChanges.subscribe(() => this.getRecommendedServicesForKnownVehicle());
 
 		return fg;
 	}

@@ -12,16 +12,16 @@ import { DynamicFormData } from './appointment-scheduler.component';
 @Injectable()
 export class AppointmentSchedulerHttpService {
 
+	private static fuelEconomyApiHttpOptions = { headers: new HttpHeaders({'Accept': 'application/json'}) };
+
 	private static fuelEconomyApiMapper(dto): DynamicFormData[] {
 		return dto.menuItem.map(item => {
 			return {
 				formValue: item.value,
 				viewValue: item.text
-			} as DynamicFormData
+			} as DynamicFormData;
 		});
 	}
-
-	private static fuelEconomyApiHttpOptions = { headers: new HttpHeaders({'Accept': 'application/json'}) };
 
 	constructor(
 		private authTokenService: AuthTokenService,
@@ -37,8 +37,8 @@ export class AppointmentSchedulerHttpService {
 					dto.daysAvailable = dto.daysAvailable.map(d => new Date(d * 1000));
 
 					const problemDescriptions = [];
-					for (let p of dto.problemDescriptions) {
-						for (let viewValue of p.Desc) {
+					for (const p of dto.problemDescriptions) {
+						for (const viewValue of p.Desc) {
 							problemDescriptions.push({
 								formValue: p.category,
 								viewValue: viewValue
@@ -97,12 +97,12 @@ export class AppointmentSchedulerHttpService {
 	}
 
 	private appointmentMapper(request: AppointmentSchedulerRequest, clientId: string, companyNumber: number): any {
-		let dto = {
+		const dto = {
 			cono: companyNumber,
 			schedDate: request.ScheduleDate.getTime() / 1000, // D3-API expects *seconds* from epoch
 			clientID: clientId,
 			// preferredContacts: undefined, // Do not use for now according to Dad. NYI, YAGNI
-			newVehicle: request.AppointmentType == AppointmentType.NewVehicle,
+			newVehicle: request.AppointmentType === AppointmentType.NewVehicle,
 			vehicleID: request.vehicleID,
 			vehicleYear: request.year,
 			vehicleMake: request.make,

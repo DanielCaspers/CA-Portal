@@ -51,7 +51,7 @@ export class StoreInfoService {
 							LogoSmall: dto.logoSmall,
 							WebAddress: dto.webaddr
 						}
-					} as StoreInfo
+					} as StoreInfo;
 				}),
 				map(storeInfo => {
 					storeInfo.PhoneNumberToCall.NumberForWebLink = 'tel:' + storeInfo.PhoneNumberToCall.NumberForWebLink;

@@ -4,6 +4,7 @@ import { MyCarEnvironment } from './environment.models';
 export const environment: MyCarEnvironment = {
 	production: true,
 	apiBaseUrl: 'https://d3-devel.murphyauto.net/api/v2',
+	invoiceServiceUrl: `https://d3-devel.murphyauto.net/showInv.php?invoice=`,
 	httpOptions: {
 		headers: new HttpHeaders({
 			'Access-Control-Allow-Origin': '*',

@@ -1,7 +1,11 @@
 export interface VehicleHistoryEntry {
-	date: string;
-	description: string;
-	odometer: number;
+	CompletionDate: Date;
+	Description: string[];
+	OrderId: string;
+	Odometer: number;
+	InvoiceLink: string;
+
+	// TODO NYI BY API
 	amount: number;
 	year: string;
 	make: string;

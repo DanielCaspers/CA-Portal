@@ -1,7 +1,47 @@
 <div class="mat-elevation-z8 vehicle-history-container" fxFlex>
-	<ma-vehicle-history-table
-			fxFlex
-			[vehicleHistory]="vehicleHistory">
-	</ma-vehicle-history-table>
+	<mat-accordion multi="true">
+		<mat-expansion-panel *ngFor="let entry of vehicleHistory">
+
+			<mat-expansion-panel-header>
+				<mat-panel-title fxLayoutAlign="space-between center">
+					<span class="mat-body-2">Y, M, and M not in API!</span>
+					<span class="mat-caption completion-date">{{entry.CompletionDate | date: 'shortDate'}}</span>
+<!--					{{entry.year}} {{entry.make}} {{entry.model}}-->
+				</mat-panel-title>
+			</mat-expansion-panel-header>
+
+			<div fxLayout="column" fxLayoutAlign="space-between center" fxFill>
+				<div class="description-row">
+					<span fxFlex="110px" class="mat-body-2">Order:</span>
+					<span>{{entry.OrderId.substring(3)}}</span>
+				</div>
+				<div class="description-row">
+					<span fxFlex="110px" class="mat-body-2">Amount:</span>
+					<span>NO API SUPPORT!</span>
+				</div>
+				<div class="description-row">
+					<span fxFlex="110px" class="mat-body-2">Odometer:</span>
+					<span>{{entry.Odometer}}</span>
+				</div>
+				<div class="description-row">
+					<span class="mat-body-2">Work performed:</span>
+					<ul>
+						<li *ngFor="let line of entry.Description">{{line}}</li>
+					</ul>
+				</div>
+			</div>
+
+			<mat-action-row>
+				<a
+					mat-button
+					color="accent"
+					target="_blank"
+					[href]="entry.InvoiceLink | safeUrl">
+					View invoice
+				</a>
+			</mat-action-row>
+
+		</mat-expansion-panel>
+	</mat-accordion>
 </div>
 

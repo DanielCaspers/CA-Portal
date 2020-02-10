@@ -28,7 +28,7 @@ export class MyCouponsComponent implements OnInit {
 	public ngOnInit(): void {
 		this.vehicleId = this.route.snapshot.paramMap.get('vehicleId');
 
-		let couponObservable: Observable<Coupon[]> =
+		const couponObservable: Observable<Coupon[]> =
 			!!this.vehicleId ?
 				this.couponHttpService.getCouponsForVehicle(this.vehicleId) :
 				this.couponHttpService.getCouponsForClient();

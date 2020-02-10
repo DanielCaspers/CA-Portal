@@ -82,7 +82,7 @@ const routes: Routes = [
 		path: '**',
 		redirectTo: '',
 		data: {
-			title: "Why does this route expect data?"
+			title: 'Why does this route expect data?'
 		}
 	}
 ];

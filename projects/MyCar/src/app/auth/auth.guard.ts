@@ -10,7 +10,6 @@ import {
 
 import { JwtHelperService } from '@auth0/angular-jwt';
 
-import { environment } from '../../environments/environment';
 import { AuthTokenService } from './auth-token.service';
 
 @Injectable()
@@ -37,15 +36,16 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 		// A non-expired token exists; allow the navigation
 		if (!!token && !isTokenExpired) {
 			return true;
-		}
-		// An expired token exists; let the HTTP interceptor to deal with it.
-		// We allow routing in the meantime as otherwise on returning to the app, the user could be greeted with a blank screen
-		// if they are re-activating root routes
-		else if (!!token && isTokenExpired) {
+
+		} else if (!!token && isTokenExpired) {
+			// An expired token exists; let the HTTP interceptor to deal with it.
+			// We allow routing in the meantime as otherwise on returning to the app, the user could be greeted with a blank screen
+			// if they are re-activating root routes
 			return true;
-		}
-		// There is no token; the user must log in
-		else {
+
+		} else {
+			// There is no token; the user must log in
+
 			this.router.navigate(['login']);
 			return false;
 		}

@@ -40,6 +40,6 @@ export class VipRewardsComponent implements OnInit {
 	}
 
 	public get shouldShowReward(): boolean {
-		return this.companyNumber !== "002";
+		return this.companyNumber !== '002';
 	}
 }

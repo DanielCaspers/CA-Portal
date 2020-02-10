@@ -5,14 +5,14 @@ export interface AppointmentScheduleResponse {
 	/**
 	 * Note: ISO string from Date object
 	 */
-	daysAvailable: Date[],
+	daysAvailable: Date[];
 
 	/**
 	 * Text-based description of how to schedule
 	 */
-	guidelines: string[] // TODO DJC discuss with dad,
+	guidelines: string[]; // TODO DJC discuss with dad,
 
-	problemDescriptions: DynamicFormData[]
+	problemDescriptions: DynamicFormData[];
 }
 
 export interface AppointmentSchedulerRequest extends VehicleBase {

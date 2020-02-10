@@ -12,12 +12,12 @@ export interface AccountOverview {
 	clientState: string;
 	clientZip: string;
 
-	clientPhone: PhoneNumber[]
+	clientPhone: PhoneNumber[];
 
 	loyaltyAccount: {
 		vipPointBalance: number;
 		vipRedeemedValue: number;
-	}
+	};
 }
 
 export interface PhoneNumber {
