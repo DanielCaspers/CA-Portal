@@ -9,7 +9,7 @@ export interface MyCarEnvironment extends MaEnvironmentBase {
 	/**
 	 * Partial URI which accepts the "Invoice Link ID"
 	 * parameter for showing online invoices.
-	 * (e.g. https://d3-devel.murphyauto.net/showInv.php?invoice=)
+	 * (e.g. https://d3api.murphyauto.net/showInv.php?invoice=)
 	 */
 	invoiceServiceUrl: string;
 }

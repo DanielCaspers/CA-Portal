@@ -4,9 +4,8 @@
 
 			<mat-expansion-panel-header>
 				<mat-panel-title fxLayoutAlign="space-between center">
-					<span class="mat-body-2">Y, M, and M not in API!</span>
+					<span class="mat-body-2">{{entry.Year}} {{entry.Make}} {{entry.Model}}</span>
 					<span class="mat-caption completion-date">{{entry.CompletionDate | date: 'shortDate'}}</span>
-<!--					{{entry.year}} {{entry.make}} {{entry.model}}-->
 				</mat-panel-title>
 			</mat-expansion-panel-header>
 
@@ -17,7 +16,7 @@
 				</div>
 				<div class="description-row">
 					<span fxFlex="110px" class="mat-body-2">Amount:</span>
-					<span>NO API SUPPORT!</span>
+					<span>{{entry.Amount}}</span>
 				</div>
 				<div class="description-row">
 					<span fxFlex="110px" class="mat-body-2">Odometer:</span>
