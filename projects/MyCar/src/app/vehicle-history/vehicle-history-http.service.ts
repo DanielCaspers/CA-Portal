@@ -54,7 +54,8 @@ export class VehicleHistoryHttpService {
 				Year: dto.vehicleYear,
 				Make: dto.vehicleMake,
 				Model: dto.vehicleModel,
-				Amount: dto.totalBill
+				Amount: dto.totalBill,
+				BalanceDue: dto.balanceDue
 			} as VehicleHistoryEntry;
 		});
 

@@ -5,6 +5,7 @@ export interface VehicleHistoryEntry {
 	Odometer: number;
 	InvoiceLink: string;
 	Amount: number;
+	BalanceDue: number;
 	Year: string;
 	Make: string;
 	Model: string;

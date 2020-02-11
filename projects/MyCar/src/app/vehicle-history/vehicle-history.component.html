@@ -16,7 +16,11 @@
 				</div>
 				<div class="description-row">
 					<span fxFlex="110px" class="mat-body-2">Amount:</span>
-					<span>{{entry.Amount}}</span>
+					<span>{{entry.Amount | currency:'USD'}}</span>
+				</div>
+				<div class="description-row" *ngIf="entry.BalanceDue > 0">
+					<span fxFlex="110px" class="mat-body-2">Balance due:</span>
+					<span>{{entry.BalanceDue | currency:'USD'}}</span>
 				</div>
 				<div class="description-row">
 					<span fxFlex="110px" class="mat-body-2">Odometer:</span>
