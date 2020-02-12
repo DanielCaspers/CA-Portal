@@ -49,11 +49,12 @@
 					<input
 							matInput
 							formControlName="date"
+							(click)="picker.open()"
 							[min]="minDate"
 							[max]="maxDate"
 							[matDatepickerFilter]="dateFilter"
 							[matDatepicker]="picker"
-							placeholder="Choose a date *">
+							placeholder="Choose a date *" />
 					<mat-error *ngIf="date.hasError('required')">Date is required</mat-error>
 					<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 					<mat-datepicker (opened)="onDatePickerOpened()" touchUi #picker></mat-datepicker>
@@ -210,9 +211,15 @@
 </div>
 
 <div *ngIf="scheduleProgress === 'Success'" class="success-message">
-	<div>
-		<mat-icon color="green">check_circle</mat-icon>
+	<div fxLayout="column" fxLayoutAlign="space-between center">
+		<mat-icon fxFlex="100px">check_circle</mat-icon>
 		<div class="mat-body-2">Appointment scheduled</div>
 	</div>
+</div>
 
+<div *ngIf="scheduleProgress === 'Fail'" class="fail-message">
+	<div fxLayout="column" fxLayoutAlign="space-between center">
+		<mat-icon fxFlex="100px">error</mat-icon>
+		<div class="mat-body-2">Appointment not scheduled. Please try again later or call to schedule!</div>
+	</div>
 </div>

@@ -1,6 +1,6 @@
 :host {
 	/* Absolute Center Spinner */
-	.loading-indicator, .success-message {
+	.loading-indicator, .success-message, .fail-message {
 		position: fixed;
 		z-index: 999;
 		margin: auto;
@@ -26,9 +26,16 @@
 
 	.success-message {
 		color: green;
+	}
 
+	.fail-message {
+		color: #b40000; // TODO DJC primary theme reference goes here
+	}
+	.success-message, .fail-message {
 		mat-icon {
 			font-size: 100px;
+			width: 100px !important;
+			height: 100px !important;
 		}
 
 		.mat-body-2 {

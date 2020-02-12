@@ -11,6 +11,8 @@ import { VehicleHistoryEntry } from './vehicle-history.models';
 @Injectable()
 export class VehicleHistoryHttpService {
 
+	private readonly numberOfRecordsToRequest = 300;
+
 	constructor(
 		private authTokenService: AuthTokenService,
 		private httpClient: HttpClient,
@@ -21,7 +23,7 @@ export class VehicleHistoryHttpService {
 		const token = this.jwtHelperService.decodeToken(this.authTokenService.authToken);
 
 		return this.httpClient.get<any>(
-			`${environment.apiBaseUrl}/${token.conos[0]}/vehiclehist/client/${token.conos[0]}${token.clientIDs[0]}`,
+			`${environment.apiBaseUrl}/${token.conos[0]}/vehiclehist/client/${token.conos[0]}${token.clientIDs[0]}?$limit=${this.numberOfRecordsToRequest}`,
 			environment.httpOptions)
 			.pipe(
 				map(vehicleHistoryEntriesDto => {
@@ -34,7 +36,7 @@ export class VehicleHistoryHttpService {
 		const token = this.jwtHelperService.decodeToken(this.authTokenService.authToken);
 
 		return this.httpClient.get<any>(
-			`${environment.apiBaseUrl}/${token.conos[0]}/vehiclehist/${VIN}`,
+			`${environment.apiBaseUrl}/${token.conos[0]}/vehiclehist/${VIN}?$limit=${this.numberOfRecordsToRequest}`,
 			environment.httpOptions)
 			.pipe(
 				map(vehicleHistoryEntriesDto => {
