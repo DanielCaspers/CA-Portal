@@ -9,6 +9,8 @@ import {
 	MatMenuModule
 } from '@angular/material';
 
+import { NgxAnalyticsModule } from 'ngx-analytics';
+
 import {
 	RecommendedServicesModule,
 } from 'murphy-automotive-shared-library';
@@ -29,6 +31,8 @@ import { VehiclesHttpService } from './vehicles-http.service';
 		MatCardModule,
 		MatIconModule,
 		MatMenuModule,
+
+		NgxAnalyticsModule,
 
 		RecommendedServicesModule,
 

@@ -41,7 +41,15 @@
 	</mat-card-content>
 
 	<mat-card-actions>
-		<button [disabled]="recommendedServices.length === 0" mat-button (click)="openRecommendedServicesDialog()" color="accent">
+		<button
+				[disabled]="recommendedServices.length === 0"
+				mat-button
+				(click)="openRecommendedServicesDialog()"
+				color="accent"
+				ngx-analyticsOn="click"
+				angularticsAction="Opened Services Needed"
+				angularticsLabel="Vehicle Card - Dialog"
+				angularticsCategory="Recommended Services">
 			<ma-recommended-service-severity [showHelpText]="false" [severity]="recommendedServiceSeverity"></ma-recommended-service-severity>
 
 			<ng-container *ngIf="recommendedServices.length === 0">
@@ -55,7 +63,13 @@
 
 		<div fxFlex></div>
 
-		<button mat-icon-button [matMenuTriggerFor]="menu">
+		<button
+				mat-icon-button
+				[matMenuTriggerFor]="menu"
+				ngx-analyticsOn="click"
+				angularticsAction="Opened Menu"
+				angularticsLabel="More Items"
+				angularticsCategory="Vehicle">
 			<mat-icon class="menu-button">more_vert</mat-icon>
 		</button>
 		<mat-menu #menu="matMenu">

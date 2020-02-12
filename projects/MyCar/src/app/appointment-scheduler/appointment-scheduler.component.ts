@@ -6,6 +6,7 @@ import {
 	ViewEncapsulation
 } from '@angular/core';
 import {
+	AbstractControl,
 	FormBuilder,
 	FormControl,
 	FormGroup,
@@ -31,6 +32,15 @@ import { AppointmentSchedulerHttpService } from './appointment-scheduler-http.se
 import { AppointmentScheduleResponse, AppointmentType } from './appointment-scheduler.models';
 import { VehiclesHttpService } from '../my-vehicles/vehicles-http.service';
 import { VehicleBase, VehicleOverview } from '../my-vehicles/vehicle.models';
+
+/**
+ * If the form field is null, give it a free pass.
+ * Else, let it continue on to the required attribute validation.
+ * This allows us to let common issues and concerns pass through once one or more have been entered.
+ */
+export const RequiredOrNull = (control: AbstractControl): ValidationErrors | null  => {
+	return control.value === null ? null : Validators.required(control);
+};
 
 export const AtLeastOne = (validator: ValidatorFn) => (
 	group: FormGroup,
@@ -309,6 +319,8 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 
 		this.commonIssues.setValue(null);
 		this.issueInput.nativeElement.value = '';
+
+		this.commonIssues.updateValueAndValidity();
 	}
 
 	public remove(item): void {
@@ -462,7 +474,7 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 			commonIssues: [''],
 			issueDescription: [''],
 			recommendedServices: ['']
-		}, { validators: AtLeastOne(Validators.required)});
+		}, { validators: AtLeastOne(RequiredOrNull)});
 	}
 
 	private filterIssues(value: DynamicFormData | string | null): DynamicFormData[] {

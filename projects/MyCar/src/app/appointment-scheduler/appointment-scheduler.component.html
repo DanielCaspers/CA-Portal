@@ -178,7 +178,17 @@
 				</mat-form-field>
 
 				<div>
-					<button mat-button [disabled]="issuesFormGroup.invalid" color="accent" type="submit" matStepperNext>Schedule</button>
+					<button
+							mat-button
+							[disabled]="issuesFormGroup.invalid"
+							color="accent"
+							type="submit"
+							matStepperNext
+							ngx-analyticsOn="click"
+							angularticsAction="Scheduled Appointment"
+							angularticsCategory="Appointments">
+						Schedule
+					</button>
 				</div>
 			</form>
 		</div>

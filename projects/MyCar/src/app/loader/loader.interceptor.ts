@@ -7,7 +7,10 @@ import {
 	HttpEvent,
 	HttpInterceptor
 } from '@angular/common/http';
+
+import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
 import { Observable } from 'rxjs';
+
 import { LoaderService } from './loader.service';
 
 /**
@@ -19,7 +22,7 @@ import { LoaderService } from './loader.service';
 export class LoaderInterceptor implements HttpInterceptor {
 	private requests: HttpRequest<any>[] = [];
 
-	constructor(private loaderService: LoaderService) { }
+	constructor(private loaderService: LoaderService, private googleAnalyticsService: NgxAnalyticsGoogleAnalytics) { }
 
 	public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -38,6 +41,17 @@ export class LoaderInterceptor implements HttpInterceptor {
 					},
 					err => {
 						console.error('Loader.interceptor failed. Go investigate why. ');
+
+						const crashReport = {
+							httpStatus: err.status,
+							requestUrl: err.url,
+							message: err.message
+						};
+						this.googleAnalyticsService.eventTrack('Request Failed', {
+							category: 'App Diagnostics',
+							label: 'HTTP Request Interceptor',
+							value: JSON.stringify(crashReport)
+						});
 						this.removeRequest(req);
 						observer.error(err);
 					},
