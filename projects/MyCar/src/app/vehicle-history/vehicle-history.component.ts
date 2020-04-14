@@ -16,8 +16,8 @@ import { VehicleOverview } from '../my-vehicles/vehicle.models';
 })
 export class VehicleHistoryComponent implements OnInit {
 
-	private vehicleId: string = null;
-	private myVehicles: VehicleOverview[] = [];
+	public vehicleId: string = null;
+	public myVehicles: VehicleOverview[] = [];
 	public vehicleHistory: VehicleHistoryEntry[] = [];
 
 	constructor(
