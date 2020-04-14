@@ -1,4 +1,19 @@
-<div class="mat-elevation-z8 vehicle-history-container" fxFlex>
+<div fxFlex>
+	<mat-toolbar>
+		<mat-form-field floatLabel="always">
+			<mat-label>Vehicles in history</mat-label>
+			<mat-select
+					placeholder="All of my vehicles"
+					[(value)]="vehicleId"
+					(selectionChange)="onSelectionChange()">
+				<mat-option [value]="null">All of my vehicles</mat-option>
+				<mat-option *ngFor="let vehicle of myVehicles" [value]="vehicle.vehicleID">
+					{{vehicle.year}} {{vehicle.make}} {{vehicle.model}} ({{vehicle.license}})
+				</mat-option>
+			</mat-select>
+		</mat-form-field>
+
+	</mat-toolbar>
 	<mat-accordion multi="true">
 		<mat-expansion-panel *ngFor="let entry of vehicleHistory">
 

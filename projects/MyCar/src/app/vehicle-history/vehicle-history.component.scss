@@ -1,6 +1,12 @@
 :host {
-	.vehicle-history-container {
-		margin: 12px 12px;
+	mat-form-field {
+		width: 100%;
+	}
+
+	mat-toolbar {
+		padding-top: 0px;
+		font-size: 1em;
+		height: 72px;
 	}
 
 	.completion-date {
