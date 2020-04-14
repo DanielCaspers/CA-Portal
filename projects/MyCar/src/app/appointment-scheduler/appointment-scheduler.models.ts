@@ -8,9 +8,24 @@ export interface AppointmentScheduleResponse {
 	daysAvailable: Date[];
 
 	/**
-	 * Text-based description of how to schedule
+	 * Text-based bullet list describing reasons why one should not schedule via the app
 	 */
-	guidelines: string[]; // TODO DJC discuss with dad,
+	reasonsToAvoidScheduling: string[];
+
+	/**
+	 * Text used for the "Renting a car?" step
+	 */
+	rentalCarBodyText: string;
+
+	/**
+	 * Main body text used for the "Which day?" step
+	 */
+	daySelectionBodyText: string;
+
+	/**
+	 * Caption text used for the "Which day?" step
+	 */
+	daySelectionCaptionText: string;
 
 	problemDescriptions: DynamicFormData[];
 }

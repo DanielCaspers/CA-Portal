@@ -77,7 +77,19 @@
 				<mat-icon>loyalty</mat-icon>
 				<span>Coupons</span>
 			</button>
-			<button [routerLink]="['/history/', vehicleId]" mat-menu-item>
+			<!--
+				The vehicle history option is disabled when a VIN is not available, as it does not
+				make sense to navigate to the vehicle history page for a given vehicle when a VIN is not provided,
+				as it will show history for all vehicles.
+
+				This is different from the coupons feature as some coupons shown will be relevant to the client
+				regardless of whether or not they are targeted for a given vehicle.
+
+				The reason sometimes vehicles are returned without a VIN is when an appointment is scheduled via the app,
+				the back end considers them a "vehicle" immediately instead of having a separate staging collection
+				used for holding these partial vehicle objects.
+			-->
+			<button [disabled]="!vehicleId" [routerLink]="['/history/', vehicleId]" mat-menu-item>
 				<mat-icon>history</mat-icon>
 				<span>History</span>
 			</button>

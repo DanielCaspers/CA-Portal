@@ -42,15 +42,15 @@ export class LoaderInterceptor implements HttpInterceptor {
 					err => {
 						console.error('Loader.interceptor failed. Go investigate why. ');
 
-						const crashReport = {
+						const slimHttpErrorResponse = {
 							httpStatus: err.status,
 							requestUrl: err.url,
 							message: err.message
 						};
 						this.googleAnalyticsService.eventTrack('Request Failed', {
 							category: 'App Diagnostics',
-							label: 'HTTP Request Interceptor',
-							value: JSON.stringify(crashReport)
+							label: `HTTP ${slimHttpErrorResponse.httpStatus} Response`,
+							value: JSON.stringify(slimHttpErrorResponse)
 						});
 						this.removeRequest(req);
 						observer.error(err);

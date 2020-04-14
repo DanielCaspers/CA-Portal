@@ -6,8 +6,9 @@
 			<div>
 				You don't need to schedule if the only services you need are
 				<ul>
-					<li>Oil change</li>
-					<li>Tire rotation</li>
+					<li *ngFor="let reason of reasonsToAvoidScheduling">
+						{{reason}}
+					</li>
 				</ul>
 			</div>
 			<div>
@@ -21,7 +22,7 @@
 		<div fxLayout="column" fxLayoutGap="10px">
 			<ng-template matStepLabel icon>Renting a car?</ng-template>
 			<div>
-				Rental cars are available for $30/day. Call for availability and to schedule.
+				{{rentalCarBodyText}}
 			</div>
 			<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
 				<a mat-button
@@ -42,8 +43,8 @@
 	<mat-step [stepControl]="dateFormGroup" state="pick-day">
 		<div fxLayout="column" fxLayoutGap="10px">
 			<ng-template matStepLabel icon>Which day?</ng-template>
-			<div>Vehicles must be dropped off by 9am and left for the day.</div>
-			<div class="mat-caption">Open M-F 7am to 8pm, SAT: 8am - 5pm</div>
+			<div>{{daySelectionBodyText}}</div>
+			<div class="mat-caption">{{daySelectionCaptionText}}</div>
 			<form [formGroup]="dateFormGroup" fxLayout="column" fxLayoutGap="15px">
 				<mat-form-field fxFlex color="accent">
 					<input

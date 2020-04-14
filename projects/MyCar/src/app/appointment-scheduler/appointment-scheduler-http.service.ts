@@ -47,6 +47,11 @@ export class AppointmentSchedulerHttpService {
 					}
 					dto.problemDescriptions = problemDescriptions;
 
+					// dto.reasonsToAvoidScheduling = ['Oil change', 'Tire rotation'];
+					// dto.rentalCarBodyText = 'Rental cars are available for $30/day. Call for availability and to schedule.';
+					// dto.daySelectionBodyText = 'Vehicles must be dropped off by 9am and left for the day.';
+					// dto.daySelectionCaptionText = 'Open M-F 7am to 8pm, SAT: 8am - 5pm';
+
 					return dto as AppointmentScheduleResponse;
 				})
 		);

@@ -72,14 +72,32 @@ export enum ScheduleProcess {
 	encapsulation: ViewEncapsulation.Emulated
 })
 export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<AppointmentSchedulerComponent> {
-	public scheduleProgress: ScheduleProcess = ScheduleProcess.Entry;
 
 	public storeInfo: StoreInfo;
 
-	// Autocomplete inputs config
-	public readonly separatorKeysCodes: number[] = [ENTER];
+	// Step 1: Need to schedule?
+	/**
+	 * Text-based bullet list describing reasons why one should not schedule via the app
+	 */
+	public reasonsToAvoidScheduling: string[];
+
+	// Step 2: Renting a car?
+	/**
+	 * Text used for the "Renting a car?" step
+	 */
+	public rentalCarBodyText: string;
 
 	// Step 3: Select date
+	/**
+	 * Main body text used for the "Which day?" step
+	 */
+	public daySelectionBodyText: string;
+
+	/**
+	 * Caption text used for the "Which day?" step
+	 */
+	public daySelectionCaptionText: string;
+
 	/**
 	 * Set the minimum date to now so users cannot schedule appointments in the past
 	 */
@@ -109,6 +127,7 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 
 	// Step 4: Select vehicle
 	public vehicleFormGroup: FormGroup;
+
 	public appointmentType: AppointmentType = AppointmentType.ExistingVehicle;
 
 	private vehicleId: string;
@@ -142,8 +161,13 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 	 */
 	public vehicleModels: DynamicFormData[] = [];
 
+	private knownVehicleChangeSubscription: Subscription = null;
+
 	// Step 5: Describe vehicle needs
 	public issuesFormGroup: FormGroup;
+
+	// Autocomplete inputs config
+	public readonly separatorKeysCodes: number[] = [ENTER];
 
 	/**
 	 * Selected issues which the user would like addressed or investigated
@@ -166,7 +190,7 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 
 	public recommendedServices: RecommendedService[] = [];
 
-	private knownVehicleChangeSubscription: Subscription = null;
+	public scheduleProgress: ScheduleProcess = ScheduleProcess.Entry;
 
 	constructor(
 		private appointmentSchedulerHttpService: AppointmentSchedulerHttpService,
@@ -221,6 +245,10 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 			).subscribe((response: AppointmentScheduleResponse) => {
 				this.daysAvailable = response.daysAvailable.map(this.dateFormatter);
 				this.allIssues = response.problemDescriptions;
+				this.reasonsToAvoidScheduling = response.reasonsToAvoidScheduling;
+				this.daySelectionBodyText = response.daySelectionBodyText;
+				this.daySelectionCaptionText = response.daySelectionCaptionText;
+				this.rentalCarBodyText = response.rentalCarBodyText;
 			});
 	}
 
