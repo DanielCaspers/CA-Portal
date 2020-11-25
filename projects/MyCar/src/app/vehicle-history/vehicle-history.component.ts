@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { MediaObserver } from '@angular/flex-layout';
 import { ActivatedRoute } from '@angular/router';
 import { sortBy } from 'lodash-es';
 import { first } from 'rxjs/operators';
@@ -16,11 +17,13 @@ import { VehicleOverview } from '../my-vehicles/vehicle.models';
 })
 export class VehicleHistoryComponent implements OnInit {
 
+	public searchQuery: string = '';
 	public vehicleId: string = null;
 	public myVehicles: VehicleOverview[] = [];
 	public vehicleHistory: VehicleHistoryEntry[] = [];
 
 	constructor(
+		public media: MediaObserver,
 		private route: ActivatedRoute,
 		private vehiclesHttpService: VehiclesHttpService,
 		private vehicleHistoryService: VehicleHistoryHttpService

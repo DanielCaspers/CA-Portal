@@ -1,6 +1,6 @@
-<div fxFlex>
-	<mat-toolbar>
-		<mat-form-field floatLabel="always">
+<mat-toolbar fxLayout.lt-sm="column" fxLayoutGap="8px" fxLayout.gt-xs="row">
+	<mat-toolbar-row>
+		<mat-form-field class="vehicle-selector" floatLabel="always">
 			<mat-label>Vehicles in history</mat-label>
 			<mat-select
 					placeholder="All of my vehicles"
@@ -12,16 +12,46 @@
 				</mat-option>
 			</mat-select>
 		</mat-form-field>
-
-	</mat-toolbar>
+	</mat-toolbar-row>
+	<mat-toolbar-row>
+		<mat-form-field floatLabel="always">
+			<mat-label>Search</mat-label>
+			<mat-icon matPrefix>search</mat-icon>
+			<input matInput type="text" [(ngModel)]="searchQuery">
+			<button mat-button *ngIf="searchQuery" matSuffix mat-icon-button aria-label="Clear" (click)="searchQuery=''">
+				<mat-icon>close</mat-icon>
+			</button>
+		</mat-form-field>
+	</mat-toolbar-row>
+</mat-toolbar>
+<div class="vehicle-history-container">
 	<mat-accordion multi="true">
-		<mat-expansion-panel *ngFor="let entry of vehicleHistory">
+		<mat-expansion-panel *ngFor="let entry of vehicleHistory | filter:searchQuery">
 
 			<mat-expansion-panel-header>
-				<mat-panel-title fxLayoutAlign="space-between center">
+				<mat-panel-title>
 					<span class="mat-body-2">{{entry.Year}} {{entry.Make}} {{entry.Model}}</span>
-					<span class="mat-caption completion-date">{{entry.CompletionDate | date: 'shortDate'}}</span>
 				</mat-panel-title>
+				<mat-panel-description fxLayoutAlign="space-between center">
+					<!-- Spacer when xs or sm -->
+					<div flex *ngIf="!media.isActive('gt-sm')"></div>
+
+					<!-- Work Description when gt-sm -->
+					<div fxFlex="nogrow" *ngIf="media.isActive('gt-sm')">
+						<!-- Display only the first 3 work description entries to prevent overflow -->
+						<!-- CSS flex has issues preventing overflow of text elements, even when width constrained. -->
+						<!-- https://www.westerndevs.com/css/Using-Overflow-Ellipsis-in-Inline-Flex/ -->
+						<span *ngFor="let line of entry.Description; let last=last; let i = index">
+							<ng-container *ngIf="i < 3;">
+								{{line}}<ng-container *ngIf="!last">,</ng-container>
+							</ng-container>
+						</span>
+						<span *ngIf="entry.Description.length > 3">&nbsp;...</span>
+					</div>
+
+					<!-- Always show completion date floated right -->
+					<span class="mat-caption completion-date">{{entry.CompletionDate | date: 'shortDate'}}</span>
+				</mat-panel-description>
 			</mat-expansion-panel-header>
 
 			<div fxLayout="column" fxLayoutAlign="space-between center" fxFill>

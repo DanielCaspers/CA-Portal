@@ -1,12 +1,16 @@
 :host {
+	.vehicle-history-container { // TODO Commonize since its same on all core container pages....
+		margin: 12px 12px;
+	}
+
 	mat-form-field {
 		width: 100%;
+		padding-top: 16px;
 	}
 
 	mat-toolbar {
-		padding-top: 0px;
+		padding-top: 4px;
 		font-size: 1em;
-		height: 72px;
 	}
 
 	.completion-date {
