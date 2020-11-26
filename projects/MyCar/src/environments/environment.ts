@@ -11,6 +11,9 @@ export const environment: MyCarEnvironment = {
 	httpOptions: {
 		headers: new HttpHeaders({
 			'Access-Control-Allow-Origin': '*',
+			// 'Access-Control-Allow-Methods': 'GET, POST, OPTIONS, PATCH',
+			// 'Access-Control-Allow-Headers': 'Authorization, x-appkey',
+
 			'x-appkey': 'D4LgRtMpfyZKXBaYSgRzah6jBf3w7W0v'
 		})
 	},

@@ -28,4 +28,14 @@ export class AccountHttpService {
 				})
 		);
 	}
+
+	public editAccount(account: AccountOverview): Observable<AccountOverview> {
+		const token = this.jwtHelperService.decodeToken(this.authTokenService.authToken);
+
+		const requestBody = {...account, cono: token.conos[0], clientID: token.clientIDs[0]};
+		return this.httpClient.patch<any>(
+			`${environment.apiBaseUrl}/${token.conos[0]}/clients/${token.clientIDs[0]}`,
+			requestBody,
+			environment.httpOptions);
+	}
 }

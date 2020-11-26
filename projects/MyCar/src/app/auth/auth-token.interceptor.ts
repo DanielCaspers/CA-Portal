@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { EMPTY, Observable, Subject, throwError, timer } from 'rxjs';
-import { catchError, first, flatMap, map, switchMap } from 'rxjs/operators';
+import { EMPTY, Observable, Subject, throwError } from 'rxjs';
+import { catchError, flatMap, map, switchMap, tap } from 'rxjs/operators';
 
 import { AuthTokenService } from './auth-token.service';
 import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment';
+import { delayUntil } from './auth.operators';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
 
 	private tokenRefreshIsInProgress = false;
-	private tokenRefreshedSource: Subject<any> = new Subject();
-	private tokenRefreshed$ = this.tokenRefreshedSource.asObservable();
+	private tokenRefreshed$: Subject<any> = new Subject();
 
 	constructor(private authService: AuthService, private authTokenService: AuthTokenService, private router: Router) { }
 
@@ -23,33 +23,41 @@ export class JwtInterceptor implements HttpInterceptor {
 			return next.handle(request);
 		}
 
+		console.log('Request intercepted for URL', request.url);
+
 		request = this.addAuthHeader(request);
 
 		return next.handle(request)
 			.pipe(
 				// The request has failed
 				catchError((error) => {
-					console.error('Auth interceptor error', error);
+					console.log('HTTP request interceptor caught the following error', error);
 					if (error.status === 401) {
-						console.debug('Attempting to refresh the authToken for an unauthenticated user');
+						console.log('HTTP 401 detected - Attempting to refresh the authToken for an unauthenticated user');
+
+						if (request.url.indexOf('auth/renew') >= 0) {
+							console.log('Cannot refresh a failure to renew the refresh token. Logging out locally...');
+							this.logoutLocally();
+							return EMPTY;
+						}
 
 						return this.refreshToken()
 							.pipe(
-								switchMap(() => {
-									console.debug('We successfully renewed the authToken. Try the request again');
+								flatMap(() => {
+									console.log('Auth token renewed! Request will be retried...');
 
 									request = this.addAuthHeader(request);
 									return next.handle(request);
 								}),
 								catchError(() => {
-									console.debug('OUTER - The authToken could not be refreshed; The user will have to provide their credentials again');
+									console.log('OUTER - The authToken could not be refreshed; The user will have to provide their credentials again');
 
 									this.logoutLocally();
 									return EMPTY;
 								})
 							);
 					}
-					console.debug('The error was uncaught');
+					console.log('A non-refreshable HTTP error was caught. Letting it pass.');
 					// The error response cannot be fixed by refresh tokens; let it pass through.
 					return throwError(error);
 				})
@@ -65,10 +73,10 @@ export class JwtInterceptor implements HttpInterceptor {
 					Authorization: `Bearer ${authToken}`
 				}
 			});
-			console.debug('Authorization header was added to request', request);
+			console.log('Authorization header was added to request', request);
 
 		} else {
-			console.debug('Authorization header WAS NOT added to request', request);
+			console.log('Authorization header WAS NOT added to request', request);
 		}
 
 		return request;
@@ -78,23 +86,33 @@ export class JwtInterceptor implements HttpInterceptor {
 		// Removing authentication locally since we're already logged out of the remote at this point.
 		console.log('Logging out locally; received an HTTP 401 on token refresh attempt.');
 		this.authTokenService.clearAuthToken();
+		this.authTokenService.clearRefreshToken();
 		this.router.navigate(['/login']);
 	}
 
 	public refreshToken(): Observable<any> {
 		if (this.tokenRefreshIsInProgress) {
-			return timer(2000); // FIXME DJC Determine how to appropriately signal via a mutex to prevent non-reentracy
+			return new Observable()
+				.pipe(
+					tap(() => console.log('Token refresh in progress. Request retry is awaiting tokenRefresh$')),
+					delayUntil(this.tokenRefreshed$),
+					tap(() => console.log('tokenFrefresh$ has signalled. Unblocking caller...'))
+				);
 		} else {
 			this.tokenRefreshIsInProgress = true;
 
 			return this.authService.refreshToken()
 				.pipe(
 					map(() => {
+						console.log('Token refreshed. Signalling other callers to continue.');
 						this.tokenRefreshIsInProgress = false;
-						this.tokenRefreshedSource.next();
+						this.tokenRefreshed$.next();
+						this.tokenRefreshed$.complete();
+						// TODO: DJC Determine if with different refresh token timeout, re-assignment of this is necessary
+						// this.tokenRefreshed$ = new Subject<any>();
 					}),
 					catchError(() => {
-						console.debug('INNER - The authToken could not be refreshed; The user will have to provide their credentials again');
+						console.log('INNER - The authToken could not be refreshed; The user will have to provide their credentials again');
 
 						this.logoutLocally();
 						return EMPTY;

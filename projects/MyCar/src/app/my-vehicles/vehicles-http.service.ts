@@ -51,13 +51,13 @@ export class VehiclesHttpService {
 							v.aggregateSeverity = v.recommendedServices[0].Severity;
 
 						} else {
-						 	v.recommendedServices = [];
-						 	v.aggregateSeverity = 10;
+							v.recommendedServices = [];
+							v.aggregateSeverity = 10;
 						}
 
-						 delete v.vehicleRS;
+						delete v.vehicleRS;
 
-						 // Only set this data if null/non-negative
+						// Only set this data if null/non-negative
 						const dataIsNonNegativeAndNonNull = !!v.vehicleMaintDetails &&
 							v.vehicleMaintDetails.length > 0 &&
 							Math.sign(v.vehicleMaintDetails[0].lofLastOdometer) === 1 &&
@@ -65,15 +65,15 @@ export class VehiclesHttpService {
 							Math.sign(v.vehicleMaintDetails[0].lofIntervalDays) === 1 &&
 							Math.sign(v.vehicleMaintDetails[0].lofIntervalMiles) === 1;
 
-						 if (dataIsNonNegativeAndNonNull) {
-						 	v.nextOilChangeDate = new Date(
-						 		(v.vehicleMaintDetails[0].lofLastDate * 1000) +
+						if (dataIsNonNegativeAndNonNull) {
+							v.nextOilChangeDate = new Date(
+								(v.vehicleMaintDetails[0].lofLastDate * 1000) +
 								v.vehicleMaintDetails[0].lofIntervalDays);
 
-						 	v.nextOilChangeOdometer = v.vehicleMaintDetails[0].lofLastOdometer + v.vehicleMaintDetails[0].lofIntervalMiles;
+							v.nextOilChangeOdometer = v.vehicleMaintDetails[0].lofLastOdometer + v.vehicleMaintDetails[0].lofIntervalMiles;
 
-						 	delete v.vehicleMaintDetails;
-						 }
+							delete v.vehicleMaintDetails;
+						}
 					}
 
 					return vehiclesDto as VehicleOverview[];

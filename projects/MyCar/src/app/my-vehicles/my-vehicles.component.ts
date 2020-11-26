@@ -23,7 +23,7 @@ export class MyVehiclesComponent implements OnInit {
 			.pipe(first())
 			.subscribe((vehicles) => {
 				this.vehicles = sortBy(vehicles, 'aggregateSeverity', 'make', 'model');
-				console.debug(this.vehicles);
+				console.log(this.vehicles);
 			});
 	}
 }

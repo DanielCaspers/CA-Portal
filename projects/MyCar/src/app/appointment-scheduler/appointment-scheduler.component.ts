@@ -83,18 +83,18 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 
 	// Step 2: Renting a car?
 	/**
-	 * Text used for the "Renting a car?" step
+	 * Text used for the 'Renting a car?' step
 	 */
 	public rentalCarBodyText: string;
 
 	// Step 3: Select date
 	/**
-	 * Main body text used for the "Which day?" step
+	 * Main body text used for the 'Which day?' step
 	 */
 	public daySelectionBodyText: string;
 
 	/**
-	 * Caption text used for the "Which day?" step
+	 * Caption text used for the 'Which day?' step
 	 */
 	public daySelectionCaptionText: string;
 
@@ -396,7 +396,7 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 			}
 
 		} else {
-			console.info('A known vehicle was not provided. Recommended services will not be available for selection.');
+			console.log('A known vehicle was not provided. Recommended services will not be available for selection.');
 		}
 	}
 

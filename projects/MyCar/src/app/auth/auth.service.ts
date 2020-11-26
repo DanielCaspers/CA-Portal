@@ -17,7 +17,8 @@ export class AuthService {
 		formData.set('username', username);
 		formData.set('password', password);
 
-		return this.http.post<{authToken: string, refreshToken: string}>(`${environment.apiBaseUrl}/auth/logon`, formData, environment.httpOptions)
+		return this.http.post<{authToken: string, refreshToken: string}>
+		(`${environment.apiBaseUrl}/auth/logon`, formData, environment.httpOptions)
 			.pipe(
 				map((result) => {
 					this.authTokenService.authToken = result.authToken;

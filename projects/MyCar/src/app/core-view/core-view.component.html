@@ -16,7 +16,9 @@
 			   angularticsAction="Opened Website"
 			   angularticsLabel="Company Logo - Sidenav"
 			   angularticsCategory="Store">
-				<img height="56" [src]="storeInfo?.StoreWebAssets?.LogoSmall" />
+				<img *ngIf="storeInfo?.StoreWebAssets?.LogoSmall"
+				     height="56"
+				     [src]="storeInfo?.StoreWebAssets?.LogoSmall" />
 			</a>
 
 			<div fxFlex></div>
@@ -30,7 +32,9 @@
 				   angularticsAction="Opened Website"
 				   angularticsLabel="Company Logo - Nav Bar"
 				   angularticsCategory="Store">
-					<img height="56" [src]="storeInfo?.StoreWebAssets?.LogoSmall" />
+					<img *ngIf="storeInfo?.StoreWebAssets?.LogoSmall"
+					     height="56"
+					     [src]="storeInfo?.StoreWebAssets?.LogoSmall" />
 				</a>
 
 				<!--<div>-->

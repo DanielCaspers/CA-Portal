@@ -2,4 +2,12 @@
 	.my-account-container {
 		margin: 12px 12px;
 	}
+
+	mat-card {
+		min-width: 320px;
+
+		.dynamic-contact-form-spacer {
+			height: 25px;
+		}
+	}
 }

@@ -11,7 +11,7 @@ export class LoaderComponent {
 	public isLoading: boolean;
 
 	constructor(private loaderService: LoaderService) {
-		this.loaderService.isLoading.subscribe((v) => {
+		this.loaderService.isLoading$.subscribe((v) => {
 			// console.log('Is displaying global loading indicator?', v);
 			this.isLoading = v;
 		});

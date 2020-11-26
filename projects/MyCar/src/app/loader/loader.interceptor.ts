@@ -9,9 +9,10 @@ import {
 } from '@angular/common/http';
 
 import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable } from 'rxjs';
 
 import { LoaderService } from './loader.service';
+import { catchError, filter, tap } from 'rxjs/operators';
 
 /**
  * See
@@ -27,20 +28,19 @@ export class LoaderInterceptor implements HttpInterceptor {
 	public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
 		this.requests.push(req);
-		console.log('No of requests enqueued:', this.requests.length);
-		this.loaderService.isLoading.next(true);
+		console.log('Request enqueued. Requests pending in queue:', this.requests.length, this.requests.map(r => r.url));
+		this.loaderService.isLoading$.next(true);
 
-		return new Observable(observer => {
-			const subscription = next.handle(req)
-				.subscribe(
-					event => {
-						if (event instanceof HttpResponse) {
-							this.removeRequest(req);
-							observer.next(event);
-						}
-					},
-					err => {
-						console.error('Loader.interceptor failed. Go investigate why. ');
+		return next.handle(req)
+				.pipe(
+					// TODO DJC send RXJS signal so when logoutLocally occurs, this queue is cleared.
+					filter(event => event instanceof HttpResponse),
+					tap(() => {
+						this.removeRequest(req);
+					}),
+					catchError((err) => {
+						console.error('Loader.interceptor failed. Go investigate why. Error:', err, 'Request', req);
+						this.removeRequest(req);
 
 						const slimHttpErrorResponse = {
 							httpStatus: err.status,
@@ -52,26 +52,17 @@ export class LoaderInterceptor implements HttpInterceptor {
 							label: `HTTP ${slimHttpErrorResponse.httpStatus} Response`,
 							value: JSON.stringify(slimHttpErrorResponse)
 						});
-						this.removeRequest(req);
-						observer.error(err);
-					},
-					() => {
-						this.removeRequest(req);
-						observer.complete();
-					});
-			// remove request from queue when cancelled
-			return () => {
-				this.removeRequest(req);
-				subscription.unsubscribe();
-			};
-		});
+						return EMPTY;
+					})
+				);
 	}
 
 	private removeRequest(req: HttpRequest<any>): void {
 		const i = this.requests.indexOf(req);
 		if (i >= 0) {
 			this.requests.splice(i, 1);
+			console.log('Dequeued a request. Requests pending in queue:', this.requests.length, this.requests.map(r => r.url));
 		}
-		this.loaderService.isLoading.next(this.requests.length > 0);
+		this.loaderService.isLoading$.next(this.requests.length > 0);
 	}
 }
