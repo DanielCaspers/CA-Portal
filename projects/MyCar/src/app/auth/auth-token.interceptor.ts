@@ -41,6 +41,12 @@ export class JwtInterceptor implements HttpInterceptor {
 							return EMPTY;
 						}
 
+						if (request.url.indexOf('auth/logon') >= 0) {
+							console.log('Cannot refresh a failure log in. Rethrowing...');
+
+							return throwError(error);
+						}
+
 						return this.refreshToken()
 							.pipe(
 								flatMap(() => {

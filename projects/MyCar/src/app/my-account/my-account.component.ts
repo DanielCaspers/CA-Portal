@@ -9,11 +9,13 @@ import {
 	FormGroup,
 	Validators
 } from '@angular/forms';
+import { MatAccordionDisplayMode } from '@angular/material/expansion';
 
 import { first } from 'rxjs/operators';
 
-import { AccountOverview, Address, EmailAddress } from './account.models';
+import { AccountOverview, Address, EmailAddress, PhoneNumber } from './account.models';
 import { AccountHttpService } from './account-http.service';
+import { ConfirmDialogService } from 'murphy-automotive-shared-library';
 
 @Component({
 	selector: 'ma-my-account',
@@ -37,6 +39,9 @@ export class MyAccountComponent implements OnInit {
 
 	public isEditingAddressForm = false;
 	public isEditingEmailForm = false;
+	public isEditingPhoneForm = false;
+
+	public readonly accordionDisplayMode: MatAccordionDisplayMode = 'flat';
 
 	public readonly stateOptions: {name: string, value: string}[] = [
 		{'name': 'Alabama', 'value': 'AL'},
@@ -94,7 +99,8 @@ export class MyAccountComponent implements OnInit {
 
 	constructor(
 		private accountHttpService: AccountHttpService,
-		private formBuilder: FormBuilder
+		private formBuilder: FormBuilder,
+		private confirmDialogService: ConfirmDialogService
 	) {
 		this.addressFormGroup = this.formBuilder.group({
 			name: [{value: '', disabled: !this.isEditingAddressForm}, Validators.required],
@@ -217,19 +223,37 @@ export class MyAccountComponent implements OnInit {
 
 	public addEmailAddress(): void {
 		const fg = this.formBuilder.group({
-			emailAddress: ['', [Validators.required, Validators.email]],
-			name: ['', Validators.required],
-			emailPromos: ['', Validators.required],
-			emailReminders: ['', Validators.required],
-			emailStatements: ['', Validators.required],
-			emailVIP: ['', Validators.required],
+			emailAddress: [{value: '', disabled: !this.isEditingEmailForm}, [Validators.required, Validators.email]],
+			name: [{value: '', disabled: !this.isEditingEmailForm}, Validators.required],
+			emailPromos: [{value: '', disabled: !this.isEditingEmailForm}, Validators.required],
+			emailReminders: [{value: '', disabled: !this.isEditingEmailForm}, Validators.required],
+			emailStatements: [{value: '', disabled: !this.isEditingEmailForm}, Validators.required],
+			emailVIP: [{value: '', disabled: !this.isEditingEmailForm}, Validators.required],
 		});
 		this.emailFormArray.push(fg);
 	}
 
 	public removeEmailAddress(index: number): void {
-		// TODO confirm dialog?
-		this.emailFormArray.removeAt(index);
+		if (this.emailFormArray.length === 1) {
+			this.confirmDialogService.open(
+				'Delete last email address?',
+				`Deleting all email addresses will prevent you from being able to reset your password online.
+				It may also impact our ability to contact you about any active work being done to your vehicles.`,
+				'Delete',
+				'Cancel'
+				)
+				.afterClosed()
+				.pipe(
+					first()
+				)
+				.subscribe((confirmed) => {
+					if (confirmed) {
+						this.emailFormArray.removeAt(index);
+					}
+				});
+		} else {
+			this.emailFormArray.removeAt(index);
+		}
 	}
 
 	public emailFormSubmit(): void {
@@ -280,7 +304,92 @@ export class MyAccountComponent implements OnInit {
 	//region Phone Form
 
 	private updatePhoneFormValues(): void {
+		for (const phone of this.account.clientPhone) {
+			const fg = this.formBuilder.group({
+				phoneNumber: [{value: phone.number, disabled: !this.isEditingPhoneForm}, Validators.required],
+				name: [{value: phone.name, disabled: !this.isEditingPhoneForm}, Validators.required],
+				type: [{value: phone.type, disabled: !this.isEditingPhoneForm}, Validators.required],
+				smsReminders: [{value: phone.smsReminders, disabled: !this.isEditingPhoneForm}, Validators.required],
+				smsVIP: [{value: phone.smsThankYous, disabled: !this.isEditingPhoneForm}, Validators.required]
+			});
+			this.phoneFormArray.push(fg);
+		}
+	}
 
+	public addPhoneNumber(): void {
+		const fg = this.formBuilder.group({
+			phoneNumber: [{value: '', disabled: !this.isEditingPhoneForm}, Validators.required],
+			name: [{value: '', disabled: !this.isEditingPhoneForm}, Validators.required],
+			type: [{value: 'C', disabled: !this.isEditingPhoneForm}, Validators.required],
+			smsReminders: [{value: '', disabled: !this.isEditingPhoneForm}, Validators.required],
+			smsVIP: [{value: '', disabled: !this.isEditingPhoneForm}, Validators.required]
+		});
+		this.phoneFormArray.push(fg);
+	}
+
+	public removePhoneNumber(index: number): void {
+		if (this.phoneFormArray.length === 1) {
+			this.confirmDialogService.open(
+				'Delete last phone number?',
+				`Deleting all phone numbers may impact our ability to contact you
+				about any active work being done to your vehicles.`,
+				'Delete',
+				'Cancel'
+			)
+				.afterClosed()
+				.pipe(
+					first()
+				)
+				.subscribe((confirmed) => {
+					if (confirmed) {
+						this.phoneFormArray.removeAt(index);
+					}
+				});
+		} else {
+			this.phoneFormArray.removeAt(index);
+		}
+	}
+
+	public phoneFormSubmit(): void {
+		const accountRequestBody = this.createPhoneFormRequestBody();
+
+		this.accountHttpService.editAccount(accountRequestBody)
+			.pipe(first())
+			.subscribe((accountResponse) => {
+				this.account = accountResponse;
+				this.resetPhoneForm();
+			});
+	}
+
+	private createPhoneFormRequestBody(): AccountOverview {
+		const phoneNumbers: PhoneNumber[] = this.phoneFormArray.controls.map((control) => {
+			return {
+				number: control.get('phoneNumber').value,
+				name: control.get('name').value,
+				type:  control.get('type').value,
+				smsReminders:  control.get('smsReminders').value,
+				smsThankYous: control.get('smsVIP').value
+			} as PhoneNumber;
+		});
+
+		return { clientPhone: phoneNumbers } as AccountOverview;
+	}
+
+	public phoneFormCancel(): void {
+		this.resetPhoneForm();
+	}
+
+	public phoneFormEdit(): void {
+		this.isEditingPhoneForm = true;
+		this.phoneFormArray.enable();
+	}
+
+	private resetPhoneForm(): void {
+		this.isEditingPhoneForm = false;
+
+		this.phoneFormArray.clear();
+		this.updatePhoneFormValues();
+		this.phoneFormArray.markAsPristine();
 	}
 
 	//endregion

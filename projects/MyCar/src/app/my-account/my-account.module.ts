@@ -11,9 +11,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -21,6 +23,7 @@ import { MyAccountRoutingModule } from './my-account-routing.module';
 import { MyAccountComponent } from './my-account.component';
 import { AccountHttpService } from './account-http.service';
 import { VipRewardsModule } from './vip-rewards/vip-rewards.module';
+import { ConfirmDialogModule } from 'murphy-automotive-shared-library';
 
 @NgModule({
 	declarations: [ MyAccountComponent ],
@@ -35,14 +38,17 @@ import { VipRewardsModule } from './vip-rewards/vip-rewards.module';
 		MatCardModule,
 		MatCheckboxModule,
 		MatDividerModule,
+		MatExpansionModule,
 		MatIconModule,
 		MatInputModule,
 		MatFormFieldModule,
+		MatRadioModule,
 		MatSelectModule,
 		MatTooltipModule,
 
 		VipRewardsModule,
-		MyAccountRoutingModule
+		MyAccountRoutingModule,
+		ConfirmDialogModule
 	],
 	entryComponents: [ MyAccountComponent ],
 	providers: [ AccountHttpService ]

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { AutoContrastModule } from './auto-contrast/auto-contrast.module';
+import { ConfirmDialogModule } from './confirm-dialog/confirm-dialog.module';
 import { CustomerVehicleSummaryModule } from './customer-vehicle-summary/customer-vehicle-summary.module';
 import { ImageGalleryModule } from './image-gallery/image-gallery.module';
 import { MeasurementsFormDialogModule } from './measurements-form-dialog/measurements-form-dialog.module';
@@ -15,6 +16,7 @@ import { RecommendedServicesModule } from './recommended-services/recommended-se
 	],
 	exports: [
 		AutoContrastModule,
+		ConfirmDialogModule,
 		CustomerVehicleSummaryModule,
 		ImageGalleryModule,
 		MeasurementsFormDialogModule,

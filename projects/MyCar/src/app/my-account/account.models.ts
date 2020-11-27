@@ -22,7 +22,7 @@ export interface AccountOverview extends Address {
 export interface PhoneNumber {
 	number: string;
 	name: string;
-	type: 'C' | 'W' | 'F';
+	type: 'C' | 'W' | 'F' | 'H';
 	smsReminders: boolean;
 	smsThankYous: boolean;
 }

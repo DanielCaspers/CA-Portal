@@ -3,6 +3,15 @@
 		<mat-card>
 			<mat-card-header>
 				<mat-card-title>Address</mat-card-title>
+				<div fxFlex></div>
+				<button *ngIf="!isEditingAddressForm"
+				        mat-button
+				        mat-icon-button
+				        color="accent"
+				        type="button"
+				        (click)="addressFormEdit()">
+					<mat-icon>edit</mat-icon>
+				</button>
 			</mat-card-header>
 			<mat-card-content>
 				<form [formGroup]="addressFormGroup" fxLayout="column" fxLayoutGap="5px" fxFill>
@@ -49,7 +58,7 @@
 
 					<div>
 						<div fxLayout="row" fxLayoutGap="10px">
-							<mat-form-field style="width:200px;">
+							<mat-form-field class="state-form-field">
 								<mat-label>State *</mat-label>
 								<mat-select formControlName="state" name="state">
 									<mat-option>None</mat-option>
@@ -61,7 +70,7 @@
 									State is required
 								</mat-error>
 							</mat-form-field>
-							<mat-form-field style="width:100px;">
+							<mat-form-field class="zip-form-field">
 								<input
 										formControlName="zip"
 										matInput
@@ -83,15 +92,10 @@
 				        (click)="addressFormCancel()">
 					Cancel
 				</button>
-				<button *ngIf="!isEditingAddressForm"
-				        mat-button
-				        color="accent"
-				        type="button"
-				        (click)="addressFormEdit()">
-					Edit
-				</button>
 				<button
+						*ngIf="isEditingAddressForm"
 						[disabled]="!isEditingAddressForm || addressFormGroup.pristine"
+						mat-button
 						mat-button
 						color="accent"
 						type="submit"
@@ -101,178 +105,289 @@
 			</mat-card-actions>
 		</mat-card>
 
-		<mat-card>
+		<mat-card class="phone-preferences">
 			<mat-card-header>
 				<mat-card-title>Phone Preferences</mat-card-title>
-			</mat-card-header>
-			<mat-card-content>
-
-			</mat-card-content>
-		</mat-card>
-
-		<mat-card>
-			<mat-card-header>
-				<mat-card-title>Email Preferences</mat-card-title>
-			</mat-card-header>
-			<mat-card-content>
-				<ng-container *ngFor="let emailForm of emailFormArray.controls; let index=index; let last=last">
-					<form [formGroup]="emailForm" fxLayout="column" fxLayoutGap="5px" fxFill>
-						<mat-form-field fxFlex>
-							<input
-									formControlName="emailAddress"
-									matInput
-									placeholder="Email Address *"
-									type="email">
-							<mat-error *ngIf="emailForm.get('emailAddress').hasError('required')">
-								Email address is required
-							</mat-error>
-							<mat-error *ngIf="emailForm.get('emailAddress').hasError('email')">
-								Email address is not formatted correctly
-							</mat-error>
-						</mat-form-field>
-
-						<mat-form-field fxFlex>
-							<input
-									formControlName="name"
-									matInput
-									placeholder="Contact Name *"
-									type="text">
-							<mat-error *ngIf="emailForm.get('name').hasError('required')">
-								Contact name is required
-							</mat-error>
-						</mat-form-field>
-
-<!--						<div>-->
-<!--							<div fxLayout="row" fxLayoutGap="10px" fxLayoutWrap>-->
-								<div style="width:150px">
-									<mat-checkbox
-											color="primary"
-											formControlName="emailPromos">
-										Promotions
-									</mat-checkbox>
-									<span *ngIf="displayTooltips">
-										<button #tooltip="matTooltip"
-										        matTooltip="Special offers and promotions. Generally once per month."
-										        matTooltipPosition="right"
-										        mat-icon-button
-										        type="button"
-										        aria-tooltip="Button that toggles a tooltip"
-										        (click)="tooltip.toggle()">
-											<mat-icon color="accent">help_outline</mat-icon>
-										</button>
-									</span>
-								</div>
-
-								<div style="width:150px">
-									<mat-checkbox
-											color="primary"
-											formControlName="emailReminders">
-										Reminders
-									</mat-checkbox>
-									<span *ngIf="displayTooltips">
-										<button #tooltip="matTooltip"
-										        matTooltip="Oil change and recommended service reminders"
-										        matTooltipPosition="right"
-										        mat-icon-button
-										        aria-tooltip="Button that toggles a tooltip"
-										        type="button"
-										        (click)="tooltip.toggle()">
-											<mat-icon color="accent">help_outline</mat-icon>
-										</button>
-									</span>
-								</div>
-
-								<div style="width:150px">
-									<mat-checkbox
-											color="primary"
-											formControlName="emailStatements">
-										Statements
-									</mat-checkbox>
-									<span *ngIf="displayTooltips">
-										<button #tooltip="matTooltip"
-										        matTooltip="Your monthly account statements"
-										        matTooltipPosition="right"
-										        mat-icon-button
-										        aria-tooltip="Button that toggles a tooltip"
-										        type="button"
-										        (click)="tooltip.toggle()">
-											<mat-icon color="accent">help_outline</mat-icon>
-										</button>
-									</span>
-								</div>
-
-								<div style="width:150px">
-									<mat-checkbox
-											color="primary"
-											formControlName="emailVIP">
-										VIP Rewards
-									</mat-checkbox>
-									<span *ngIf="displayTooltips">
-										<button #tooltip="matTooltip"
-										        matTooltip="Reward Points status and thank you"
-										        matTooltipPosition="right"
-										        mat-icon-button
-										        aria-tooltip="Button that toggles a tooltip"
-										        type="button"
-										        (click)="tooltip.toggle()">
-											<mat-icon color="accent">help_outline</mat-icon>
-										</button>
-									</span>
-								</div>
-<!--							</div>-->
-<!--						</div>-->
-
-						<button
-								[disabled]="!isEditingEmailForm"
-								mat-raised-button
-								mat-button
-								color="primary"
-								type="button"
-								(click)="removeEmailAddress(index)">
-							Delete email address
-						</button>
-						<button *ngIf="last"
-								[disabled]="!isEditingEmailForm"
-						        mat-button
-						        mat-raised-button
-						        type="button"
-						        color="accent"
-						        (click)="addEmailAddress()">
-							Add email address
-						</button>
-
-					</form>
-					<ng-container *ngIf="emailFormArray.controls.length > 1">
-						<div class="dynamic-contact-form-spacer"></div>
-						<mat-divider></mat-divider>
-						<div class="dynamic-contact-form-spacer"></div>
-					</ng-container>
-
-				</ng-container>
-			</mat-card-content>
-			<mat-card-actions>
-				<button *ngIf="isEditingEmailForm"
+				<div fxFlex></div>
+				<button *ngIf="!isEditingPhoneForm"
 				        mat-button
+				        mat-icon-button
 				        color="accent"
 				        type="button"
-				        (click)="emailFormCancel()">
-					Cancel
+				        (click)="phoneFormEdit()">
+					<mat-icon color="accent">edit</mat-icon>
 				</button>
+			</mat-card-header>
+			<mat-card-content>
+				<mat-accordion [displayMode]="accordionDisplayMode">
+					<ng-container *ngFor="let phoneForm of phoneFormArray.controls; let index=index;">
+						<mat-expansion-panel>
+							<mat-expansion-panel-header>
+								<mat-panel-title fxFlex="none">
+									{{ !!phoneForm.get('phoneNumber').value ? phoneForm.get('phoneNumber').value : 'Expand to add your phone number'}}
+								</mat-panel-title>
+							</mat-expansion-panel-header>
+							<form [formGroup]="phoneForm" fxLayout="column" fxLayoutGap="5px" fxFill>
+								<mat-form-field fxFlex>
+									<input formControlName="phoneNumber"
+									       matInput
+									       placeholder="Phone Number *"
+									       type="tel">
+									<mat-error *ngIf="phoneForm.get('phoneNumber').hasError('required')">
+										Email address is required
+									</mat-error>
+								</mat-form-field>
+
+								<mat-radio-group formControlName="type" aria-label="Select a telephone type">
+									<mat-radio-button value="C">Cell</mat-radio-button>
+									<mat-radio-button value="H">Home</mat-radio-button>
+									<mat-radio-button value="W">Work</mat-radio-button>
+									<mat-radio-button value="F">Fax</mat-radio-button>
+								</mat-radio-group>
+
+								<table>
+									<tr>
+										<td>
+											<mat-checkbox
+													color="primary"
+													formControlName="smsReminders">
+												Reminders
+											</mat-checkbox>
+											<span *ngIf="displayTooltips">
+												<button #tooltip="matTooltip"
+												        matTooltip="Oil change and recommended service reminders"
+												        matTooltipPosition="right"
+												        mat-icon-button
+												        aria-tooltip="Button that toggles a tooltip"
+												        type="button"
+												        (click)="tooltip.toggle()">
+													<mat-icon color="accent">help_outline</mat-icon>
+												</button>
+											</span>
+										</td>
+										<td>
+											<mat-checkbox
+													color="primary"
+													formControlName="smsVIP">
+												VIP Rewards
+											</mat-checkbox>
+											<span *ngIf="displayTooltips">
+												<button #tooltip="matTooltip"
+												        matTooltip="Reward Points status and thank you"
+												        matTooltipPosition="right"
+												        mat-icon-button
+												        aria-tooltip="Button that toggles a tooltip"
+												        type="button"
+												        (click)="tooltip.toggle()">
+													<mat-icon color="accent">help_outline</mat-icon>
+												</button>
+											</span>
+										</td>
+									</tr>
+								</table>
+							</form>
+							<mat-action-row>
+								<button
+										[disabled]="!isEditingPhoneForm"
+										mat-button
+										color="warn"
+										type="button"
+										(click)="removePhoneNumber(index)">
+									Delete phone number
+								</button>
+							</mat-action-row>
+						</mat-expansion-panel>
+					</ng-container>
+				</mat-accordion>
+			</mat-card-content>
+			<mat-card-actions>
+				<ng-container *ngIf="isEditingPhoneForm">
+					<button mat-button
+					        class="cancel-button"
+					        color="accent"
+					        type="button"
+					        (click)="phoneFormCancel()">
+						Cancel
+					</button>
+					<button mat-button
+					        type="button"
+					        color="accent"
+					        (click)="addPhoneNumber()">
+						Add phone number
+					</button>
+					<button [disabled]="phoneFormArray.untouched && phoneFormArray.controls.length === account.clientPhone.length"
+					        mat-button
+					        color="accent"
+					        type="submit"
+					        (click)="phoneFormSubmit()">
+						Save
+					</button>
+				</ng-container>
+			</mat-card-actions>
+		</mat-card>
+
+		<mat-card class="email-preferences">
+			<mat-card-header>
+				<mat-card-title>Email Preferences</mat-card-title>
+				<div fxFlex></div>
 				<button *ngIf="!isEditingEmailForm"
 				        mat-button
+				        mat-icon-button
 				        color="accent"
 				        type="button"
 				        (click)="emailFormEdit()">
-					Edit
+					<mat-icon color="accent">edit</mat-icon>
 				</button>
-				<button
-						[disabled]="!isEditingEmailForm || (isEditingEmailForm && emailFormArray.pristine && emailFormArray.controls.length > 0)"
-						mat-button
-						color="accent"
-						type="submit"
-						(click)="emailFormSubmit()">
-					Save
-				</button>
+			</mat-card-header>
+			<mat-card-content>
+				<mat-accordion [displayMode]="accordionDisplayMode">
+					<ng-container *ngFor="let emailForm of emailFormArray.controls; let index=index;">
+						<mat-expansion-panel>
+							<mat-expansion-panel-header>
+								<mat-panel-title fxFlex="none">
+									{{ !!emailForm.get('emailAddress').value ? emailForm.get('emailAddress').value : 'Expand to add your email'}}
+								</mat-panel-title>
+							</mat-expansion-panel-header>
+							<form [formGroup]="emailForm" fxLayout="column" fxLayoutGap="5px" fxFill>
+								<mat-form-field fxFlex>
+									<input formControlName="emailAddress"
+											matInput
+											placeholder="Email Address *"
+											type="email">
+									<mat-error *ngIf="emailForm.get('emailAddress').hasError('required')">
+										Email address is required
+									</mat-error>
+									<mat-error *ngIf="emailForm.get('emailAddress').hasError('email')">
+										Email address is not formatted correctly
+									</mat-error>
+								</mat-form-field>
+
+								<mat-form-field fxFlex>
+									<input formControlName="name"
+											matInput
+											placeholder="Contact Name *"
+											type="text">
+									<mat-error *ngIf="emailForm.get('name').hasError('required')">
+										Contact name is required
+									</mat-error>
+								</mat-form-field>
+
+								<table>
+									<tr>
+										<td>
+											<mat-checkbox
+													color="primary"
+													formControlName="emailPromos">
+												Promotions
+											</mat-checkbox>
+											<span *ngIf="displayTooltips">
+												<button #tooltip="matTooltip"
+												        matTooltip="Special offers and promotions. Generally once per month."
+												        matTooltipPosition="right"
+												        mat-icon-button
+												        type="button"
+												        aria-tooltip="Button that toggles a tooltip"
+												        (click)="tooltip.toggle()">
+													<mat-icon color="accent">help_outline</mat-icon>
+												</button>
+											</span>
+										</td>
+										<td>
+											<mat-checkbox
+													color="primary"
+													formControlName="emailReminders">
+												Reminders
+											</mat-checkbox>
+											<span *ngIf="displayTooltips">
+												<button #tooltip="matTooltip"
+												        matTooltip="Oil change and recommended service reminders"
+												        matTooltipPosition="right"
+												        mat-icon-button
+												        aria-tooltip="Button that toggles a tooltip"
+												        type="button"
+												        (click)="tooltip.toggle()">
+													<mat-icon color="accent">help_outline</mat-icon>
+												</button>
+											</span>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<mat-checkbox
+													color="primary"
+													formControlName="emailStatements">
+												Statements
+											</mat-checkbox>
+											<span *ngIf="displayTooltips">
+												<button #tooltip="matTooltip"
+												        matTooltip="Your monthly account statements"
+												        matTooltipPosition="right"
+												        mat-icon-button
+												        aria-tooltip="Button that toggles a tooltip"
+												        type="button"
+												        (click)="tooltip.toggle()">
+													<mat-icon color="accent">help_outline</mat-icon>
+												</button>
+											</span>
+										</td>
+										<td>
+											<mat-checkbox
+													color="primary"
+													formControlName="emailVIP">
+												VIP Rewards
+											</mat-checkbox>
+											<span *ngIf="displayTooltips">
+												<button #tooltip="matTooltip"
+												        matTooltip="Reward Points status and thank you"
+												        matTooltipPosition="right"
+												        mat-icon-button
+												        aria-tooltip="Button that toggles a tooltip"
+												        type="button"
+												        (click)="tooltip.toggle()">
+													<mat-icon color="accent">help_outline</mat-icon>
+												</button>
+											</span>
+										</td>
+									</tr>
+								</table>
+							</form>
+							<mat-action-row>
+								<button
+										[disabled]="!isEditingEmailForm"
+										mat-button
+										color="warn"
+										type="button"
+										(click)="removeEmailAddress(index)">
+									Delete email address
+								</button>
+							</mat-action-row>
+						</mat-expansion-panel>
+					</ng-container>
+				</mat-accordion>
+			</mat-card-content>
+			<mat-card-actions>
+				<ng-container *ngIf="isEditingEmailForm">
+					<button mat-button
+					        class="cancel-button"
+					        color="accent"
+					        type="button"
+					        (click)="emailFormCancel()">
+						Cancel
+					</button>
+					<button mat-button
+					        type="button"
+					        color="accent"
+					        (click)="addEmailAddress()">
+						Add email address
+					</button>
+					<button [disabled]="emailFormArray.untouched && emailFormArray.controls.length === account.clientEmail.length"
+					        mat-button
+					        color="accent"
+					        type="submit"
+					        (click)="emailFormSubmit()">
+						Save
+					</button>
+				</ng-container>
 			</mat-card-actions>
 		</mat-card>
 	</div>

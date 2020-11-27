@@ -9,6 +9,9 @@ export * from './lib/auto-contrast/auto-contrast.module';
 
 export * from './lib/can-deactivate-guard/can-deactivate.guard';
 
+export * from './lib/confirm-dialog/confirm-dialog.component';
+export * from './lib/confirm-dialog/confirm-dialog.module';
+
 export * from './lib/customer-vehicle-summary/customer-vehicle-summary.component';
 export * from './lib/customer-vehicle-summary/customer-vehicle-summary.module';
 
