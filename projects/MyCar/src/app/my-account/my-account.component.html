@@ -138,6 +138,16 @@
 									</mat-error>
 								</mat-form-field>
 
+								<mat-form-field fxFlex>
+									<input formControlName="name"
+									       matInput
+									       placeholder="Contact Name *"
+									       type="text">
+									<mat-error *ngIf="phoneForm.get('name').hasError('required')">
+										Contact name is required
+									</mat-error>
+								</mat-form-field>
+
 								<mat-radio-group formControlName="type" aria-label="Select a telephone type">
 									<mat-radio-button value="C">Cell</mat-radio-button>
 									<mat-radio-button value="H">Home</mat-radio-button>

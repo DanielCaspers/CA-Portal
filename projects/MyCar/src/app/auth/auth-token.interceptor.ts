@@ -8,6 +8,7 @@ import { AuthTokenService } from './auth-token.service';
 import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment';
 import { delayUntil } from './auth.operators';
+import { LoaderService } from '../loader/loader.service';
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
@@ -15,7 +16,11 @@ export class JwtInterceptor implements HttpInterceptor {
 	private tokenRefreshIsInProgress = false;
 	private tokenRefreshed$: Subject<any> = new Subject();
 
-	constructor(private authService: AuthService, private authTokenService: AuthTokenService, private router: Router) { }
+	constructor(
+		private authService: AuthService,
+		private authTokenService: AuthTokenService,
+		private loaderService: LoaderService,
+		private router: Router) { }
 
 	intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 		// For requests which are not to our own API, avoid adding the authorization header or refresh token handling.
@@ -93,6 +98,7 @@ export class JwtInterceptor implements HttpInterceptor {
 		console.log('Logging out locally; received an HTTP 401 on token refresh attempt.');
 		this.authTokenService.clearAuthToken();
 		this.authTokenService.clearRefreshToken();
+		this.loaderService.clearAllPendingRequests();
 		this.router.navigate(['/login']);
 	}
 

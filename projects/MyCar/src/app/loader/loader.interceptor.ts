@@ -1,4 +1,3 @@
-// loader.interceptors.ts
 import { Injectable } from '@angular/core';
 import {
 	HttpResponse,
@@ -21,26 +20,23 @@ import { catchError, filter, tap } from 'rxjs/operators';
  */
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
-	private requests: HttpRequest<any>[] = [];
 
 	constructor(private loaderService: LoaderService, private googleAnalyticsService: NgxAnalyticsGoogleAnalytics) { }
 
 	public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-		this.requests.push(req);
-		console.log('Request enqueued. Requests pending in queue:', this.requests.length, this.requests.map(r => r.url));
-		this.loaderService.isLoading$.next(true);
+		this.loaderService.addRequest(req);
 
 		return next.handle(req)
 				.pipe(
 					// TODO DJC send RXJS signal so when logoutLocally occurs, this queue is cleared.
 					filter(event => event instanceof HttpResponse),
 					tap(() => {
-						this.removeRequest(req);
+						this.loaderService.removeRequest(req);
 					}),
 					catchError((err) => {
 						console.error('Loader.interceptor failed. Go investigate why. Error:', err, 'Request', req);
-						this.removeRequest(req);
+						this.loaderService.removeRequest(req);
 
 						const slimHttpErrorResponse = {
 							httpStatus: err.status,
@@ -55,14 +51,5 @@ export class LoaderInterceptor implements HttpInterceptor {
 						return EMPTY;
 					})
 				);
-	}
-
-	private removeRequest(req: HttpRequest<any>): void {
-		const i = this.requests.indexOf(req);
-		if (i >= 0) {
-			this.requests.splice(i, 1);
-			console.log('Dequeued a request. Requests pending in queue:', this.requests.length, this.requests.map(r => r.url));
-		}
-		this.loaderService.isLoading$.next(this.requests.length > 0);
 	}
 }
