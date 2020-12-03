@@ -52,7 +52,7 @@ export class VehicleHistoryHttpService {
 				Description: dto.laborDesc,
 				OrderId: dto.orderID,
 				Odometer: dto.vehicleOdometer,
-				InvoiceLink: `${environment.invoiceServiceUrl}${dto.invoiceLink}`,
+				InvoiceLink: `${dto.invoiceLink}`,
 				Year: dto.vehicleYear,
 				Make: dto.vehicleMake,
 				Model: dto.vehicleModel,
