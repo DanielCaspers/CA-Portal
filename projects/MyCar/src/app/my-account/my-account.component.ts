@@ -16,6 +16,7 @@ import { first } from 'rxjs/operators';
 import { AccountOverview, Address, EmailAddress, PhoneNumber } from './account.models';
 import { AccountHttpService } from './account-http.service';
 import { ConfirmDialogService } from 'murphy-automotive-shared-library';
+import { TelephoneViewModel } from '../../../../murphy-automotive-shared-library/src/lib/tel-input/tel-input.models';
 
 @Component({
 	selector: 'ma-my-account',
@@ -210,7 +211,7 @@ export class MyAccountComponent implements OnInit {
 	private updateEmailFormValues(): void {
 		for (const email of this.account.clientEmail) {
 			const fg = this.formBuilder.group({
-				emailAddress: [{value: email.emailAddress, disabled: !this.isEditingEmailForm}, Validators.required],
+				emailAddress: [{value: email.emailAddress, disabled: !this.isEditingEmailForm}, [Validators.required, Validators.email]],
 				name: [{value: email.name, disabled: !this.isEditingEmailForm}, Validators.required],
 				emailPromos: [{value: email.emailPromos, disabled: !this.isEditingEmailForm}, Validators.required],
 				emailReminders: [{value: email.emailReminders, disabled: !this.isEditingEmailForm}, Validators.required],
@@ -225,10 +226,10 @@ export class MyAccountComponent implements OnInit {
 		const fg = this.formBuilder.group({
 			emailAddress: [{value: '', disabled: !this.isEditingEmailForm}, [Validators.required, Validators.email]],
 			name: [{value: '', disabled: !this.isEditingEmailForm}, Validators.required],
-			emailPromos: [{value: '', disabled: !this.isEditingEmailForm}, Validators.required],
-			emailReminders: [{value: '', disabled: !this.isEditingEmailForm}, Validators.required],
-			emailStatements: [{value: '', disabled: !this.isEditingEmailForm}, Validators.required],
-			emailVIP: [{value: '', disabled: !this.isEditingEmailForm}, Validators.required],
+			emailPromos: [{value: true, disabled: !this.isEditingEmailForm}, Validators.required],
+			emailReminders: [{value: true, disabled: !this.isEditingEmailForm}, Validators.required],
+			emailStatements: [{value: true, disabled: !this.isEditingEmailForm}, Validators.required],
+			emailVIP: [{value: true, disabled: !this.isEditingEmailForm}, Validators.required],
 		});
 		this.emailFormArray.push(fg);
 	}
@@ -306,7 +307,17 @@ export class MyAccountComponent implements OnInit {
 	private updatePhoneFormValues(): void {
 		for (const phone of this.account.clientPhone) {
 			const fg = this.formBuilder.group({
-				phoneNumber: [{value: phone.number, disabled: !this.isEditingPhoneForm}, Validators.required],
+				phoneNumber: [
+					{
+						value: new TelephoneViewModel(
+							phone.number.substring(0, 3),
+							phone.number.substring(3, 6),
+							phone.number.substring(6),
+						),
+						disabled: !this.isEditingPhoneForm
+					},
+					Validators.required
+				],
 				name: [{value: phone.name, disabled: !this.isEditingPhoneForm}, Validators.required],
 				type: [{value: phone.type, disabled: !this.isEditingPhoneForm}, Validators.required],
 				smsReminders: [{value: phone.smsReminders, disabled: !this.isEditingPhoneForm}, Validators.required],
@@ -318,11 +329,21 @@ export class MyAccountComponent implements OnInit {
 
 	public addPhoneNumber(): void {
 		const fg = this.formBuilder.group({
-			phoneNumber: [{value: '', disabled: !this.isEditingPhoneForm}, Validators.required],
+			phoneNumber: [
+				{
+					value: new TelephoneViewModel(
+						'',
+						'',
+						'',
+					),
+					disabled: !this.isEditingPhoneForm
+				},
+				Validators.required
+			],
 			name: [{value: '', disabled: !this.isEditingPhoneForm}, Validators.required],
 			type: [{value: 'C', disabled: !this.isEditingPhoneForm}, Validators.required],
-			smsReminders: [{value: '', disabled: !this.isEditingPhoneForm}, Validators.required],
-			smsVIP: [{value: '', disabled: !this.isEditingPhoneForm}, Validators.required]
+			smsReminders: [{value: true, disabled: !this.isEditingPhoneForm}, Validators.required],
+			smsVIP: [{value: true, disabled: !this.isEditingPhoneForm}, Validators.required]
 		});
 		this.phoneFormArray.push(fg);
 	}
@@ -363,8 +384,9 @@ export class MyAccountComponent implements OnInit {
 
 	private createPhoneFormRequestBody(): AccountOverview {
 		const phoneNumbers: PhoneNumber[] = this.phoneFormArray.controls.map((control) => {
+			const number = control.get('phoneNumber').value as TelephoneViewModel;
 			return {
-				number: control.get('phoneNumber').value,
+				number: '' + number.area + number.exchange + number.subscriber,
 				name: control.get('name').value,
 				type:  control.get('type').value,
 				smsReminders:  control.get('smsReminders').value,

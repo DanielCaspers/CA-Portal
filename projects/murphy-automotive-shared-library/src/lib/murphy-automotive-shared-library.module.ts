@@ -8,6 +8,8 @@ import { MeasurementsFormDialogModule } from './measurements-form-dialog/measure
 import { NavTitleModule } from './nav-title/nav-title.module';
 import { SafeUrlModule } from './safe-url-pipe/safe-url.module';
 import { RecommendedServicesModule } from './recommended-services/recommended-services.module';
+import { TelInputModule } from './tel-input/tel-input.module';
+import { PhoneNumberPipeModule } from './phone-number-pipe/phone-number.module';
 
 @NgModule({
 	declarations: [],
@@ -20,8 +22,10 @@ import { RecommendedServicesModule } from './recommended-services/recommended-se
 		CustomerVehicleSummaryModule,
 		ImageGalleryModule,
 		MeasurementsFormDialogModule,
+		PhoneNumberPipeModule,
 		RecommendedServicesModule,
-		SafeUrlModule
+		SafeUrlModule,
+		TelInputModule
 	]
 })
 export class MurphyAutomotiveSharedLibraryModule {

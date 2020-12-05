@@ -24,6 +24,9 @@ export * from './lib/measurements-form-dialog/measurements-form-dialog.module';
 export * from './lib/nav-title/nav-title.service';
 export * from './lib/nav-title/nav-title.module';
 
+export * from './lib/phone-number-pipe/phone-number.pipe';
+export * from './lib/phone-number-pipe/phone-number.module';
+
 export * from './lib/recommended-services/recommended-service-severity/recommended-service-severity.component';
 export * from './lib/recommended-services/recommended-service-severity/recommended-service-severity.module';
 export * from './lib/recommended-services/recommended-services-dialog/recommended-services-dialog.component';
@@ -33,3 +36,6 @@ export * from './lib/recommended-services/recommended-services.module';
 
 export * from './lib/safe-url-pipe/safe-url.pipe';
 export * from './lib/safe-url-pipe/safe-url.module';
+
+export * from './lib/tel-input/tel-input.component';
+export * from './lib/tel-input/tel-input.module';

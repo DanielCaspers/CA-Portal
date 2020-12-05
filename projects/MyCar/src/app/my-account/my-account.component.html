@@ -124,17 +124,18 @@
 						<mat-expansion-panel>
 							<mat-expansion-panel-header>
 								<mat-panel-title fxFlex="none">
-									{{ !!phoneForm.get('phoneNumber').value ? phoneForm.get('phoneNumber').value : 'Expand to add your phone number'}}
+									{{ !!phoneForm.get('phoneNumber').value ? (phoneForm.get('phoneNumber').value | maPhoneNumber) : 'Expand to add your phone number' }}
 								</mat-panel-title>
 							</mat-expansion-panel-header>
 							<form [formGroup]="phoneForm" fxLayout="column" fxLayoutGap="5px" fxFill>
 								<mat-form-field fxFlex>
-									<input formControlName="phoneNumber"
-									       matInput
-									       placeholder="Phone Number *"
-									       type="tel">
+									<ma-tel-input
+											placeholder="Phone Number *"
+											formControlName="phoneNumber">
+									</ma-tel-input>
+									<mat-icon matSuffix>phone</mat-icon>
 									<mat-error *ngIf="phoneForm.get('phoneNumber').hasError('required')">
-										Email address is required
+										Phone number is required. Use exactly 10 digits with no symbols.
 									</mat-error>
 								</mat-form-field>
 
@@ -183,7 +184,7 @@
 											</mat-checkbox>
 											<span *ngIf="displayTooltips">
 												<button #tooltip="matTooltip"
-												        matTooltip="Reward Points status and thank you"
+												        matTooltip="Reward points status"
 												        matTooltipPosition="right"
 												        mat-icon-button
 												        aria-tooltip="Button that toggles a tooltip"
@@ -225,7 +226,7 @@
 					        (click)="addPhoneNumber()">
 						Add phone number
 					</button>
-					<button [disabled]="phoneFormArray.untouched && phoneFormArray.controls.length === account.clientPhone.length"
+					<button [disabled]="(phoneFormArray.untouched && phoneFormArray.controls.length === account.clientPhone.length) || phoneFormArray.invalid"
 					        mat-button
 					        color="accent"
 					        type="submit"
@@ -348,7 +349,7 @@
 											</mat-checkbox>
 											<span *ngIf="displayTooltips">
 												<button #tooltip="matTooltip"
-												        matTooltip="Reward Points status and thank you"
+												        matTooltip="Reward points status"
 												        matTooltipPosition="right"
 												        mat-icon-button
 												        aria-tooltip="Button that toggles a tooltip"
@@ -390,7 +391,7 @@
 					        (click)="addEmailAddress()">
 						Add email address
 					</button>
-					<button [disabled]="emailFormArray.untouched && emailFormArray.controls.length === account.clientEmail.length"
+					<button [disabled]="(emailFormArray.untouched && emailFormArray.controls.length === account.clientEmail.length) || emailFormArray.invalid"
 					        mat-button
 					        color="accent"
 					        type="submit"

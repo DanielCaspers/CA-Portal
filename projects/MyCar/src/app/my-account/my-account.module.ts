@@ -24,6 +24,8 @@ import { MyAccountComponent } from './my-account.component';
 import { AccountHttpService } from './account-http.service';
 import { VipRewardsModule } from './vip-rewards/vip-rewards.module';
 import { ConfirmDialogModule } from 'murphy-automotive-shared-library';
+import { TelInputModule } from '../../../../murphy-automotive-shared-library/src/lib/tel-input/tel-input.module';
+import { PhoneNumberPipeModule } from '../../../../murphy-automotive-shared-library/src/lib/phone-number-pipe/phone-number.module';
 
 @NgModule({
 	declarations: [ MyAccountComponent ],
@@ -48,7 +50,9 @@ import { ConfirmDialogModule } from 'murphy-automotive-shared-library';
 
 		VipRewardsModule,
 		MyAccountRoutingModule,
-		ConfirmDialogModule
+		ConfirmDialogModule,
+		TelInputModule,
+		PhoneNumberPipeModule
 	],
 	entryComponents: [ MyAccountComponent ],
 	providers: [ AccountHttpService ]
