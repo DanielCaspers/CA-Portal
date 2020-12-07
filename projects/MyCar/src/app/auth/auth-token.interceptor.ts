@@ -46,6 +46,12 @@ export class JwtInterceptor implements HttpInterceptor {
 							return EMPTY;
 						}
 
+						if (request.url.indexOf('auth/token') >= 0) {
+							console.log('Cannot refresh a failure to retrieve the access token from an access code. Logging out locally...');
+							this.logoutLocally();
+							return EMPTY;
+						}
+
 						if (request.url.indexOf('auth/logon') >= 0) {
 							console.log('Cannot refresh a failure log in. Rethrowing...');
 
@@ -99,7 +105,9 @@ export class JwtInterceptor implements HttpInterceptor {
 		this.authTokenService.clearAuthToken();
 		this.authTokenService.clearRefreshToken();
 		this.loaderService.clearAllPendingRequests();
-		this.router.navigate(['/login']);
+
+		console.log('Navigating to OAuth provider to authenticate user...');
+		window.location.href = environment.oauthProviderUrl;
 	}
 
 	public refreshToken(): Observable<any> {

@@ -1,8 +1,8 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { environment } from '../../environments/environment';
 
 @Component({
 	selector: 'ma-login',
@@ -10,31 +10,25 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 	styleUrls: [ './login.component.scss' ],
 	encapsulation: ViewEncapsulation.Emulated
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 	public showProgress = false;
 
-	public loginForm: FormGroup = new FormGroup({
-		username: new FormControl('', Validators.required),
-		password: new FormControl('', Validators.required)
-	});
-
-	constructor(private authService: AuthService, private router: Router) {
+	constructor(private authService: AuthService, private router: Router, private activeRoute: ActivatedRoute) {
 	}
 
-	public submit() {
+	public ngOnInit(): void {
 		this.showProgress = true;
-		this.authService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
+		const accessCode = this.activeRoute.snapshot.queryParamMap.get('access_code');
+		this.authService.accessToken(accessCode)
 			.pipe(first())
 			.subscribe(
-				result => {
+				(result) => {
 					this.router.navigate(['/vehicles']);
 				},
-				err => {
+				(err) => {
 					this.showProgress = false;
-					this.loginForm.controls.password.setErrors({
-						incorrect: true
-					});
-					console.error('Login failed', err);
+					console.error('Access code conversion to auth token failed. Navigating back to OAuth provider...', err);
+					window.location.href = environment.oauthProviderUrl;
 				}
 			);
 	}

@@ -3,23 +3,23 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-	MatAutocompleteModule,
-	MatButtonModule,
-	MatButtonToggleModule,
-	MatCheckboxModule,
-	MatChipsModule,
-	MatDatepickerModule,
-	MatDialogModule,
-	MatIconModule,
-	MatInputModule,
-	MatListModule,
-	MatNativeDateModule,
-	MatProgressBarModule,
-	MatProgressSpinnerModule,
-	MatSelectModule,
-	MatStepperModule
-} from '@angular/material';
+
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatButtonModule } from '@angular/material/button';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatInputModule } from '@angular/material/input';
+import { MatIconModule } from '@angular/material/icon';
+import { MatListModule } from '@angular/material/list';
+import { MatNativeDateModule } from '@angular/material';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatSelectModule } from '@angular/material/select';
+import { MatStepperModule } from '@angular/material/stepper';
+
 import { NgxAnalyticsModule } from 'ngx-analytics';
 
 import {

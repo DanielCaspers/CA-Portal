@@ -24,7 +24,7 @@ const routes: Routes = [
 				redirectTo: 'vehicles',
 				pathMatch: 'full',
 				data: {
-					title: 'THIS SHOULD BE INVISIBLE'
+					title: 'THIS SHOULD NOT BE VISIBLE'
 				}
 			},
 			{
@@ -78,11 +78,12 @@ const routes: Routes = [
 			title: 'THIS SHOULD NOT BE VISIBLE'
 		}
 	},
+	// Coerce any unknown routes into the base URL route, so things like the auth gaurd can figure out what to do with it.
 	{
 		path: '**',
 		redirectTo: '',
 		data: {
-			title: 'Why does this route expect data?'
+			title: 'THIS SHOULD NOT BE VISIBLE'
 		}
 	}
 ];

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 import { RecommendedServicesDialogComponent } from './recommended-services-dialog.component';
 import { RecommendedService } from '../recommended-services.models';

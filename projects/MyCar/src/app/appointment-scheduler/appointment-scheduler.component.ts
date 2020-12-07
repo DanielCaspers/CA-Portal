@@ -15,7 +15,7 @@ import {
 	Validators
 } from '@angular/forms';
 import { ENTER } from '@angular/cdk/keycodes';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, CanDeactivate } from '@angular/router';
 
 import sortBy from 'lodash-es/sortBy';

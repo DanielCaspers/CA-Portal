@@ -45,7 +45,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
 		} else {
 			// There is no token; the user must log in
-
+			console.log('No token directed, redirecting to login...');
 			this.router.navigate(['login']);
 			return false;
 		}

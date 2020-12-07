@@ -11,6 +11,7 @@ import { StoreInfoService } from '../store-info/store-info.service';
 import { StoreInfo } from '../store-info/store-info.models';
 import { AccountHttpService } from '../my-account/account-http.service';
 import { AccountOverview } from '../my-account/account.models';
+import { environment } from '../../environments/environment';
 
 // import { StoreInfo, StoreInfoService } from '../store-info/store-info.module';
 
@@ -69,7 +70,7 @@ export class CoreViewComponent implements OnInit {
 		this.authService.logout()
 			.pipe(first())
 			.subscribe(() => {
-				this.router.navigate(['/login']);
+				window.location.href = environment.oauthProviderUrl;
 			});
 	}
 }

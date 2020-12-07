@@ -14,7 +14,11 @@ export function jwtOptionsFactory(authTokenService) {
 	return {
 		tokenGetter: () => authTokenService.authToken,
 		whitelistedDomains: [environment.apiBaseUrl],
-		blacklistedRoutes: [`${environment.apiBaseUrl}${environment.authorizationUrl}`]
+		// TODO DJC Auth blacklisted endpoints subject to change
+		blacklistedRoutes: [
+			`${environment.apiBaseUrl}/auth/logon`,
+			`${environment.apiBaseUrl}/auth/token`
+		]
 	};
 }
 

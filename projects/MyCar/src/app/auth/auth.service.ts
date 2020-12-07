@@ -39,11 +39,27 @@ export class AuthService {
 			);
 	}
 
-	public refreshToken(): Observable<boolean> {
-		return this.http.get(`${environment.apiBaseUrl}/auth/renew?refreshToken=${this.authTokenService.refreshToken}`, environment.httpOptions)
+	public accessToken(accessCode: string): Observable<boolean> {
+		const httpOptions = environment.httpOptions;
+		httpOptions.headers.append('Content-Type', 'x-www-form-urlencoded');
+
+		return this.http.get<{authToken: string, refreshToken: string}>
+		(`${environment.apiBaseUrl}/auth/token?access_code=${accessCode}`, environment.httpOptions)
 			.pipe(
 				map((result) => {
-					this.authTokenService.authToken = (result as any).authToken;
+					this.authTokenService.authToken = result.authToken;
+					this.authTokenService.refreshToken = result.refreshToken;
+					return true;
+				})
+			);
+	}
+
+	public refreshToken(): Observable<boolean> {
+		return this.http.get<{authToken: string, refreshToken: string}>
+		(`${environment.apiBaseUrl}/auth/renew?refreshToken=${this.authTokenService.refreshToken}`, environment.httpOptions)
+			.pipe(
+				map((result) => {
+					this.authTokenService.authToken = result.authToken;
 					return true;
 				})
 			);

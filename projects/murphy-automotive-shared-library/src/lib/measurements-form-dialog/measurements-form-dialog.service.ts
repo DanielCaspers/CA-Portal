@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { MeasurementsFormDialogComponent } from './measurements-form-dialog.component';
 
 @Injectable()

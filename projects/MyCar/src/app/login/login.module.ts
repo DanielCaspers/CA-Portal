@@ -2,13 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import {
-	MatButtonModule,
-	MatCardModule,
-	MatFormFieldModule,
-	MatInputModule,
-	MatProgressBarModule
-} from '@angular/material';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { LoginComponent } from './login.component';
 
@@ -20,12 +14,7 @@ import { LoginComponent } from './login.component';
 		FormsModule,
 		ReactiveFormsModule,
 		FlexLayoutModule,
-
-		MatButtonModule,
-		MatCardModule,
-		MatInputModule,
-		MatFormFieldModule,
-		MatProgressBarModule
+		MatProgressSpinnerModule
 	]
 })
 export class LoginModule {
