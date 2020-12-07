@@ -9,11 +9,6 @@ export interface MaEnvironmentBase {
 	apiBaseUrl: string;
 
 	/**
-	 * The URL which the app will redirect the user to in order to log on.
-	 */
-	oauthProviderUrl: string;
-
-	/**
 	 * The options to be applied to the HttpClient which makes requests to the API specified by
 	 * apiBaseUrl
 	 */
