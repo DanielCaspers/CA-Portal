@@ -1,5 +1,8 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+# Removing package-lock.json due to issues with CI/CD in referencing shared library. Easier to forgo the protections it brings...
+package-lock.json
+
 # compiled output
 /dist
 /tmp
