@@ -9,7 +9,6 @@ import {
 	FormGroup,
 	Validators
 } from '@angular/forms';
-import { MatAccordionDisplayMode } from '@angular/material/expansion';
 
 import { first } from 'rxjs/operators';
 
@@ -39,10 +38,8 @@ export class MyAccountComponent implements OnInit {
 	public readonly displayTooltips = true;
 
 	public isEditingAddressForm = false;
-	public isEditingEmailForm = false;
-	public isEditingPhoneForm = false;
-
-	public readonly accordionDisplayMode: MatAccordionDisplayMode = 'flat';
+	public isEditingEmailForm: { [index: number]: boolean} = {};
+	public isEditingPhoneForm: { [index: number]: boolean} = {};
 
 	public readonly stateOptions: {name: string, value: string}[] = [
 		{'name': 'Alabama', 'value': 'AL'},
@@ -209,69 +206,88 @@ export class MyAccountComponent implements OnInit {
 	//region Email Form
 
 	private updateEmailFormValues(): void {
-		for (const email of this.account.clientEmail) {
+		for (let i = 0; i < this.account.clientEmail.length; i++) {
+			const email = this.account.clientEmail[i];
 			const fg = this.formBuilder.group({
-				emailAddress: [{value: email.emailAddress, disabled: !this.isEditingEmailForm}, [Validators.required, Validators.email]],
-				name: [{value: email.name, disabled: !this.isEditingEmailForm}, Validators.required],
-				emailPromos: [{value: email.emailPromos, disabled: !this.isEditingEmailForm}, Validators.required],
-				emailReminders: [{value: email.emailReminders, disabled: !this.isEditingEmailForm}, Validators.required],
-				emailStatements: [{value: email.emailStatements, disabled: !this.isEditingEmailForm}, Validators.required],
-				emailVIP: [{value: email.emailThankYous, disabled: !this.isEditingEmailForm}, Validators.required]
+				emailAddress: [{value: email.emailAddress, disabled: !this.isEditingEmailForm[i]}, [Validators.required, Validators.email]],
+				name: [{value: email.name, disabled: !this.isEditingEmailForm[i]}, Validators.required],
+				emailPromos: [{value: email.emailPromos, disabled: !this.isEditingEmailForm[i]}, Validators.required],
+				emailReminders: [{value: email.emailReminders, disabled: !this.isEditingEmailForm[i]}, Validators.required],
+				emailStatements: [{value: email.emailStatements, disabled: !this.isEditingEmailForm[i]}, Validators.required],
+				emailVIP: [{value: email.emailThankYous, disabled: !this.isEditingEmailForm[i]}, Validators.required]
 			});
 			this.emailFormArray.push(fg);
 		}
 	}
 
 	public addEmailAddress(): void {
+		const i = this.account.clientEmail.length;
+		this.isEditingEmailForm[i] = true; // Add is an edit
 		const fg = this.formBuilder.group({
-			emailAddress: [{value: '', disabled: !this.isEditingEmailForm}, [Validators.required, Validators.email]],
-			name: [{value: '', disabled: !this.isEditingEmailForm}, Validators.required],
-			emailPromos: [{value: true, disabled: !this.isEditingEmailForm}, Validators.required],
-			emailReminders: [{value: true, disabled: !this.isEditingEmailForm}, Validators.required],
-			emailStatements: [{value: true, disabled: !this.isEditingEmailForm}, Validators.required],
-			emailVIP: [{value: true, disabled: !this.isEditingEmailForm}, Validators.required],
+			emailAddress: [{value: '', disabled: !this.isEditingEmailForm[i]}, [Validators.required, Validators.email]],
+			name: [{value: '', disabled: !this.isEditingEmailForm[i]}, Validators.required],
+			emailPromos: [{value: true, disabled: !this.isEditingEmailForm[i]}, Validators.required],
+			emailReminders: [{value: true, disabled: !this.isEditingEmailForm[i]}, Validators.required],
+			emailStatements: [{value: true, disabled: !this.isEditingEmailForm[i]}, Validators.required],
+			emailVIP: [{value: true, disabled: !this.isEditingEmailForm[i]}, Validators.required],
 		});
 		this.emailFormArray.push(fg);
 	}
 
 	public removeEmailAddress(index: number): void {
-		if (this.emailFormArray.length === 1) {
-			this.confirmDialogService.open(
-				'Delete last email address?',
-				`Deleting all email addresses will prevent you from being able to reset your password online.
-				It may also impact our ability to contact you about any active work being done to your vehicles.`,
-				'Delete',
-				'Cancel'
-				)
-				.afterClosed()
-				.pipe(
-					first()
-				)
-				.subscribe((confirmed) => {
-					if (confirmed) {
+		this.confirmDialogService.open(
+			'Delete email address?',
+			`Deleting all email addresses will prevent you from being able to reset your password online.
+			It may also impact our ability to contact you about any active work being done to your vehicles.`,
+			'Delete',
+			'Cancel'
+			)
+			.afterClosed()
+			.pipe(
+				first()
+			)
+			.subscribe((confirmed) => {
+				if (confirmed) {
+					// For the API to succeed, we must preprocess the request to help the JSON patch algorithm
+					// since the account API doesn't handle a null or empty array idiomatically as JSON merge patch RFC does.
+					// At this point, the array length can only be >= 1.
+
+					// If there will be more than one array entry after deletion, no special post processing need be done.
+					// We can directly remove the value from the form, and then send an HTTP request reflecting the form state
+
+					// If it's exactly one, the user is deleting the final email address.
+					// In this case, we must send null for the email address, while leaving other fields untouched, which is a sentinel value
+					// which instructs the API to clear out this array on our behalf.
+					// After sending the HTTP request, it is then valid for us to remove it from the local form state, after the HTTP request is crafted.
+					const numberOfItemsBeforeDelete = this.emailFormArray.length;
+
+					if (numberOfItemsBeforeDelete > 1) {
 						this.emailFormArray.removeAt(index);
 					}
-				});
-		} else {
-			this.emailFormArray.removeAt(index);
-		}
+					const accountRequestBody = this.createEmailFormRequestBody(numberOfItemsBeforeDelete === 1);
+
+					this.emailFormSubmit(index, accountRequestBody);
+
+					if (numberOfItemsBeforeDelete === 1) {
+						this.emailFormArray.removeAt(index);
+					}
+				}
+			});
 	}
 
-	public emailFormSubmit(): void {
-		const accountRequestBody = this.createEmailFormRequestBody();
-
+	public emailFormSubmit(index: number, accountRequestBody: AccountOverview): void {
 		this.accountHttpService.editAccount(accountRequestBody)
 			.pipe(first())
 			.subscribe((accountResponse) => {
 				this.account = accountResponse;
-				this.resetEmailForm();
+				this.resetEmailForm(index);
 			});
 	}
 
-	private createEmailFormRequestBody(): AccountOverview {
+	public createEmailFormRequestBody(removeFinalEmail: boolean = false): AccountOverview {
 		const emails: EmailAddress[] = this.emailFormArray.controls.map((control) => {
 			return {
-				emailAddress: control.get('emailAddress').value,
+				emailAddress: removeFinalEmail ? null : control.get('emailAddress').value,
 				name: control.get('name').value,
 				emailPromos:  control.get('emailPromos').value,
 				emailReminders:  control.get('emailReminders').value,
@@ -283,21 +299,39 @@ export class MyAccountComponent implements OnInit {
 		return { clientEmail: emails } as AccountOverview;
 	}
 
-	public emailFormCancel(): void {
-		this.resetEmailForm();
+	public emailFormCancel(index: number): void {
+		this.resetEmailForm(index);
 	}
 
-	public emailFormEdit(): void {
-		this.isEditingEmailForm = true;
-		this.emailFormArray.enable();
+	public emailFormEdit(index: number): void {
+		this.isEditingEmailForm[index] = true;
+		this.emailFormArray.at(index).enable();
 	}
 
-	private resetEmailForm(): void {
-		this.isEditingEmailForm = false;
+	private resetEmailForm(index: number): void {
+		this.isEditingEmailForm[index] = false;
 
 		this.emailFormArray.clear();
 		this.updateEmailFormValues();
 		this.emailFormArray.markAsPristine();
+	}
+
+	public isEditingEmail(): boolean {
+		return Object.keys(this.isEditingEmailForm).some((key) => {
+			return this.isEditingEmailForm[key] === true;
+		});
+	}
+
+	public isEditingAnotherEmailForm(index: number): boolean {
+		return Object.keys(this.isEditingEmailForm).some((key) => {
+			// If looking at the current form, ignore the results.
+			if (index === parseInt(key, 10)) {
+				return false;
+			} else {
+				// If looking at another form, confirm whether or not they are editing.
+				return this.isEditingEmailForm[key] === true;
+			}
+		});
 	}
 
 	//endregion
@@ -305,7 +339,8 @@ export class MyAccountComponent implements OnInit {
 	//region Phone Form
 
 	private updatePhoneFormValues(): void {
-		for (const phone of this.account.clientPhone) {
+		for (let i = 0; i < this.account.clientPhone.length; i++) {
+			const phone = this.account.clientPhone[i];
 			const fg = this.formBuilder.group({
 				phoneNumber: [
 					{
@@ -314,20 +349,22 @@ export class MyAccountComponent implements OnInit {
 							phone.number.substring(3, 6),
 							phone.number.substring(6),
 						),
-						disabled: !this.isEditingPhoneForm
+						disabled: !this.isEditingPhoneForm[i]
 					},
 					Validators.required
 				],
-				name: [{value: phone.name, disabled: !this.isEditingPhoneForm}, Validators.required],
-				type: [{value: phone.type, disabled: !this.isEditingPhoneForm}, Validators.required],
-				smsReminders: [{value: phone.smsReminders, disabled: !this.isEditingPhoneForm}, Validators.required],
-				smsVIP: [{value: phone.smsThankYous, disabled: !this.isEditingPhoneForm}, Validators.required]
+				name: [{value: phone.name, disabled: !this.isEditingPhoneForm[i]}, Validators.required],
+				type: [{value: phone.type, disabled: !this.isEditingPhoneForm[i]}, Validators.required],
+				smsReminders: [{value: phone.smsReminders, disabled: !this.isEditingPhoneForm[i]}, Validators.required],
+				smsVIP: [{value: phone.smsThankYous, disabled: !this.isEditingPhoneForm[i]}, Validators.required]
 			});
 			this.phoneFormArray.push(fg);
 		}
 	}
 
 	public addPhoneNumber(): void {
+		const i = this.account.clientPhone.length;
+		this.isEditingPhoneForm[i] = true; // Add is an edit
 		const fg = this.formBuilder.group({
 			phoneNumber: [
 				{
@@ -336,57 +373,74 @@ export class MyAccountComponent implements OnInit {
 						'',
 						'',
 					),
-					disabled: !this.isEditingPhoneForm
+					disabled: !this.isEditingPhoneForm[i]
 				},
 				Validators.required
 			],
-			name: [{value: '', disabled: !this.isEditingPhoneForm}, Validators.required],
-			type: [{value: 'C', disabled: !this.isEditingPhoneForm}, Validators.required],
-			smsReminders: [{value: true, disabled: !this.isEditingPhoneForm}, Validators.required],
-			smsVIP: [{value: true, disabled: !this.isEditingPhoneForm}, Validators.required]
+			name: [{value: '', disabled: !this.isEditingPhoneForm[i]}, Validators.required],
+			type: [{value: 'C', disabled: !this.isEditingPhoneForm[i]}, Validators.required],
+			smsReminders: [{value: true, disabled: !this.isEditingPhoneForm[i]}, Validators.required],
+			smsVIP: [{value: true, disabled: !this.isEditingPhoneForm[i]}, Validators.required]
 		});
 		this.phoneFormArray.push(fg);
 	}
 
 	public removePhoneNumber(index: number): void {
-		if (this.phoneFormArray.length === 1) {
-			this.confirmDialogService.open(
-				'Delete last phone number?',
-				`Deleting all phone numbers may impact our ability to contact you
-				about any active work being done to your vehicles.`,
-				'Delete',
-				'Cancel'
+		this.confirmDialogService.open(
+			'Delete phone number?',
+			`If you have any active work being done to your vehicles,
+			deleting this phone number may impact our ability to contact you
+			regarding it.`,
+			'Delete',
+			'Cancel'
+		)
+			.afterClosed()
+			.pipe(
+				first()
 			)
-				.afterClosed()
-				.pipe(
-					first()
-				)
-				.subscribe((confirmed) => {
-					if (confirmed) {
+			.subscribe((confirmed) => {
+				if (confirmed) {
+					// For the API to succeed, we must preprocess the request to help the JSON patch algorithm
+					// since the account API doesn't handle a null or empty array idiomatically as JSON merge patch RFC does.
+					// At this point, the array length can only be >= 1.
+
+					// If there will be more than one array entry after deletion, no special post processing need be done.
+					// We can directly remove the value from the form, and then send an HTTP request reflecting the form state
+
+					// If it's exactly one, the user is deleting the final phone number.
+					// In this case, we must send null for the phone number, while leaving other fields untouched, which is a sentinel value
+					// which instructs the API to clear out this array on our behalf.
+					// After sending the HTTP request, it is then valid for us to remove it from the local form state, after the HTTP request is crafted.
+					const numberOfItemsBeforeDelete = this.phoneFormArray.length;
+
+					if (numberOfItemsBeforeDelete > 1) {
 						this.phoneFormArray.removeAt(index);
 					}
-				});
-		} else {
-			this.phoneFormArray.removeAt(index);
-		}
+					const accountRequestBody = this.createPhoneFormRequestBody(numberOfItemsBeforeDelete === 1);
+
+					this.phoneFormSubmit(index, accountRequestBody);
+
+					if (numberOfItemsBeforeDelete === 1) {
+						this.phoneFormArray.removeAt(index);
+					}
+				}
+			});
 	}
 
-	public phoneFormSubmit(): void {
-		const accountRequestBody = this.createPhoneFormRequestBody();
-
+	public phoneFormSubmit(index: number, accountRequestBody: AccountOverview): void {
 		this.accountHttpService.editAccount(accountRequestBody)
 			.pipe(first())
 			.subscribe((accountResponse) => {
 				this.account = accountResponse;
-				this.resetPhoneForm();
+				this.resetPhoneForm(index);
 			});
 	}
 
-	private createPhoneFormRequestBody(): AccountOverview {
+	private createPhoneFormRequestBody(removeFinalPhone: boolean = false): AccountOverview {
 		const phoneNumbers: PhoneNumber[] = this.phoneFormArray.controls.map((control) => {
 			const number = control.get('phoneNumber').value as TelephoneViewModel;
 			return {
-				number: '' + number.area + number.exchange + number.subscriber,
+				number: removeFinalPhone ? null : '' + number.area + number.exchange + number.subscriber,
 				name: control.get('name').value,
 				type:  control.get('type').value,
 				smsReminders:  control.get('smsReminders').value,
@@ -397,21 +451,51 @@ export class MyAccountComponent implements OnInit {
 		return { clientPhone: phoneNumbers } as AccountOverview;
 	}
 
-	public phoneFormCancel(): void {
-		this.resetPhoneForm();
+	public phoneFormCancel(index: number): void {
+		this.resetPhoneForm(index);
 	}
 
-	public phoneFormEdit(): void {
-		this.isEditingPhoneForm = true;
-		this.phoneFormArray.enable();
+	public phoneFormEdit(index: number): void {
+		this.isEditingPhoneForm[index] = true;
+		this.phoneFormArray.at(index).enable();
 	}
 
-	private resetPhoneForm(): void {
-		this.isEditingPhoneForm = false;
+	private resetPhoneForm(index: number): void {
+		this.isEditingPhoneForm[index] = false;
 
 		this.phoneFormArray.clear();
 		this.updatePhoneFormValues();
 		this.phoneFormArray.markAsPristine();
+	}
+
+	// Prevent all other phone forms from being edited while one is in progress.
+	// Else, we break the encapsulation of singularity of edit
+	// since saving the form will automatically push all
+	// of these form fields to the server.
+	public isEditingPhone(): boolean {
+		return Object.keys(this.isEditingPhoneForm).some((key) => {
+			return this.isEditingPhoneForm[key] === true;
+		});
+	}
+
+	public isEditingAnotherPhoneForm(index: number): boolean {
+		return Object.keys(this.isEditingPhoneForm).some((key) => {
+			// If looking at the current form, ignore the results.
+			if (index === parseInt(key, 10)) {
+				return false;
+			} else {
+				// If looking at another form, confirm whether or not they are editing.
+				return this.isEditingPhoneForm[key] === true;
+			}
+		});
+	}
+
+	//endregion
+
+	//region Login form
+
+	public changePassword(): void {
+		window.confirm('This feature is coming soon.');
 	}
 
 	//endregion

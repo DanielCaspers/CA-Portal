@@ -116,7 +116,11 @@ export class JwtInterceptor implements HttpInterceptor {
 				.pipe(
 					tap(() => console.log('Token refresh in progress. Request retry is awaiting tokenRefresh$')),
 					delayUntil(this.tokenRefreshed$),
-					tap(() => console.log('tokenFrefresh$ has signalled. Unblocking caller...'))
+					tap(() => {
+						console.log('tokenFrefresh$ has signalled.');
+						this.loaderService.clearAllPendingRequests();
+						console.log('Clearing all pending requests. Unblocking caller...');
+					})
 				);
 		} else {
 			this.tokenRefreshIsInProgress = true;

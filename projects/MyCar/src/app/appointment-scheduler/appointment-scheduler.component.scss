@@ -1,3 +1,5 @@
+@import '../../../../../themes/_colors.scss';
+
 :host {
 	/* Absolute Center Spinner */
 	.loading-indicator, .success-message, .fail-message {
@@ -29,8 +31,9 @@
 	}
 
 	.fail-message {
-		color: #b40000; // TODO DJC primary theme reference goes here
+		color: $ma-red;
 	}
+
 	.success-message, .fail-message {
 		mat-icon {
 			font-size: 100px;

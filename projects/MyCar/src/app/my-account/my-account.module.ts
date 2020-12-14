@@ -10,13 +10,12 @@ import {
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { MyAccountRoutingModule } from './my-account-routing.module';
@@ -39,13 +38,12 @@ import { PhoneNumberPipeModule } from '../../../../murphy-automotive-shared-libr
 		MatButtonModule,
 		MatCardModule,
 		MatCheckboxModule,
-		MatDividerModule,
-		MatExpansionModule,
 		MatIconModule,
 		MatInputModule,
 		MatFormFieldModule,
 		MatRadioModule,
 		MatSelectModule,
+		MatTabsModule,
 		MatTooltipModule,
 
 		VipRewardsModule,

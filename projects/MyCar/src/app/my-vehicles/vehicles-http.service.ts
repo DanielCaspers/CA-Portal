@@ -42,7 +42,7 @@ export class VehiclesHttpService {
 									AppLink: rs.DIlink,
 									EstimateId: rs.estID,
 									NotificationCount: rs.notificationCnt,
-									Severity: parseInt(rs.level, 10), // TODO DJC You really need to discuss this with Dad. Not cool....
+									Severity: parseInt(rs.level, 10),
 									CompanyNumber: rs.coNumber
 								} as RecommendedService;
 							});

@@ -29,7 +29,6 @@ export class LoaderInterceptor implements HttpInterceptor {
 
 		return next.handle(req)
 				.pipe(
-					// TODO DJC send RXJS signal so when logoutLocally occurs, this queue is cleared.
 					filter(event => event instanceof HttpResponse),
 					tap(() => {
 						this.loaderService.removeRequest(req);
