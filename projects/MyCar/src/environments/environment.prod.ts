@@ -1,12 +1,12 @@
 import { HttpHeaders } from '@angular/common/http';
 import { MyCarEnvironment } from './environment.models';
 
-const appKey = 'D4LgRtMpfyZKXBaYSgRzah6jBf3w7W0v';
+const appKey = 'vngL2peLDHaT2XgHUyry8vYv5lezpAlj';
 
 export const environment: MyCarEnvironment = {
 	production: true,
-	apiBaseUrl: 'https://d3-devel.murphyauto.net/api/v2',
-	oauthProviderUrl: `https://d3-devel.murphyauto.net/api/v2/auth/login?appkey=${appKey}`,
+	apiBaseUrl: 'https://d3api.murphyauto.net/api/v2',
+	oauthProviderUrl: `https://d3api.murphyauto.net/api/v2/auth/login?appkey=${appKey}`,
 	httpOptions: {
 		headers: new HttpHeaders({
 			'Access-Control-Allow-Origin': '*',
