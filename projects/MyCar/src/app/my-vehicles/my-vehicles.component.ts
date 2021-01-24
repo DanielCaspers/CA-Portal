@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { sortBy } from 'lodash-es';
+import { remove, sortBy } from 'lodash-es';
 import { first } from 'rxjs/operators';
 
 import { VehicleOverview } from './vehicle.models';
@@ -25,5 +25,9 @@ export class MyVehiclesComponent implements OnInit {
 				this.vehicles = sortBy(vehicles, 'aggregateSeverity', 'make', 'model');
 				console.log(this.vehicles);
 			});
+	}
+
+	public onVehicleDeleted(vehicleID: string): void {
+		remove(this.vehicles, (v) => v.vehicleID === vehicleID);
 	}
 }

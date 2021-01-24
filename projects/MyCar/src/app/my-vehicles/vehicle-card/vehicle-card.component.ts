@@ -1,9 +1,14 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
+
+import { first } from 'rxjs/operators';
 
 import {
+	ConfirmDialogService,
 	RecommendedService,
 	RecommendedServicesDialogService
 } from 'murphy-automotive-shared-library';
+import { VehiclesHttpService } from '../vehicles-http.service';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
 	selector: 'ma-vehicle-card',
@@ -40,10 +45,44 @@ export class VehicleCardComponent {
 	@Input()
 	public nextOilChangeOdometer: Date;
 
-	constructor(private recommendedServicesDialogService: RecommendedServicesDialogService) {
+	@Output()
+	public vehicleDeleted: EventEmitter<string> = new EventEmitter<string>();
+
+	constructor(
+		private confirmDialogService: ConfirmDialogService,
+		private recommendedServicesDialogService: RecommendedServicesDialogService,
+		private vehiclesHttpService: VehiclesHttpService) {
 	}
 
 	public openRecommendedServicesDialog(): void {
 		this.recommendedServicesDialogService.open(this.recommendedServices);
+	}
+
+	public openVehicleDeletionDialog(): void {
+		this.confirmDialogService.open(
+			'Delete vehicle?',
+			`Deleting your vehicle will remove it from your vehicle list.`,
+			'Delete',
+			'Cancel'
+		)
+		.afterClosed()
+		.pipe(
+			first()
+		)
+		.subscribe((confirmed) => {
+			if (confirmed) {
+				this.vehiclesHttpService.deleteVehicleForClient(this.vehicleId)
+					.pipe(
+						first()
+					)
+					.subscribe((response) => {
+						if (response.status === 204) {
+							this.vehicleDeleted.emit(this.vehicleId);
+						} else {
+							console.error(`Vehicle with ID ${this.vehicleId} could not be deleted.`);
+						}
+					});
+			}
+		});
 	}
 }

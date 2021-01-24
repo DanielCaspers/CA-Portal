@@ -93,6 +93,10 @@
 				<mat-icon>history</mat-icon>
 				<span>History</span>
 			</button>
+			<button [disabled]="!vehicleId" (click)="openVehicleDeletionDialog()" mat-menu-item>
+				<mat-icon>delete</mat-icon>
+				<span>Delete</span>
+			</button>
 		</mat-menu>
 	</mat-card-actions>
 </mat-card>

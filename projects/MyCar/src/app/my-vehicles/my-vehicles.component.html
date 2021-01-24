@@ -17,7 +17,8 @@
 				[recommendedServiceSeverity]="vehicle.aggregateSeverity"
 				[vehicleId]="vehicle.vehicleID"
 				[nextOilChangeOdometer]="vehicle.nextOilChangeOdometer"
-				[nextOilChangeDate]="vehicle.nextOilChangeDate">
+				[nextOilChangeDate]="vehicle.nextOilChangeDate"
+				(vehicleDeleted)="onVehicleDeleted($event)">
 		</ma-vehicle-card>
 	</div>
 </div>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { sortBy } from 'lodash-es';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {
@@ -79,5 +79,13 @@ export class VehiclesHttpService {
 					return vehiclesDto as VehicleOverview[];
 				})
 		);
+	}
+
+	public deleteVehicleForClient(vehicleId: string): Observable<any> {
+		const token = this.jwtHelperService.decodeToken(this.authTokenService.authToken);
+
+		// return of({status: 204});
+		return this.httpClient.delete(
+			`${environment.apiBaseUrl}/${token.conos[0]}/vehicles/client/${token.conos[0]}${token.clientIDs[0]}/${vehicleId}`);
 	}
 }

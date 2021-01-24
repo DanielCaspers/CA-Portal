@@ -9,6 +9,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { NgxAnalyticsModule } from 'ngx-analytics';
 
 import {
+	ConfirmDialogModule,
 	RecommendedServicesModule,
 } from 'murphy-automotive-shared-library';
 
@@ -31,6 +32,7 @@ import { VehiclesHttpService } from './vehicles-http.service';
 
 		NgxAnalyticsModule,
 
+		ConfirmDialogModule,
 		RecommendedServicesModule,
 
 		MyVehiclesRoutingModule
