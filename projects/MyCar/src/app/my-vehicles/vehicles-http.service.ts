@@ -84,8 +84,8 @@ export class VehiclesHttpService {
 	public deleteVehicleForClient(vehicleId: string): Observable<any> {
 		const token = this.jwtHelperService.decodeToken(this.authTokenService.authToken);
 
-		// return of({status: 204});
-		return this.httpClient.delete(
-			`${environment.apiBaseUrl}/${token.conos[0]}/vehicles/client/${token.conos[0]}${token.clientIDs[0]}/${vehicleId}`);
+		return this.httpClient.delete<any>(
+			`${environment.apiBaseUrl}/${token.conos[0]}/vehicles/client/${token.conos[0]}${token.clientIDs[0]}/${vehicleId}`,
+			environment.httpOptions);
 	}
 }

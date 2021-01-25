@@ -75,12 +75,10 @@ export class VehicleCardComponent {
 					.pipe(
 						first()
 					)
-					.subscribe((response) => {
-						if (response.status === 204) {
-							this.vehicleDeleted.emit(this.vehicleId);
-						} else {
-							console.error(`Vehicle with ID ${this.vehicleId} could not be deleted.`);
-						}
+					.subscribe(() => {
+						this.vehicleDeleted.emit(this.vehicleId);
+					}, (error) => {
+						console.error(`Vehicle with ID ${this.vehicleId} could not be deleted. Error message: ${error}`);
 					});
 			}
 		});
