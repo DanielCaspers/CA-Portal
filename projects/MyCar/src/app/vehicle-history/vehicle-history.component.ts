@@ -19,6 +19,7 @@ export class VehicleHistoryComponent implements OnInit {
 
 	public searchQuery = '';
 	public vehicleId: string = null;
+	private previousVehicleId: string = null;
 	public myVehicles: VehicleOverview[] = [];
 	public vehicleHistory: VehicleHistoryEntry[] = [];
 
@@ -35,8 +36,12 @@ export class VehicleHistoryComponent implements OnInit {
 		this.updateVehicleHistory();
 	}
 
-	public onSelectionChange(): void {
-		this.updateVehicleHistory();
+	public onSelectionChange(event: any): void {
+		// Prevent duplicate event firing on switching back to "All of my vehicles" empty select option. See #52.
+		if (event.value !== this.previousVehicleId) {
+			this.previousVehicleId = this.vehicleId;
+			this.updateVehicleHistory();
+		}
 	}
 
 	private getAllVehicles(): void {

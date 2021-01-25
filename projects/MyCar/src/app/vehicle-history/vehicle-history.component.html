@@ -5,8 +5,8 @@
 			<mat-select
 					placeholder="All of my vehicles"
 					[(value)]="vehicleId"
-					(selectionChange)="onSelectionChange()">
-				<mat-option [value]="null">All of my vehicles</mat-option>
+					(selectionChange)="onSelectionChange($event)">
+				<mat-option>All of my vehicles</mat-option>
 				<mat-option *ngFor="let vehicle of myVehicles" [value]="vehicle.vehicleID">
 					{{vehicle.year}} {{vehicle.make}} {{vehicle.model}} ({{vehicle.license}})
 				</mat-option>
