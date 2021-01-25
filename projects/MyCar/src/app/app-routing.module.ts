@@ -31,35 +31,35 @@ const routes: Routes = [
 				path: 'account',
 				children: accountRoutes,
 				data: {
-					title: 'My account'
+					title: 'My Account'
 				}
 			},
 			{
 				path: 'vehicles',
 				children: vehicleRoutes,
 				data: {
-					title: 'My vehicles'
+					title: 'My Vehicles'
 				}
 			},
 			{
 				path: 'schedule',
 				children: appointmentSchedulerRoutes,
 				data: {
-					title: 'Schedule an appointment'
+					title: 'Schedule an Appointment'
 				}
 			},
 			{
 				path: 'coupons',
 				children: couponRoutes,
 				data: {
-					title: 'My coupons'
+					title: 'My Coupons'
 				}
 			},
 			{
 				path: 'history',
 				children: vehicleHistoryRoutes,
 				data: {
-					title: 'My vehicle history'
+					title: 'My Vehicle History'
 				}
 			},
 			{

@@ -1,4 +1,13 @@
 :host {
+	::ng-deep {
+		.mat-tab-label {
+			opacity: 0.85 !important;
+
+			&.mat-tab-label-active {
+				opacity: 1 !important;
+			}
+		}
+	}
 	.my-account-container {
 		margin: 12px 12px;
 	}

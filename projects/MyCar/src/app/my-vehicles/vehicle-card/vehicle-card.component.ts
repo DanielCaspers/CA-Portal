@@ -8,7 +8,6 @@ import {
 	RecommendedServicesDialogService
 } from 'murphy-automotive-shared-library';
 import { VehiclesHttpService } from '../vehicles-http.service';
-import { HttpResponse } from '@angular/common/http';
 
 @Component({
 	selector: 'ma-vehicle-card',
