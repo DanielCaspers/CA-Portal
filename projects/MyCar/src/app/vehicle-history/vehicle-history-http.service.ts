@@ -11,19 +11,17 @@ import { VehicleHistoryEntry } from './vehicle-history.models';
 @Injectable()
 export class VehicleHistoryHttpService {
 
-	private readonly numberOfRecordsToRequest = 300;
-
 	constructor(
 		private authTokenService: AuthTokenService,
 		private httpClient: HttpClient,
 		private jwtHelperService: JwtHelperService) {
 	}
 
-	public getVehicleHistoryByClient(): Observable<VehicleHistoryEntry[]> {
+	public getVehicleHistoryByClient(numEntriesToLoad: number, startFromIndex: number): Observable<VehicleHistoryEntry[]> {
 		const token = this.jwtHelperService.decodeToken(this.authTokenService.authToken);
 
 		return this.httpClient.get<any>(
-			`${environment.apiBaseUrl}/${token.conos[0]}/vehiclehist/client/${token.conos[0]}${token.clientIDs[0]}?$limit=${this.numberOfRecordsToRequest}`,
+			`${environment.apiBaseUrl}/${token.conos[0]}/vehiclehist/client/${token.conos[0]}${token.clientIDs[0]}?$top=${numEntriesToLoad}&$skip=${startFromIndex}`,
 			environment.httpOptions)
 			.pipe(
 				map(vehicleHistoryEntriesDto => {
@@ -32,11 +30,11 @@ export class VehicleHistoryHttpService {
 		);
 	}
 
-	public getVehicleHistoryByVIN(VIN: string): Observable<VehicleHistoryEntry[]> {
+	public getVehicleHistoryByVIN(VIN: string, numEntriesToLoad: number, startFromIndex: number): Observable<VehicleHistoryEntry[]> {
 		const token = this.jwtHelperService.decodeToken(this.authTokenService.authToken);
 
 		return this.httpClient.get<any>(
-			`${environment.apiBaseUrl}/${token.conos[0]}/vehiclehist/${VIN}?$limit=${this.numberOfRecordsToRequest}`,
+			`${environment.apiBaseUrl}/${token.conos[0]}/vehiclehist/${VIN}?$top=${numEntriesToLoad}&$skip=${startFromIndex}`,
 			environment.httpOptions)
 			.pipe(
 				map(vehicleHistoryEntriesDto => {
@@ -49,6 +47,7 @@ export class VehicleHistoryHttpService {
 		const vehicleHistoryEntries: VehicleHistoryEntry[] = vehicleHistoryEntriesDto.map(dto => {
 			return {
 				CompletionDate: new Date(dto.completionDate * 1000),
+				PartsDescription: dto.partsDesc,
 				Description: dto.laborDesc,
 				OrderId: dto.orderID,
 				Odometer: dto.vehicleOdometer,

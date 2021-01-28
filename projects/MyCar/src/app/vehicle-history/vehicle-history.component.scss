@@ -11,6 +11,24 @@
 	mat-toolbar {
 		padding-top: 4px;
 		font-size: 1em;
+
+		mat-toolbar-row.button-row {
+			padding: 0;
+
+			button {
+				padding-left: 8px;
+				padding-right: 8px;
+			}
+
+			button:first-of-type {
+				padding-left: 16px;
+			}
+
+			button:last-of-type {
+				padding-right: 0px;
+			}
+
+		}
 	}
 
 	.completion-date {
@@ -19,5 +37,10 @@
 
 	.description-row {
 		width: 100%;
+	}
+
+	.load-more {
+		width: 100%;
+		margin-top: 16px;
 	}
 }

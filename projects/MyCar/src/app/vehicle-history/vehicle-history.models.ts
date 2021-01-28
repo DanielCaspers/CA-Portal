@@ -1,5 +1,6 @@
 export interface VehicleHistoryEntry {
 	CompletionDate: Date;
+	PartsDescription: string[];
 	Description: string[];
 	OrderId: string;
 	Odometer: number;

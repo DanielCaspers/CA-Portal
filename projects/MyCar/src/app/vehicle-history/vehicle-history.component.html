@@ -1,4 +1,4 @@
-<mat-toolbar fxLayout.lt-sm="column" fxLayoutGap="8px" fxLayout.gt-xs="row">
+<mat-toolbar fxLayout.lt-sm="column" fxLayout.gt-xs="row">
 	<mat-toolbar-row>
 		<mat-form-field class="vehicle-selector" floatLabel="always">
 			<mat-label>Vehicles in history</mat-label>
@@ -23,6 +23,10 @@
 			</button>
 		</mat-form-field>
 	</mat-toolbar-row>
+	<mat-toolbar-row class="button-row">
+		<button mat-button color="accent" aria-label="Expand all" (click)="accordion.openAll()">Expand all</button>
+		<button mat-button color="accent" aria-label="Collapse all" (click)="accordion.closeAll()">Collapse all</button>
+	</mat-toolbar-row>
 </mat-toolbar>
 <div class="vehicle-history-container">
 	<mat-accordion multi="true">
@@ -41,12 +45,16 @@
 						<!-- Display only the first 3 work description entries to prevent overflow -->
 						<!-- CSS flex has issues preventing overflow of text elements, even when width constrained. -->
 						<!-- https://www.westerndevs.com/css/Using-Overflow-Ellipsis-in-Inline-Flex/ -->
-						<span *ngFor="let line of entry.Description; let last=last; let i = index">
-							<ng-container *ngIf="i < 3;">
-								{{line}}<ng-container *ngIf="!last">,</ng-container>
-							</ng-container>
-						</span>
-						<span *ngIf="entry.Description.length > 3">&nbsp;...</span>
+						<ng-container *ngFor="let line of entry.Description.concat(entry.PartsDescription); let last=last; let i = index; let count = count">
+							<span>
+								<ng-container *ngIf="i < 3;">
+									{{line}}<ng-container *ngIf="!last || i < 2">,</ng-container>
+								</ng-container>
+							</span>
+							<span *ngIf="count == 3">&nbsp;...</span>
+							<!-- if count greater than 3, do nothing -->
+						</ng-container>
+
 					</div>
 
 					<!-- Always show completion date floated right -->
@@ -59,7 +67,7 @@
 					<span fxFlex="110px" class="mat-body-2">Order:</span>
 					<span>{{entry.OrderId.substring(3)}}</span>
 				</div>
-				<div class="description-row">
+				<div class="description-row" *ngIf="entry.Amount > 0">
 					<span fxFlex="110px" class="mat-body-2">Amount:</span>
 					<span>{{entry.Amount | currency:'USD'}}</span>
 				</div>
@@ -67,14 +75,20 @@
 					<span fxFlex="110px" class="mat-body-2">Balance due:</span>
 					<span>{{entry.BalanceDue | currency:'USD'}}</span>
 				</div>
-				<div class="description-row">
+				<div class="description-row"  *ngIf="!!entry.Odometer">
 					<span fxFlex="110px" class="mat-body-2">Odometer:</span>
 					<span>{{entry.Odometer}}</span>
 				</div>
-				<div class="description-row">
+				<div class="description-row" *ngIf="entry.Description.length > 0">
 					<span class="mat-body-2">Work performed:</span>
 					<ul>
 						<li *ngFor="let line of entry.Description">{{line}}</li>
+					</ul>
+				</div>
+				<div class="description-row" *ngIf="entry.PartsDescription.length > 0">
+					<span class="mat-body-2">Parts description:</span>
+					<ul>
+						<li *ngFor="let line of entry.PartsDescription">{{line}}</li>
 					</ul>
 				</div>
 			</div>
@@ -91,5 +105,14 @@
 
 		</mat-expansion-panel>
 	</mat-accordion>
+
+	<button [disabled]="!canLoadMore"
+	        class="load-more"
+	        mat-raised-button
+	        color="accent"
+	        aria-label="Load more"
+	        (click)="loadMore()">
+		Load more
+	</button>
 </div>
 
