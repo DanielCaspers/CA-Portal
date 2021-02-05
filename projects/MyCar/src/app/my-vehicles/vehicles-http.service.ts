@@ -16,6 +16,8 @@ import { VehicleOverview } from './vehicle.models';
 @Injectable()
 export class VehiclesHttpService {
 
+	private secondsPerDay = 86400;
+
 	constructor(
 		private authTokenService: AuthTokenService,
 		private httpClient: HttpClient,
@@ -66,10 +68,10 @@ export class VehiclesHttpService {
 							Math.sign(v.vehicleMaintDetails[0].lofIntervalMiles) === 1;
 
 						if (dataIsNonNegativeAndNonNull) {
-							v.nextOilChangeDate = new Date(
-								(v.vehicleMaintDetails[0].lofLastDate * 1000) +
-								v.vehicleMaintDetails[0].lofIntervalDays);
+							const lastOilChangeDateInSeconds = v.vehicleMaintDetails[0].lofLastDate;
+							const oilChangeIntervalInSeconds = v.vehicleMaintDetails[0].lofIntervalDays * this.secondsPerDay;
 
+							v.nextOilChangeDate = new Date((lastOilChangeDateInSeconds + oilChangeIntervalInSeconds) * 1000); // Convert seconds to milliseconds
 							v.nextOilChangeOdometer = v.vehicleMaintDetails[0].lofLastOdometer + v.vehicleMaintDetails[0].lofIntervalMiles;
 
 							delete v.vehicleMaintDetails;
