@@ -1,1 +1,6 @@
-<img [src]="imgSrc" (click)="onClick()">
+<div class="container">
+	<div *ngIf="!!offerExclusive">
+		<div class="mat-caption banner-text">{{offerExclusive}}</div>
+	</div>
+	<img [src]="imgSrc" (click)="onClick()">
+</div>

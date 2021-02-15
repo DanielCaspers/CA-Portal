@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { first } from 'rxjs/operators';
 
-import { Coupon, CouponOfferType } from '../coupon.models';
+import { Coupon } from '../coupon.models';
 import { CouponHttpService } from '../coupon-http.service';
 
 @Component({
@@ -15,8 +15,8 @@ import { CouponHttpService } from '../coupon-http.service';
 })
 export class MyCouponsComponent implements OnInit {
 
-	public tireOffers: Coupon[] = [];
-	public generalOffers: Coupon[] = [];
+	public coupons: Coupon[] = [];
+	public hasLoadedCoupons = false;
 
 	private vehicleId: string;
 
@@ -38,8 +38,8 @@ export class MyCouponsComponent implements OnInit {
 				first()
 			)
 			.subscribe(coupons => {
-				this.tireOffers = coupons.filter(c => c.offerType === CouponOfferType.Tire);
-				this.generalOffers = coupons.filter(c => c.offerType === CouponOfferType.General);
+				this.coupons = coupons;
+				this.hasLoadedCoupons = true;
 			});
 	}
 }

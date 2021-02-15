@@ -1,38 +1,26 @@
 <div class="my-coupons-container">
-	<ng-container *ngIf="generalOffers.length > 0">
-		<h2 class="mat-headline">General Offers</h2>
-
-		<div
-				fxLayout="row wrap"
-				fxLayout.lt-sm="column"
-				fxLayoutGap="32px"
-				fxLayoutAlign="space-evenly">
+	<ng-container *ngIf="hasLoadedCoupons">
+		<div *ngIf="coupons.length > 0"
+			fxLayout="row wrap"
+			fxLayout.lt-sm="column"
+			fxLayoutAlign="space-between center">
 			<ma-coupon-card
-					fxFlex="0 1 calc(33.3% - 32px)"
-					fxFlex.lt-md="0 1 calc(50% - 32px)"
-					fxFlex.lt-sm="100%"
-					*ngFor="let coupon of generalOffers"
-					[imgSrc]="coupon.imgSrc">
+				fxFlex.lg="25%"
+				fxFlex.lt-lg="33%"
+				fxFlex.lt-md="50%"
+				fxFlex.lt-sm="100%"
+				*ngFor="let coupon of coupons"
+				[imgSrc]="coupon.imgSrc"
+				[offerExclusive]="coupon.offerExclusive">
 			</ma-coupon-card>
 		</div>
-	</ng-container>
-
-	<ng-container *ngIf="tireOffers.length > 0">
-		<div style="height: 50px"></div>
-		<h2 class="mat-headline">Tire Offers</h2>
-
-		<div
-				fxLayout="row wrap"
-				fxLayout.lt-sm="column"
-				fxLayoutGap="32px"
-				fxLayoutAlign="space-evenly">
-			<ma-coupon-card
-					fxFlex="0 1 calc(33.3% - 32px)"
-					fxFlex.lt-md="0 1 calc(50% - 32px)"
-					fxFlex.lt-sm="100%"
-					*ngFor="let coupon of tireOffers"
-					[imgSrc]="coupon.imgSrc">
-			</ma-coupon-card>
-		</div>
+		<ng-container *ngIf="coupons.length === 0">
+			<div class="mat-h1">
+				No offers available at this time.
+			</div>
+			<div class="mat-h3">
+				Check back later for new offers.
+			</div>
+		</ng-container>
 	</ng-container>
 </div>

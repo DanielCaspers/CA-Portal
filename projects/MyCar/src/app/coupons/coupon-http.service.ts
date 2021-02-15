@@ -17,7 +17,9 @@ export class CouponHttpService {
 				imgSrc: dto.cpnURL,
 				offerType: dto.offerCategory.toLowerCase() === 'tires' ?
 						CouponOfferType.Tire :
-						CouponOfferType.General
+						CouponOfferType.General,
+				offerExclusive: dto.offerExclusive,
+				offerDescription: dto.offerDesc,
 			} as Coupon;
 		});
 	}

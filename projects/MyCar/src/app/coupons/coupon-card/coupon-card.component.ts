@@ -11,6 +11,9 @@ export class CouponCardComponent {
 	@Input()
 	public imgSrc: string;
 
+	@Input()
+	public offerExclusive: string;
+
 	constructor() {
 	}
 

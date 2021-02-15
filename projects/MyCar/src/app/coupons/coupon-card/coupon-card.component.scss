@@ -5,4 +5,20 @@
 		padding-left: 16px;
 		padding-right: 16px;
 	}
+
+	.container {
+		position: relative;
+		text-align: center;
+	}
+
+	.banner-text {
+		background-color: darkblue;
+		color: white;
+
+		margin-left: 16px;
+		margin-right: 16px;
+		border-radius: 30px;
+		position: relative;
+		top: 4px;
+	}
 }

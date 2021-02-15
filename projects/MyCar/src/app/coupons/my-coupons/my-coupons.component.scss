@@ -1,9 +1,11 @@
 :host {
-
-	h2 {
-		text-align: center;
-	}
 	.my-coupons-container {
 		margin: 12px 12px;
+		text-align: center;
+	}
+
+	ma-coupon-card {
+		margin-left: auto;
+		margin-right: auto;
 	}
 }
