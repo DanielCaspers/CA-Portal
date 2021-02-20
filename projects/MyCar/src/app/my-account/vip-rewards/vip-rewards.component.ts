@@ -6,7 +6,6 @@ import {
 import { first } from 'rxjs/operators';
 
 import { AccountHttpService } from '../account-http.service';
-import { StoreInfoService } from '../../store-info/store-info.service';
 
 @Component({
 	selector: 'ma-vip-rewards',
@@ -17,9 +16,8 @@ import { StoreInfoService } from '../../store-info/store-info.service';
 export class VipRewardsComponent implements OnInit {
 
 	public vipRewardsPoints: number;
-	private companyNumber: string;
 
-	constructor(private accountHttpService: AccountHttpService, private storeInfoService: StoreInfoService) { }
+	constructor(private accountHttpService: AccountHttpService) { }
 
 	public ngOnInit(): void {
 		this.accountHttpService.getAccount()
@@ -29,17 +27,5 @@ export class VipRewardsComponent implements OnInit {
 			.subscribe((account) => {
 				this.vipRewardsPoints = account.loyaltyAccount.vipPointBalance;
 			});
-
-		this.storeInfoService.getStoreInfo()
-			.pipe(
-				first()
-			)
-			.subscribe(storeInfo => {
-				this.companyNumber = storeInfo.CompanyNumber;
-			});
-	}
-
-	public get shouldShowReward(): boolean {
-		return this.companyNumber !== '002';
 	}
 }

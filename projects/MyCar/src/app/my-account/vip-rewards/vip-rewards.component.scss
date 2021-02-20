@@ -1,3 +1,5 @@
+@import '../../../../../../themes/_colors.scss';
+
 :host {
 	.vip-rewards-container {
 		margin: 12px 12px;
@@ -26,5 +28,9 @@
 
 	.point-reward-divider {
 		padding: 0 5px;
+	}
+
+	.disclaimer {
+		color: $ma-red;
 	}
 }
