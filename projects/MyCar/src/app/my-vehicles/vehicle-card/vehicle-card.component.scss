@@ -13,4 +13,18 @@
 	mat-card-subtitle {
 		min-height: 16px;
 	}
+
+	.oil-change-reminder {
+		border-radius: 20px;
+		padding-right: 20px;
+		padding-left: 20px;
+
+		&.due-soon {
+			background-color: #faf37473;
+		}
+
+		&.estimated-overdue {
+			background-color: #ff494982;
+		}
+	}
 }

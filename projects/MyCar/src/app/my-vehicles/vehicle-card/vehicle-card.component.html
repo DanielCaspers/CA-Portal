@@ -30,8 +30,12 @@
 
 	<mat-card-content>
 		<div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center">
-			<div *ngIf="nextOilChangeDate && nextOilChangeOdometer">
-				<p>Next service due</p>
+			<div class="oil-change-reminder" *ngIf="nextOilChangeDate && nextOilChangeOdometer"
+				[ngClass]="{
+					'due-soon': estimatedOilLifeConsumedPercentage > 84,
+					'estimated-overdue': estimatedOilLifeConsumedPercentage > 140
+				}">
+				<p>Next oil change due</p>
 				<ul>
 					<li>Date: {{nextOilChangeDate | date:'shortDate'}}, or</li>
 					<li>Mileage: {{nextOilChangeOdometer | number: '': 'en-US' }}</li>

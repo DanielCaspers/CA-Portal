@@ -73,7 +73,7 @@ export class VehiclesHttpService {
 
 							v.nextOilChangeDate = new Date((lastOilChangeDateInSeconds + oilChangeIntervalInSeconds) * 1000); // Convert seconds to milliseconds
 							v.nextOilChangeOdometer = v.vehicleMaintDetails[0].lofLastOdometer + v.vehicleMaintDetails[0].lofIntervalMiles;
-
+							v.estimatedOilLifeConsumedPercentage = 70 + Math.floor(Math.random() * Math.floor(120))
 							delete v.vehicleMaintDetails;
 						}
 					}

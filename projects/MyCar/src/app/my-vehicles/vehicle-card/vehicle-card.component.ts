@@ -44,6 +44,9 @@ export class VehicleCardComponent {
 	@Input()
 	public nextOilChangeOdometer: Date;
 
+	@Input()
+	public estimatedOilLifeConsumedPercentage: number;
+
 	@Output()
 	public vehicleDeleted: EventEmitter<string> = new EventEmitter<string>();
 
