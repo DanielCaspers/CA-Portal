@@ -47,7 +47,8 @@ export class VehiclesHttpService {
 									Severity: parseInt(rs.level, 10),
 									CompanyNumber: rs.coNumber
 								} as RecommendedService;
-							});
+							// The "Notes" Severity is for internal use only (e.g. Digital Inspection), so omit these entries
+							}).filter(rs => rs.Severity !== 5);
 
 							v.recommendedServices = sortBy(v.recommendedServices, 'Severity', 'LastDateModified');
 							v.aggregateSeverity = v.recommendedServices[0].Severity;
@@ -73,7 +74,7 @@ export class VehiclesHttpService {
 
 							v.nextOilChangeDate = new Date((lastOilChangeDateInSeconds + oilChangeIntervalInSeconds) * 1000); // Convert seconds to milliseconds
 							v.nextOilChangeOdometer = v.vehicleMaintDetails[0].lofLastOdometer + v.vehicleMaintDetails[0].lofIntervalMiles;
-							v.estimatedOilLifeConsumedPercentage = 70 + Math.floor(Math.random() * Math.floor(120))
+							v.estimatedOilLifeConsumedPercentage =  v.vehicleMaintDetails[0].oilUsePercentage;
 							delete v.vehicleMaintDetails;
 						}
 					}
