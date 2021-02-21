@@ -51,7 +51,7 @@ export class VehiclesHttpService {
 							// The Notes Severity is for internal use only (e.g. Digital Inspection), so omit these entries
 							}).filter(rs => rs.Severity !== RecommendedServiceSeverityNumbers.Notes);
 
-							v.recommendedServices = sortBy(v.recommendedServices, 'Severity', 'LastDateModified');
+							v.recommendedServices = sortBy(v.recommendedServices, 'Severity', 'LastModifiedDate');
 
 							// When filtering out Notes, it is possible there will be no RSs remaining. From customer's perspective, these are ok.
 							v.aggregateSeverity = v.recommendedServices.length === 0 ?
