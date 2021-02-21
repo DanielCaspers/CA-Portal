@@ -6,7 +6,8 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import {
-	RecommendedService
+	RecommendedService,
+	RecommendedServiceSeverityNumbers
 } from 'murphy-automotive-shared-library';
 
 import { environment } from '../../environments/environment';
@@ -47,15 +48,19 @@ export class VehiclesHttpService {
 									Severity: parseInt(rs.level, 10),
 									CompanyNumber: rs.coNumber
 								} as RecommendedService;
-							// The "Notes" Severity is for internal use only (e.g. Digital Inspection), so omit these entries
-							}).filter(rs => rs.Severity !== 5);
+							// The Notes Severity is for internal use only (e.g. Digital Inspection), so omit these entries
+							}).filter(rs => rs.Severity !== RecommendedServiceSeverityNumbers.Notes);
 
 							v.recommendedServices = sortBy(v.recommendedServices, 'Severity', 'LastDateModified');
-							v.aggregateSeverity = v.recommendedServices[0].Severity;
+
+							// When filtering out Notes, it is possible there will be no RSs remaining. From customer's perspective, these are ok.
+							v.aggregateSeverity = v.recommendedServices.length === 0 ?
+								RecommendedServiceSeverityNumbers.Ok :
+								v.recommendedServices[0].Severity;
 
 						} else {
 							v.recommendedServices = [];
-							v.aggregateSeverity = 10;
+							v.aggregateSeverity = RecommendedServiceSeverityNumbers.Ok;
 						}
 
 						delete v.vehicleRS;
