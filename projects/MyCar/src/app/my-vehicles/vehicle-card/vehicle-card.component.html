@@ -32,8 +32,8 @@
 		<div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="space-between center">
 			<div class="oil-change-reminder" *ngIf="nextOilChangeDate && nextOilChangeOdometer"
 				[ngClass]="{
-					'due-soon': estimatedOilLifeConsumedPercentage > 84,
-					'estimated-overdue': estimatedOilLifeConsumedPercentage > 140
+					'due-soon': estimatedOilLifeConsumedPercentage >= 95 && estimatedOilLifeConsumedPercentage < 140,
+					'estimated-overdue': estimatedOilLifeConsumedPercentage >= 140
 				}">
 				<p>Next oil change due</p>
 				<ul>
