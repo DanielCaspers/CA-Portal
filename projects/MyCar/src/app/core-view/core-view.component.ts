@@ -13,8 +13,6 @@ import { AccountHttpService } from '../my-account/account-http.service';
 import { AccountOverview } from '../my-account/account.models';
 import { environment } from '../../environments/environment';
 
-// import { StoreInfo, StoreInfoService } from '../store-info/store-info.module';
-
 @Component({
 	selector: 'ma-core-view',
 	templateUrl: './core-view.component.html',
@@ -52,8 +50,11 @@ export class CoreViewComponent implements OnInit {
 			.pipe(
 				first()
 			)
-			.subscribe(storeInfo => {
+			.subscribe((storeInfo: StoreInfo) => {
 				this.storeInfo = storeInfo;
+
+				// Make the tab information specific to a store once the user has logged in - See #61.
+				document.title = `MyCar - ${storeInfo.CompanyName}`;
 			});
 
 		this.accountHttpService.getAccount()

@@ -34,6 +34,7 @@ export class StoreInfoService {
 				map((dto) => {
 					return {
 						CompanyNumber: dto.cono,
+						CompanyName: dto.coname,
 						EmailAddress: {
 							DisplayValue: dto.emailAddress
 						},

@@ -1,4 +1,5 @@
 export interface StoreInfo {
+	CompanyName: string;
 	CompanyNumber: number;
 	EmailAddress: EmailAddress;
 	PhoneNumberToCall?: WebPhoneNumber;
