@@ -431,8 +431,16 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 				request.vehicleID = vehicle.vehicleID;
 
 				const recommendedServiceIds = this.issuesFormGroup.get('recommendedServices').value;
-				const recommendedServicesToAddress = recommendedServiceIds.map(rsId => this.recommendedServices.find(rs => rs.Id === rsId));
-				const recommendedServiceWorkDescriptions = recommendedServicesToAddress.map(rs => `${rs.Description} LVL=${rs.Severity} [${rs.OrderId}] ${rs.TechnicianId}`);
+
+				// By default, no work should be assumed to have an associated recommended service.
+				// Users will elect to check any recommended services that exist should they choose to address them.
+				let recommendedServiceWorkDescriptions = [];
+
+				if (!!recommendedServiceIds && recommendedServiceIds.length > 0) {
+					// If they have selected one or more recommended services, formulate them for best data meaning in the work description field.
+					const recommendedServicesToAddress = recommendedServiceIds.map(rsId => this.recommendedServices.find(rs => rs.Id === rsId));
+					recommendedServiceWorkDescriptions = recommendedServicesToAddress.map(rs => `${rs.Description} LVL=${rs.Severity} [${rs.OrderId}] ${rs.TechnicianId}`);
+				}
 
 				request.WorkDescription = [...recommendedServiceWorkDescriptions, ...this.issues.map(i => i.viewValue), this.issueDescription.value];
 			}
