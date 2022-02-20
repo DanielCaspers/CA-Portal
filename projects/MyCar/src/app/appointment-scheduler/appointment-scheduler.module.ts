@@ -20,7 +20,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 
-import { NgxAnalyticsModule } from 'ngx-analytics';
+// import { NgxAnalyticsModule } from 'ngx-analytics';
 
 import {
 	CanDeactivateGuard,
@@ -56,7 +56,7 @@ import { AppointmentSchedulerHttpService } from './appointment-scheduler-http.se
 		MatSelectModule,
 		MatStepperModule,
 
-		NgxAnalyticsModule,
+		// NgxAnalyticsModule,
 
 		RecommendedServiceSeverityModule,
 		SafeUrlModule,

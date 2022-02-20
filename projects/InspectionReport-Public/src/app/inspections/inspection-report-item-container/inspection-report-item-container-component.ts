@@ -1,16 +1,17 @@
-import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
+// import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
 
 export class InspectionReportItemContainerComponent {
 	constructor(
-		private googleAnalyticsService: NgxAnalyticsGoogleAnalytics) {
+		// private googleAnalyticsService: NgxAnalyticsGoogleAnalytics
+	) {
 	}
 
 	public onCollapse(accordionName: string, accordionType: 'InspectionItem' | 'InspectionItemGroup'): void {
-		this.googleAnalyticsService.eventTrack('Collapsed', { category: accordionType, label: accordionName});
+		// this.googleAnalyticsService.eventTrack('Collapsed', { category: accordionType, label: accordionName});
 	}
 
 	public onExpand(accordionName: string, accordionType: 'InspectionItem' | 'InspectionItemGroup'): void {
-		this.googleAnalyticsService.eventTrack('Expanded', { category: accordionType, label: accordionName});
+		// this.googleAnalyticsService.eventTrack('Expanded', { category: accordionType, label: accordionName});
 	}
 
 	public shouldExpand(inspectionItem): boolean {

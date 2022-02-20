@@ -25,13 +25,16 @@
 				{{rentalCarBodyText}}
 			</div>
 			<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+				<!-- 					ngx-analyticsOn="click"
+					angularticsAction="Called"
+					angularticsLabel="Appointment scheduling - interested in rental car."
+					angularticsCategory="Store"
+					-->
 				<a mat-button
 					color="accent"
 					[href]="storeInfo?.PhoneNumberToCall?.NumberForWebLink | safeUrl"
-					ngx-analyticsOn="click"
-					angularticsAction="Called"
-					angularticsLabel="Appointment scheduling - interested in rental car."
-					angularticsCategory="Store">
+
+				>
 					Call
 				</a>
 				<button mat-button color="primary" matStepperNext>No thanks, I'll pass</button>
@@ -179,15 +182,17 @@
 				</mat-form-field>
 
 				<div>
+					<!--
+										ngx-analyticsOn="click"
+					angularticsAction="Scheduled Appointment"
+					angularticsCategory="Appointments"
+					-->
 					<button
 							mat-button
 							[disabled]="issuesFormGroup.invalid"
 							color="accent"
 							type="submit"
-							matStepperNext
-							ngx-analyticsOn="click"
-							angularticsAction="Scheduled Appointment"
-							angularticsCategory="Appointments">
+							matStepperNext>
 						Schedule
 					</button>
 				</div>

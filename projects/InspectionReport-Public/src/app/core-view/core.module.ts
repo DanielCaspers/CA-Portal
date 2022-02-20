@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 
 import { RouterModule } from '@angular/router';
-import { NgxAnalyticsModule } from 'ngx-analytics';
+// import { NgxAnalyticsModule } from 'ngx-analytics';
 
 import { SafeUrlModule } from 'murphy-automotive-shared-library';
 
@@ -26,7 +26,7 @@ import { StoreInfoModule } from '../store-info/store-info.module';
 		MatCardModule,
 		MatIconModule,
 		MatToolbarModule,
-		NgxAnalyticsModule,
+		// NgxAnalyticsModule,
 
 		StoreInfoModule,
 		SafeUrlModule
