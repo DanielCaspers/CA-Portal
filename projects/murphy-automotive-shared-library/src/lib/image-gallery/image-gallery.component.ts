@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { GALLERY_CONF, GALLERY_IMAGE, NgxImageGalleryComponent } from 'ngx-image-gallery';
+// import { GALLERY_CONF, GALLERY_IMAGE, NgxImageGalleryComponent } from 'ngx-image-gallery';
 
 @Component({
 	selector: 'ma-image-gallery',
@@ -8,25 +8,25 @@ import { GALLERY_CONF, GALLERY_IMAGE, NgxImageGalleryComponent } from 'ngx-image
 })
 export class ImageGalleryComponent {
 
-	public dialogGalleryConfig: GALLERY_CONF = {
-		imageOffset: '0px',
-		showDeleteControl: false,
-		showImageTitle: true,
-		showExtUrlControl: true
-	};
-
-	@Input() public images: GALLERY_IMAGE[];
-
-	@ViewChild(NgxImageGalleryComponent, {static: false}) public ngxImageGallery: NgxImageGalleryComponent;
+	// public dialogGalleryConfig: GALLERY_CONF = {
+	// 	imageOffset: '0px',
+	// 	showDeleteControl: false,
+	// 	showImageTitle: true,
+	// 	showExtUrlControl: true
+	// };
+	//
+	// @Input() public images: GALLERY_IMAGE[];
+	//
+	// @ViewChild(NgxImageGalleryComponent, {static: false}) public ngxImageGallery: NgxImageGalleryComponent;
 
 	constructor() {
 	}
 
 	public galleryImageClicked(index): void {
-		window.open(this.images[index].url);
+		// window.open(this.images[index].url);
 	}
 
 	public open(index: number = 0): void {
-		this.ngxImageGallery.open(index);
+		// this.ngxImageGallery.open(index);
 	}
 }

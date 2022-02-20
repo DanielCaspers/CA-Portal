@@ -1,6 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { NgxImageGalleryModule } from 'ngx-image-gallery';
+// import { NgxImageGalleryModule } from 'ngx-image-gallery';
 
 import { ImageGalleryComponent } from './image-gallery.component';
 
@@ -10,7 +10,7 @@ import { ImageGalleryComponent } from './image-gallery.component';
 	],
 	imports: [
 		CommonModule,
-		NgxImageGalleryModule
+		// NgxImageGalleryModule
 	],
 	exports: [
 		ImageGalleryComponent
