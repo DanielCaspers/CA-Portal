@@ -12,6 +12,7 @@
 		"@angular/flex-layout": "13.0.0-beta.38",
 		"@angular/material": "13.2.3",
 		"color-convert": "2.0.1",
-		"lodash-es": "4.17.21"
+		"lodash-es": "4.17.21",
+		"swiper": "8.0.6"
 	}
 }

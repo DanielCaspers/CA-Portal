@@ -1,0 +1,33 @@
+@import "~swiper/swiper";
+@import "~swiper/modules/pagination/pagination";
+@import "~swiper/modules/navigation/navigation";
+
+.swiper-pagination-bullet {
+	height: 14px;
+	width: 14px;
+
+	border: 2px solid #536dfe;
+	background-color: white;
+	opacity: 1;
+
+	&.swiper-pagination-bullet-active {
+		background-color: #536dfe; // TODO DJC Make library know theme
+	}
+}
+
+.swiper-button-prev, .swiper-button-next {
+	color: #536dfe; // TODO DJC Make library know theme
+}
+
+.ma-image-video-gallery-icon-button {
+	margin-top: -10px;
+}
+.swiper {
+	width: 100%;
+	height: 100%;
+}
+
+.swiper-slide img, .swiper-slide video {
+	max-height: 55vh;
+	max-width: 75vw;
+}
