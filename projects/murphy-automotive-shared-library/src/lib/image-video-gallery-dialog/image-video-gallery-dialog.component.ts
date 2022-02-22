@@ -16,6 +16,12 @@ export class ImageVideoGalleryDialogComponent {
 
 	public swiperOptions: SwiperOptions;
 
+	/**
+	 *  0-based index of currently navigated item in gallery.
+	 *  Used for open-in-new button outside of gallery.
+	 */
+	public activeIndex = 0;
+
 	constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
 		this.swiperOptions = {
 			modules: [Navigation, Pagination, Keyboard],
@@ -35,7 +41,9 @@ export class ImageVideoGalleryDialogComponent {
 	onSwiper(mySwiper) {
 		console.log(mySwiper);
 	}
-	onSlideChange(e) {
+
+	public onSlideChange(e): void {
 		console.log('slide change', e);
+		this.activeIndex = e[0].activeIndex - 1; // Event is 1-based index
 	}
 }

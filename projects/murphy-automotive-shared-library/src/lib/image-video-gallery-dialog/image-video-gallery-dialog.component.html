@@ -3,9 +3,8 @@
 		{{data.name}}
 	</div>
 	<div fxFlex></div>
-	<!-- TODO DJC Get proper URI template reference -->
 	<a target="_blank"
-	   [href]="https://swiperjs.com/demos/images/nature-3.jpg"
+	   [href]="data.images[activeIndex].url"
 	   mat-icon-button
 	   color="accent">
 		<mat-icon class="ma-image-video-gallery-icon-button">open_in_new</mat-icon>
