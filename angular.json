@@ -268,7 +268,7 @@
       "prefix": "ma",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/murphy-automotive-shared-library/tsconfig.lib.json",
             "project": "projects/murphy-automotive-shared-library/ng-package.json"
