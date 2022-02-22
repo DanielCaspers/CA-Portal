@@ -6,6 +6,7 @@
 
 trigger:
 - master
+- UpdateToAngular13
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -18,8 +19,11 @@ steps:
 
 - script: |
     npm install -g @angular/cli
+  displayName: 'Install Angular CLI'
+
+- script: |
     npm install
-  displayName: 'Install Angular CLI and NPM packages'
+  displayName: 'Install NPM packages'
 
 - script: |
     npm run report:build:prod
