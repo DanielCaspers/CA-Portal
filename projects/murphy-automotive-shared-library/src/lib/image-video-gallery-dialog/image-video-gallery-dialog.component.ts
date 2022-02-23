@@ -43,7 +43,11 @@ export class ImageVideoGalleryDialogComponent {
 	}
 
 	public onSlideChange(e): void {
-		console.log('slide change', e);
-		this.activeIndex = e[0].activeIndex - 1; // Event is 1-based index
+		if (!!this.data && !!this.data.Images && this.data.Images.length > 0) {
+			console.log('slide change', e[0]);
+			console.log('Active Index', (e[0].activeIndex % this.data.Images.length) - 1 );
+			this.activeIndex = (e[0].activeIndex % this.data.Images.length) - 1 ; // Event is 1-based index
+		}
 	}
+
 }
