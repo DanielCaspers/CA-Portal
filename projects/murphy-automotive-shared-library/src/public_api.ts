@@ -15,8 +15,11 @@ export * from './lib/confirm-dialog/confirm-dialog.module';
 export * from './lib/customer-vehicle-summary/customer-vehicle-summary.component';
 export * from './lib/customer-vehicle-summary/customer-vehicle-summary.module';
 
-export * from './lib/image-video-gallery-dialog/image-video-gallery-dialog.component';
-export * from './lib/image-video-gallery-dialog/image-video-gallery-dialog.module';
+export * from './lib/gallery/gallery.component';
+export * from './lib/gallery/gallery.module';
+
+export * from './lib/gallery-dialog/gallery-dialog.component';
+export * from './lib/gallery-dialog/gallery-dialog.module';
 
 export * from './lib/measurements-form-dialog/measurements-form-dialog.component';
 export * from './lib/measurements-form-dialog/measurements-form-dialog.module';

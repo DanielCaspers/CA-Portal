@@ -2,6 +2,16 @@ import { Injectable } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MeasurementsFormDialogComponent } from './measurements-form-dialog.component';
 
+export interface IMeasurementsViewModel {
+	name: string;
+	measurements: {
+		label: string;
+		value: string;
+		unit: string;
+	}[];
+}
+
+
 @Injectable()
 export class MeasurementsFormDialogService {
 
@@ -12,7 +22,7 @@ export class MeasurementsFormDialogService {
 			data:  {
 				name: inspectionItem.Name,
 				measurements: inspectionItem.Measurements
-			}
+			} as IMeasurementsViewModel
 		});
 	}
 }

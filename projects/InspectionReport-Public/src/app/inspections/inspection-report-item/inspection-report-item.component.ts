@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 import {
-	ImageVideoGalleryDialogService,
+	GalleryDialogService,
 	MeasurementsFormDialogService
 } from 'murphy-automotive-shared-library';
 
@@ -18,10 +18,10 @@ export class InspectionReportItemComponent {
 	@Input()
 	public isCondensed = false;
 
-	constructor(public measurementDialog: MeasurementsFormDialogService, public imageVideoGalleryDialog: ImageVideoGalleryDialogService) {}
+	constructor(public measurementDialog: MeasurementsFormDialogService, public galleryDialog: GalleryDialogService) {}
 
 	public openGallery(): void {
-		this.imageVideoGalleryDialog.open(this.inspectionItem);
+		this.galleryDialog.open(this.inspectionItem);
 	}
 
 	public openMeasurementsDialog(): void {

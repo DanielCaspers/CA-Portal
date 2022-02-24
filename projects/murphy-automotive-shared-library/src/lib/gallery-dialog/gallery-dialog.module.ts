@@ -6,17 +6,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 
-import { SwiperModule } from 'swiper/angular';
-
-import { ImageVideoGalleryDialogComponent } from './image-video-gallery-dialog.component';
-import { ImageVideoGalleryDialogService } from './image-video-gallery-dialog.service';
+import { GalleryDialogComponent } from './gallery-dialog.component';
+import { GalleryDialogService } from './gallery-dialog.service';
+import { GalleryModule } from '../gallery/gallery.module';
 
 @NgModule({
 	declarations: [
-		ImageVideoGalleryDialogComponent
+		GalleryDialogComponent
 	],
 	entryComponents: [
-		ImageVideoGalleryDialogComponent
+		GalleryDialogComponent
 	],
 	imports: [
 		CommonModule,
@@ -24,18 +23,18 @@ import { ImageVideoGalleryDialogService } from './image-video-gallery-dialog.ser
 		MatButtonModule,
 		MatDialogModule,
 		MatIconModule,
-		SwiperModule
+		GalleryModule
 	],
 	providers: [
-		ImageVideoGalleryDialogService
+		GalleryDialogService
 	],
 	exports: [
-		ImageVideoGalleryDialogComponent
+		GalleryDialogComponent
 	]
 })
-class ImageVideoGalleryDialogModule {}
+class GalleryDialogModule {}
 
 export {
-	ImageVideoGalleryDialogModule,
-	ImageVideoGalleryDialogService
+	GalleryDialogModule,
+	GalleryDialogService
 };

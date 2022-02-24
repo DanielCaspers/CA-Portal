@@ -1,0 +1,17 @@
+<swiper
+	(swiper)="onSwiper($event)"
+	(slideChange)="onSlideChange($event)"
+	[config]="swiperOptions">
+	<ng-container *ngFor="let image of images">
+		<ng-template swiperSlide>
+			<div fxFlex></div>
+
+			<img *ngIf="image.url.endsWith('.jpg')" [src]="image.url" />
+			<video loop controls *ngIf="image.url.endsWith('.mp4')" #videoPlayer>
+				<source [src]="image.url">
+			</video>
+
+			<div fxFlex></div>
+		</ng-template>
+	</ng-container>
+</swiper>

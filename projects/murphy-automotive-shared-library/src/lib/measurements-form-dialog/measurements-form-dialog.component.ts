@@ -1,5 +1,6 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { IMeasurementsViewModel } from './measurements-form-dialog.service';
 
 @Component({
 	selector: 'ma-measurements-form-dialog',
@@ -8,6 +9,6 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class MeasurementsFormDialogComponent {
 
-	constructor(@Inject(MAT_DIALOG_DATA) public data: any) { }
+	constructor(@Inject(MAT_DIALOG_DATA) public data: IMeasurementsViewModel) { }
 
 }
