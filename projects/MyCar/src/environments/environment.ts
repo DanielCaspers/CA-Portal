@@ -4,7 +4,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { MyCarEnvironment } from './environment.models';
 
-const appKey = 'D4LgRtMpfyZKXBaYSgRzah6jBf3w7W0v';
+const appKey = 'DMVWA0V5Hb4J9zkezMEGEjxweyP2JivH';
 
 export const environment: MyCarEnvironment = {
 	production: false,
