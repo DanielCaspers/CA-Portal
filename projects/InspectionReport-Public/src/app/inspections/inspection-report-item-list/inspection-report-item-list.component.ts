@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import filter from 'lodash-es/filter';
-import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
+// import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
 
 import { InspectionHttpService } from '../inspection-http.service';
 import { InspectionReportItemContainerComponent } from '../inspection-report-item-container/inspection-report-item-container-component';
@@ -22,8 +22,9 @@ export class InspectionReportItemListComponent extends InspectionReportItemConta
 		private inspectionService: InspectionHttpService,
 		private route: ActivatedRoute,
 		private cdr: ChangeDetectorRef,
-		googleAnalyticsService: NgxAnalyticsGoogleAnalytics) {
-		super(googleAnalyticsService);
+		// googleAnalyticsService: NgxAnalyticsGoogleAnalytics
+	) {
+		super(/*googleAnalyticsService */);
 	}
 
 	public ngOnInit(): void {

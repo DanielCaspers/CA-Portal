@@ -6,6 +6,7 @@
 
 trigger:
 - master
+- UpdateToAngular13
 
 pool:
   vmImage: 'ubuntu-latest'
@@ -13,23 +14,47 @@ pool:
 steps:
 - task: NodeTool@0
   inputs:
-    versionSpec: '10.x'
+    versionSpec: '16.x'
   displayName: 'Install Node.js'
 
 - script: |
     npm install -g @angular/cli
-    npm install
-  displayName: 'Install Angular CLI and NPM packages'
+  displayName: 'Install Angular CLI'
+
+- script: |
+    npm install --legacy-peer-deps
+  displayName: 'Install NPM packages'
+
+############################
+# Public Inspection Report Builds
+############################
+
+- script: |
+    npm run report:build:staging
+  displayName: 'Build Public Inspection Report - Staging'
 
 - script: |
     npm run report:build:prod
-  displayName: 'Build Public Inspection Report'
+  displayName: 'Build Public Inspection Report - Prod'
+
+############################
+# MyCar Builds
+############################
+
+- script: |
+    npm run mycar:build:staging
+  displayName: 'Build MyCar Membership Portal - Staging'
 
 - script: |
     npm run mycar:build:prod
-  displayName: 'Build MyCar Membership Portal'
+  displayName: 'Build MyCar Membership Portal - Prod'
+
+############################
+# Save Artifacts
+############################
 
 - task: CopyFiles@2
+  displayName: 'Copy Files'
   inputs:
     SourceFolder: 'dist'
     Contents: '**'
@@ -37,10 +62,7 @@ steps:
     CleanTargetFolder: true
 
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifacts'
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)' 
-    artifactName: 'murphy-automotive-apps' 
-    #publishLocation: 'Container' # Options: container, filePath
-    #targetPath: # Required when publishLocation == FilePath
-    #parallel: false # Optional
-    #parallelCount: # Optional
+    artifactName: 'murphy-automotive-apps'

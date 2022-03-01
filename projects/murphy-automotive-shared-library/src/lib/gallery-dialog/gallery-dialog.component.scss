@@ -1,0 +1,12 @@
+:host {
+	.ma-gallery-icon-button {
+		margin-top: -10px;
+	}
+
+	::ng-deep {
+		.mat-dialog-content {
+			padding: 0 !important;
+		}
+	}
+}
+

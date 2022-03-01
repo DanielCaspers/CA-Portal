@@ -28,6 +28,8 @@ package-lock.json
 !.vscode/extensions.json
 
 # misc
+# persistent cache from Angular 13+ for faster builds
+.angular/cache/
 /.sass-cache
 /connect.lock
 /coverage

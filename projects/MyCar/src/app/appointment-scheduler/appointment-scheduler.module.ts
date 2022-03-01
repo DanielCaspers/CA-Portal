@@ -9,18 +9,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatNativeDateModule } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { MatNativeDateModule } from '@angular/material';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatSelectModule } from '@angular/material/select';
 import { MatStepperModule } from '@angular/material/stepper';
 
-import { NgxAnalyticsModule } from 'ngx-analytics';
+// import { NgxAnalyticsModule } from 'ngx-analytics';
 
 import {
 	CanDeactivateGuard,
@@ -56,7 +56,7 @@ import { AppointmentSchedulerHttpService } from './appointment-scheduler-http.se
 		MatSelectModule,
 		MatStepperModule,
 
-		NgxAnalyticsModule,
+		// NgxAnalyticsModule,
 
 		RecommendedServiceSeverityModule,
 		SafeUrlModule,

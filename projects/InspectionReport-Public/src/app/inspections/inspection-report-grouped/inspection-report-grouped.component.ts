@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import filter from 'lodash-es/filter';
 import reduce from 'lodash-es/reduce';
 import sortBy from 'lodash-es/sortBy';
-import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
+// import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
 
 import { InspectionHttpService } from '../inspection-http.service';
 import { InspectionReportItemContainerComponent } from '../inspection-report-item-container/inspection-report-item-container-component';
@@ -22,8 +22,9 @@ export class InspectionReportGroupedComponent extends InspectionReportItemContai
 	constructor(
 		private inspectionService: InspectionHttpService,
 		private route: ActivatedRoute,
-		googleAnalyticsService: NgxAnalyticsGoogleAnalytics) {
-		super(googleAnalyticsService);
+		// googleAnalyticsService: NgxAnalyticsGoogleAnalytics
+	) {
+		super(/*googleAnalyticsService*/);
 	}
 
 	public ngOnInit(): void {

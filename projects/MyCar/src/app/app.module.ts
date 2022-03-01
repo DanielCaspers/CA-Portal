@@ -3,8 +3,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxAnalyticsModule, NgxAnalyticsSettings } from 'ngx-analytics';
-import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
+// import { NgxAnalyticsModule, NgxAnalyticsSettings } from 'ngx-analytics';
+// import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,7 +22,7 @@ import { StoreInfoModule } from './store-info/store-info.module';
 		CommonModule,
 		HttpClientModule,
 
-		NgxAnalyticsModule.forRoot([NgxAnalyticsGoogleAnalytics], { pageTracking: { clearIds: true }} as NgxAnalyticsSettings),
+		// NgxAnalyticsModule.forRoot([NgxAnalyticsGoogleAnalytics], { pageTracking: { clearIds: true }} as NgxAnalyticsSettings),
 
 		AppRoutingModule,
 		CoreModule,

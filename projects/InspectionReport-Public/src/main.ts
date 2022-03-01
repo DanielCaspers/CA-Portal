@@ -1,13 +1,13 @@
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
-import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
+// import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
 
 import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
 import 'hammerjs';
 
-NgxAnalyticsGoogleAnalytics.prototype.createGaSession(environment.googleAnalytics);
+// NgxAnalyticsGoogleAnalytics.prototype.createGaSession(environment.googleAnalytics);
 
 if (environment.production) {
 	enableProdMode();

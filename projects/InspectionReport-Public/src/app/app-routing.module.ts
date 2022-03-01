@@ -12,7 +12,6 @@ const routes: Routes = [
 			{ path: '', redirectTo: 'inspections', pathMatch: 'full' },
 			{
 				path: 'inspections',
-				// loadChildren: './inspections/inspections.module#InspectionsModule'
 				children: inspectionRoutes
 			}
 		]

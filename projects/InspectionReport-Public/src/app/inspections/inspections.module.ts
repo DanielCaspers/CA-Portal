@@ -7,7 +7,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
-import { NgxAnalyticsModule } from 'ngx-analytics';
+// import { NgxAnalyticsModule } from 'ngx-analytics';
 
 import {
 	CustomerVehicleSummaryModule,
@@ -50,7 +50,7 @@ import { WorkOrderModule } from '../work-order/work-order.module';
 		MatExpansionModule,
 		MatIconModule,
 		MatTabsModule,
-		NgxAnalyticsModule,
+		// NgxAnalyticsModule,
 
 		MurphyAutomotiveSharedLibraryModule,
 		CustomerVehicleSummaryModule,

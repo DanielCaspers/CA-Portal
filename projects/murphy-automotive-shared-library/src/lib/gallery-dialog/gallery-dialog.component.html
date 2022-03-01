@@ -1,0 +1,18 @@
+<h2 mat-dialog-title fxLayout="row" fxLayoutGap="30px">
+	<div>
+		{{data.name}}
+	</div>
+	<div fxFlex></div>
+	<a target="_blank"
+	   mat-icon-button
+	   (click)="onClick()"
+	   color="accent">
+		<mat-icon class="ma-gallery-icon-button">open_in_new</mat-icon>
+	</a>
+	<button mat-icon-button mat-dialog-close>
+		<mat-icon class="ma-gallery-icon-button">close</mat-icon>
+	</button>
+</h2>
+<mat-dialog-content>
+	<ma-gallery [images]="data.images" (indexChanged)="onIndexChanged($event)"></ma-gallery>
+</mat-dialog-content>

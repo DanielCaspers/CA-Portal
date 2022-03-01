@@ -13,12 +13,12 @@
 					<ng-container *ngIf="!cannedResponse.Description">{{cannedResponse.Response}}</ng-container>
 					<ng-container *ngIf="!!cannedResponse.Description">{{cannedResponse.Description}}</ng-container>
 				</div>
-				<a *ngIf="cannedResponse.Url"
-				   mat-button
-				   ngx-analyticsOn="click"
+				<!-- 				   ngx-analyticsOn="click"
 				   angularticsAction="Viewed"
 				   angularticsLabel="Inspection item - {{inspectionItem.Name}}}"
-				   [angularticsCategory]="'Help Topics'"
+				   [angularticsCategory]="'Help Topics'" -->
+				<a *ngIf="cannedResponse.Url"
+				   mat-button
 				   href="{{cannedResponse.Url}}"
 				   target="_blank">
 					<mat-icon color="accent">help_outline</mat-icon>
@@ -32,32 +32,33 @@
 		</div>
 
 		<div fxLayout="row">
-			<button *ngIf="inspectionItem.Measurements && inspectionItem.Measurements.length > 0"
-					color="accent"
-					mat-button
-					ngx-analyticsOn="click"
+			<!--
+								ngx-analyticsOn="click"
 					angularticsAction="Viewed"
 					[angularticsLabel]="inspectionItem.Name"
 					[angularticsCategory]="'Measurements'"
 					[angularticsProperties]="{'Checklist Item': inspectionItem.Name, 'Condition': inspectionItem.condition }"
+					-->
+			<button *ngIf="inspectionItem.Measurements && inspectionItem.Measurements.length > 0"
+					color="accent"
+					mat-button
 					(click)="openMeasurementsDialog()">
 				View Measurements
 			</button>
 			<div fxFlex></div>
-			<button *ngIf="inspectionItem.Images && inspectionItem.Images.length > 0"
-			        color="accent"
-			        mat-button
-			        ngx-analyticsOn="click"
+			<!--
+						        ngx-analyticsOn="click"
 			        angularticsAction="Viewed"
 			        [angularticsLabel]="inspectionItem.Name"
 			        [angularticsCategory]="'Images'"
+			        -->
+			<button *ngIf="inspectionItem.Images && inspectionItem.Images.length > 0"
+			        color="accent"
+			        mat-button
 			        (click)="openGallery()">
-				View Images
+				View Gallery
 				<!--<mat-icon color="accent">photo_library</mat-icon>-->
 			</button>
 		</div>
 	</div>
 </div>
-
-<ma-image-gallery [images]="inspectionItem.Images"></ma-image-gallery>
-

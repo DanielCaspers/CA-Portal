@@ -10,33 +10,33 @@
       "prefix": "ma",
       "schematics": {
         "@schematics/angular:component": {
-          "styleext": "scss",
-          "spec": false
+          "style": "scss",
+          "skipTests": true
         },
         "@schematics/angular:class": {
-          "spec": false
+          "skipTests": true
         },
         "@schematics/angular:directive": {
-          "spec": false
+          "skipTests": true
         },
         "@schematics/angular:guard": {
-          "spec": false
+          "skipTests": true
         },
         "@schematics/angular:module": {
-          "spec": false
+          "skipTests": true
         },
         "@schematics/angular:pipe": {
-          "spec": false
+          "skipTests": true
         },
         "@schematics/angular:service": {
-          "spec": false
+          "skipTests": true
         }
       },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/MyCar",
+            "outputPath": "dist/MyCar/staging",
             "index": "projects/MyCar/src/index.html",
             "main": "projects/MyCar/src/main.ts",
             "polyfills": "projects/MyCar/src/polyfills.ts",
@@ -52,6 +52,7 @@
           },
           "configurations": {
             "production": {
+              "outputPath": "dist/MyCar/production",
               "fileReplacements": [
                 {
                   "replace": "projects/MyCar/src/environments/environment.ts",
@@ -61,7 +62,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -85,7 +85,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": true,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -141,33 +140,33 @@
       "prefix": "ma",
       "schematics": {
         "@schematics/angular:component": {
-          "styleext": "scss",
-          "spec": false
+          "style": "scss",
+          "skipTests": true
         },
         "@schematics/angular:class": {
-          "spec": false
+          "skipTests": true
         },
         "@schematics/angular:directive": {
-          "spec": false
+          "skipTests": true
         },
         "@schematics/angular:guard": {
-          "spec": false
+          "skipTests": true
         },
         "@schematics/angular:module": {
-          "spec": false
+          "skipTests": true
         },
         "@schematics/angular:pipe": {
-          "spec": false
+          "skipTests": true
         },
         "@schematics/angular:service": {
-          "spec": false
+          "skipTests": true
         }
       },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/InspectionReport-Public",
+            "outputPath": "dist/InspectionReport-Public/staging",
             "index": "projects/InspectionReport-Public/src/index.html",
             "main": "projects/InspectionReport-Public/src/main.ts",
             "polyfills": "projects/InspectionReport-Public/src/polyfills.ts",
@@ -183,6 +182,7 @@
           },
           "configurations": {
             "production": {
+              "outputPath": "dist/InspectionReport-Public/production",
               "fileReplacements": [
                 {
                   "replace": "projects/InspectionReport-Public/src/environments/environment.ts",
@@ -192,7 +192,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -216,7 +215,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": true,
-              "extractCss": true,
               "namedChunks": false,
               "aot": true,
               "extractLicenses": true,
@@ -272,7 +270,7 @@
       "prefix": "ma",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/murphy-automotive-shared-library/tsconfig.lib.json",
             "project": "projects/murphy-automotive-shared-library/ng-package.json"

@@ -7,7 +7,7 @@ import {
 	HttpInterceptor
 } from '@angular/common/http';
 
-import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
+// import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
 import { EMPTY, Observable } from 'rxjs';
 
 import { LoaderService } from './loader.service';
@@ -21,7 +21,10 @@ import { catchError, filter, tap } from 'rxjs/operators';
 @Injectable()
 export class LoaderInterceptor implements HttpInterceptor {
 
-	constructor(private loaderService: LoaderService, private googleAnalyticsService: NgxAnalyticsGoogleAnalytics) { }
+	constructor(
+		private loaderService: LoaderService,
+		// private googleAnalyticsService: NgxAnalyticsGoogleAnalytics
+	) { }
 
 	public intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
@@ -42,11 +45,11 @@ export class LoaderInterceptor implements HttpInterceptor {
 							requestUrl: err.url,
 							message: err.message
 						};
-						this.googleAnalyticsService.eventTrack('Request Failed', {
-							category: 'App Diagnostics',
-							label: `HTTP ${slimHttpErrorResponse.httpStatus} Response`,
-							value: JSON.stringify(slimHttpErrorResponse)
-						});
+						// this.googleAnalyticsService.eventTrack('Request Failed', {
+						// 	category: 'App Diagnostics',
+						// 	label: `HTTP ${slimHttpErrorResponse.httpStatus} Response`,
+						// 	value: JSON.stringify(slimHttpErrorResponse)
+						// });
 						return EMPTY;
 					})
 				);

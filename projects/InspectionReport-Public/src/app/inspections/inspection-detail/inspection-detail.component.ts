@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
+// import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
@@ -32,7 +32,7 @@ export class InspectionDetailComponent implements OnDestroy, OnInit, AfterViewIn
 		private router: Router,
 		public storeInfoService: StoreInfoService,
 		private workOrderService: WorkOrderService,
-		private googleAnalyticsService: NgxAnalyticsGoogleAnalytics,
+		// private googleAnalyticsService: NgxAnalyticsGoogleAnalytics,
 		@Inject('WINDOW') private window: any) {
 	}
 
@@ -103,7 +103,7 @@ export class InspectionDetailComponent implements OnDestroy, OnInit, AfterViewIn
 		// https://stackoverflow.com/questions/45241131/angular-and-google-analytics-integration-ga-is-not-a-function
 		if (!!this.workOrder && !!this.workOrder.Id) {
 			const companyNumber = this.workOrder.Id.substring(0, 3);
-			this.googleAnalyticsService.setUsername(this.workOrder.Id);
+			// this.googleAnalyticsService.setUsername(this.workOrder.Id);
 
 			this.window.ga('set', {
 				'dimension6': companyNumber,
