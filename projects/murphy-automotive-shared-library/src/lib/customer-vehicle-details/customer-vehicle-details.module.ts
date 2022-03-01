@@ -1,22 +1,28 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { VehicleColorIndicatorModule } from '../vehicle-color-indicator/vehicle-color-indicator.module';
-import { CustomerVehicleSummaryComponent } from './customer-vehicle-summary.component';
+
+import { CustomerVehicleDetailsComponent } from './customer-vehicle-details.component';
+
 
 @NgModule({
 	declarations: [
-		CustomerVehicleSummaryComponent
+		CustomerVehicleDetailsComponent
 	],
 	imports: [
 		CommonModule,
 		FlexLayoutModule,
+		FormsModule,
+		MatCheckboxModule,
 		VehicleColorIndicatorModule
 	],
 	exports: [
-		CustomerVehicleSummaryComponent
+		CustomerVehicleDetailsComponent
 	]
 })
-export class CustomerVehicleSummaryModule {
+export class CustomerVehicleDetailsModule {
 }

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { CoreViewComponent } from '../../../murphy-automotive-shared-library/src/lib/inspection-report/core-view/core-view.component';
-import { inspectionRoutes } from './inspections/inspections.routing';
+import { inspectionRoutes } from '../../../murphy-automotive-shared-library/src/lib/inspection-report/inspections/inspections.routing';
 
 const routes: Routes = [
 	{

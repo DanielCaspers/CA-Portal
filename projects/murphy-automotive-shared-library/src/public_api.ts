@@ -12,6 +12,9 @@ export * from './lib/can-deactivate-guard/can-deactivate.guard';
 export * from './lib/confirm-dialog/confirm-dialog.component';
 export * from './lib/confirm-dialog/confirm-dialog.module';
 
+export * from './lib/customer-vehicle-details/customer-vehicle-details.component';
+export * from './lib/customer-vehicle-details/customer-vehicle-details.module';
+
 export * from './lib/customer-vehicle-summary/customer-vehicle-summary.component';
 export * from './lib/customer-vehicle-summary/customer-vehicle-summary.module';
 
@@ -20,6 +23,15 @@ export * from './lib/gallery/gallery.module';
 
 export * from './lib/gallery-dialog/gallery-dialog.component';
 export * from './lib/gallery-dialog/gallery-dialog.module';
+
+export * from './lib/http/store-info/store-info.service';
+export * from './lib/http/store-info/store-info.module';
+export * from './lib/http/work-order/work-order.service';
+export * from './lib/http/work-order/work-order.module';
+
+export * from './lib/inspection-report/core-view/core-view.component';
+export * from './lib/inspection-report/core-view/core.module';
+export * from './lib/inspection-report/inspections/inspections.routing';
 
 export * from './lib/measurements-form-dialog/measurements-form-dialog.component';
 export * from './lib/measurements-form-dialog/measurements-form-dialog.module';
@@ -42,3 +54,6 @@ export * from './lib/safe-url-pipe/safe-url.module';
 
 export * from './lib/tel-input/tel-input.component';
 export * from './lib/tel-input/tel-input.module';
+
+export * from './lib/vehicle-color-indicator/vehicle-color-indicator.component';
+export * from './lib/vehicle-color-indicator/vehicle-color-indicator.module';

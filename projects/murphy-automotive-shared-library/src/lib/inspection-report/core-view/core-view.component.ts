@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { StoreInfo, StoreInfoService } from '../store-info/store-info.module';
+import { StoreInfo, StoreInfoService } from '../../http/store-info/store-info.module';
 
 @Component({
 	selector: 'ma-core-view',

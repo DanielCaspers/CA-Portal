@@ -3,18 +3,17 @@ import { NgModule } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { NgxAnalyticsModule, NgxAnalyticsSettings } from 'ngx-analytics';
-// import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
 
 import {
 	MurphyAutomotiveSharedLibraryModule,
 	NavTitleModule,
 } from 'murphy-automotive-shared-library';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
 import { CoreModule } from '../../../murphy-automotive-shared-library/src/lib/inspection-report/core-view/core.module';
-import { InspectionsModule } from './inspections/inspections.module';
+import { InspectionsModule } from 'projects/murphy-automotive-shared-library/src/lib/inspection-report/inspections/inspections.module';
 
 @NgModule({
 	declarations: [
@@ -26,23 +25,15 @@ import { InspectionsModule } from './inspections/inspections.module';
 		CommonModule,
 		MatIconModule,
 
-		// NgxAnalyticsModule.forRoot([NgxAnalyticsGoogleAnalytics], { pageTracking: { clearIds: true }} as NgxAnalyticsSettings),
-
-		MurphyAutomotiveSharedLibraryModule,
 		NavTitleModule,
+		MurphyAutomotiveSharedLibraryModule,
 
 		AppRoutingModule,
 		CoreModule,
 		InspectionsModule
 	],
-	providers: [
-		{ provide: 'WINDOW', useFactory: getWindow }
-	],
+	providers: [],
 	bootstrap: [ AppComponent ]
 })
 export class AppModule {
-}
-
-export function getWindow() {
-	return (typeof window !== 'undefined') ? window : null;
 }

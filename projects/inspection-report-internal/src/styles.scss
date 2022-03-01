@@ -1,0 +1,47 @@
+/* You can add global styles to this file, and also import other style files */
+@import '../../../themes/murphy-auto.theme.scss';
+@import '../../../themes/_colors.scss';
+
+body {
+  margin: 0;
+  background: $ma-gray;
+}
+
+.ma-respect-whitespace {
+  white-space: pre-line;
+}
+
+.ma-print-version-only {
+  visibility: hidden;
+}
+
+@media print {
+  .ma-print-version-only {
+    visibility: visible;
+  }
+
+  %ma-digital-version-only {
+    display: none !important;
+  }
+
+  // Auto expand accordions when printed
+  .mat-expansion-panel-content {
+    height: inherit !important;
+    visibility: visible !important;
+  }
+
+  // Auto hide accordion icons for both "By Area" and "By Priority"
+  .mat-expansion-panel-header .mat-expansion-indicator {
+    @extend %ma-digital-version-only;
+  }
+
+  // For "By Area", auto hide category severity
+  ma-inspection-report-grouped .mat-expansion-panel-header ma-recommeneded-service-severity {
+    @extend %ma-digital-version-only;
+  }
+
+  // Hide any ui buttons, since no interactions on paper
+  a mat-icon, button, mat-button, nav {
+    @extend %ma-digital-version-only;
+  }
+}

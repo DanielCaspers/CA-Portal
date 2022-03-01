@@ -17,27 +17,28 @@ import {
 } from 'murphy-automotive-shared-library';
 
 import { InspectionsRoutingModule } from './inspections.routing';
-import { InspectionHttpService } from './inspection-http.service';
+// import { InspectionHttpService } from './inspection-http.service';
 
-import { InspectionCustomerConcernsComponent } from './inspection-customer-concerns/inspection-customer-concerns.component';
+// TODO Rewire top down
+// import { InspectionCustomerConcernsComponent } from './inspection-customer-concerns/inspection-customer-concerns.component';
 import { InspectionDetailComponent } from './inspection-detail/inspection-detail.component';
-import {
-	InspectionReportItemComponent
-} from './inspection-report-item/inspection-report-item.component';
-import {
-	InspectionReportItemListComponent
-} from './inspection-report-item-list/inspection-report-item-list.component';
-import {
-	InspectionReportGroupedComponent
-} from './inspection-report-grouped/inspection-report-grouped.component';
+// import {
+// 	InspectionReportItemComponent
+// } from './inspection-report-item/inspection-report-item.component';
+// import {
+// 	InspectionReportItemListComponent
+// } from './inspection-report-item-list/inspection-report-item-list.component';
+// import {
+// 	InspectionReportGroupedComponent
+// } from './inspection-report-grouped/inspection-report-grouped.component';
 
 @NgModule({
 	declarations: [
-		InspectionCustomerConcernsComponent,
+		// InspectionCustomerConcernsComponent,
 		InspectionDetailComponent,
-		InspectionReportGroupedComponent,
-		InspectionReportItemComponent,
-		InspectionReportItemListComponent,
+		// InspectionReportGroupedComponent,
+		// InspectionReportItemComponent,
+		// InspectionReportItemListComponent,
 	],
 	imports: [
 		CommonModule,
@@ -59,7 +60,7 @@ import {
 		WorkOrderModule
 	],
 	providers: [
-		InspectionHttpService
+		// InspectionHttpService
 	],
 })
 export class InspectionsModule {

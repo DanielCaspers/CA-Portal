@@ -9,10 +9,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterModule } from '@angular/router';
 // import { NgxAnalyticsModule } from 'ngx-analytics';
 
-import { SafeUrlModule } from 'murphy-automotive-shared-library';
+import { SafeUrlModule } from '../../safe-url-pipe/safe-url.module';
+import { StoreInfoModule } from '../../http/store-info/store-info.module';
 
 import { CoreViewComponent } from './core-view.component';
-import { StoreInfoModule } from '../store-info/store-info.module';
 
 @NgModule({
 	declarations: [

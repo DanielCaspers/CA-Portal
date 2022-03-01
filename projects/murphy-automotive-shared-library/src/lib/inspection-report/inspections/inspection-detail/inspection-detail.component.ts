@@ -5,13 +5,25 @@ import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { StoreInfoService, WorkOrderService } from 'murphy-automotive-shared-library';
-import { environment } from '../../../environments/environment';
+import {HttpHeaders} from '@angular/common/http';
+// import { environment } from '../../../environments/environment';
 
 interface IInspectionRouteLink {
 	label: string;
 	link: string;
 	isActive: boolean;
 }
+
+// TODO DJC FIXME environment injection
+const environment = {
+	production: false,
+	apiBaseUrl: 'https://di2.murphyauto.net',
+	httpOptions: { headers: new HttpHeaders({ 'Access-Control-Allow-Origin': '*' }) },
+	googleAnalytics: {
+		domain: 'none',
+		trackingId: 'UA-140002525-1',
+	}
+};
 
 @Component({
 	selector: 'ma-inspection-detail',

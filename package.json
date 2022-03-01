@@ -1,6 +1,6 @@
 {
   "name": "murphy-automotive-apps",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "scripts": {
     "ng": "ng",
     "start:default": "ng serve",
@@ -13,6 +13,13 @@
     "report:build:staging": "npm run sharedlib:build && ng build InspectionReport-Public -c staging",
     "report:build:prod": "npm run sharedlib:build && ng build InspectionReport-Public -c production",
     "report:lint": "ng lint InspectionReport-Public",
+    "report-internal:serve:local": "npm run sharedlib:build && ng serve InspectionReport-Internal --port 4202",
+    "report-internal:serve:staging": "npm run sharedlib:build && ng serve InspectionReport-Internal -c staging --port 4202",
+    "report-internal:serve:prod": "npm run sharedlib:build && ng serve InspectionReport-Internal -c production --port 4202",
+    "report-internal:build:local": "npm run sharedlib:build && ng build InspectionReport-Internal",
+    "report-internal:build:staging": "npm run sharedlib:build && ng build InspectionReport-Internal -c staging",
+    "report-internal:build:prod": "npm run sharedlib:build && ng build InspectionReport-Internal -c production",
+    "report-internal:lint": "ng lint InspectionReport-Internal",
     "mycar:serve:local": "npm run sharedlib:build && ng serve MyCar --port 4201",
     "mycar:serve:staging": "npm run sharedlib:build && ng serve MyCar -c staging --port 4201",
     "mycar:serve:prod": "npm run sharedlib:build && ng serve MyCar -c production --port 4201",

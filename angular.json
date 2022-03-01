@@ -288,6 +288,139 @@
           }
         }
       }
+    },
+    "InspectionReport-Internal": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "skipTests": true
+        },
+        "@schematics/angular:class": {
+          "skipTests": true
+        },
+        "@schematics/angular:directive": {
+          "skipTests": true
+        },
+        "@schematics/angular:guard": {
+          "skipTests": true
+        },
+        "@schematics/angular:interceptor": {
+          "skipTests": true
+        },
+        "@schematics/angular:pipe": {
+          "skipTests": true
+        },
+        "@schematics/angular:resolver": {
+          "skipTests": true
+        },
+        "@schematics/angular:service": {
+          "skipTests": true
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
+      "root": "projects/inspection-report-internal",
+      "sourceRoot": "projects/inspection-report-internal/src",
+      "prefix": "ma",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/inspection-report-internal/staging",
+            "index": "projects/inspection-report-internal/src/index.html",
+            "main": "projects/inspection-report-internal/src/main.ts",
+            "polyfills": "projects/inspection-report-internal/src/polyfills.ts",
+            "tsConfig": "projects/inspection-report-internal/tsconfig.app.json",
+            "assets": [
+              "projects/inspection-report-internal/src/favicon.ico",
+              "projects/inspection-report-internal/src/assets"
+            ],
+            "styles": [
+              "projects/inspection-report-internal/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "outputPath": "dist/inspection-report-internal/production",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/inspection-report-internal/src/environments/environment.ts",
+                  "with": "projects/inspection-report-internal/src/environments/environment.prod.ts"
+                }
+              ]
+            },
+            "staging": {
+              "outputPath": "dist/inspection-report-internal/staging",
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "projects/inspection-report-internal/src/environments/environment.ts",
+                  "with": "projects/inspection-report-internal/src/environments/environment.staging.ts"
+                }
+              ]
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "InspectionReport-Internal:build:production"
+            },
+            "staging": {
+              "browserTarget": "InspectionReport-Internal:build:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "InspectionReport-Internal:build"
+          }
+        }
+      }
     }
   },
   "defaultProject": "InspectionReport-Public",

@@ -8,10 +8,7 @@
 		<span>
 			{{vehicle?.License}}
 		</span>
-		<span *ngIf="vehicle?.Color"
-		      class="car-color-indicator"
-		      [ngStyle]="{'background-color': vehicle.Color}">
-		</span>
+		<ma-vehicle-color-indicator *ngIf="vehicle?.Color" [color]="vehicle?.Color"></ma-vehicle-color-indicator>
 	</div>
 	<div *ngIf="vehicle && vehicle.Odometer">
 		Odometer: {{vehicle?.Odometer}}

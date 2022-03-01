@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { WorkOrderService } from './work-order.service';
 
+// @ts-ignore
 @NgModule({
 	imports: [
 		HttpClientModule
