@@ -22,7 +22,7 @@ steps:
   displayName: 'Install Angular CLI'
 
 - script: |
-    npm install --legacy-peer-deps
+    npm run install-with-legacy
   displayName: 'Install NPM packages'
 
 ############################
