@@ -26,6 +26,14 @@ steps:
   displayName: 'Install NPM packages'
 
 ############################
+# Shared Library Build
+############################
+
+- script: |
+    npm run sharedlib:build
+  displayName: 'Build Shared Library'
+
+############################
 # Public Inspection Report Builds
 ############################
 
