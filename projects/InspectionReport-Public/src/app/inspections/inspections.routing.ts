@@ -1,8 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { InspectionDetailComponent } from './inspection-detail/inspection-detail.component';
-import { InspectionReportGroupedComponent } from './inspection-report-grouped/inspection-report-grouped.component';
-import { InspectionReportItemListComponent } from './inspection-report-item-list/inspection-report-item-list.component';
+import { InspectionReportGroupedComponent, InspectionReportItemListComponent } from 'murphy-automotive-shared-library';
 
 export const inspectionRoutes: Routes = [
 	{
@@ -12,11 +11,19 @@ export const inspectionRoutes: Routes = [
 			{ path: '', redirectTo: 'report', pathMatch: 'full' },
 			{
 				path: 'report',
-				component: InspectionReportGroupedComponent
+				component: InspectionReportGroupedComponent,
+				data: {
+					collapsedHeight: '',
+					expandedHeight: ''
+				}
 			},
 			{
 				path: 'priority',
-				component: InspectionReportItemListComponent
+				component: InspectionReportItemListComponent,
+				data: {
+					displayMode: 'default',
+					multi: false
+				}
 			}
 		]
 	},

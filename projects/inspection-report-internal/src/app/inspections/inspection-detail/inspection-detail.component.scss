@@ -1,0 +1,37 @@
+:host {
+	.spacer {
+		height: 8px;
+	}
+	mat-icon {
+		font-size: 30px;
+
+		&.customer-waiting {
+			color: royalblue;
+			margin-left: 15px;
+		}
+
+		&.action-required {
+			color: red;
+		}
+	}
+
+	.customer-concerns-title {
+		font-weight: 400;
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+	.spacer {
+		height: 8px;
+	}
+	.work-order-details {
+		padding-bottom: 10px;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+
+	::ng-deep {
+		.mat-card-header-text {
+			margin: 0;
+		}
+	}
+}

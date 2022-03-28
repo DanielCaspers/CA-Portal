@@ -1,0 +1,51 @@
+<b>Vehicle Details</b>
+
+<div fxLayout="column"
+     fxLayoutAlign="space-between start"
+     fxLayoutGap="10px"
+     fxFill
+     class="mat-body-1">
+	<div fxLayout="column">
+		<div class="mat-subheading-2">
+			<span>
+				{{vehicle?.Year}}
+				{{vehicle?.Make}}
+				{{vehicle?.Model}}
+			</span>
+			<span>
+				{{vehicle?.License}}
+			</span>
+
+			<ma-vehicle-color-indicator *ngIf="vehicle?.Color" [color]="vehicle?.Color"></ma-vehicle-color-indicator>
+		</div>
+
+		<div fxLayout="row" fxLayoutGap="20px">
+			<div fxLayout="column" fxLayoutAlign="center end">
+				<div>VIN</div>
+				<div>Odometer</div>
+				<div>Engine</div>
+				<div>Transmission</div>
+			</div>
+			<div fxLayout="column">
+				<div>{{vehicle?.VIN}}</div>
+				<div>{{vehicle?.Odometer}}</div>
+				<div>{{vehicle?.Engine}}</div>
+				<div>{{vehicle?.Transmission}}</div>
+			</div>
+		</div>
+
+		<div fxLayout="row" *ngIf="!!vehicle.Options" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+			<mat-checkbox [disabled]="true" [(ngModel)]="vehicle.Options.Has4WD">4WD</mat-checkbox>
+			<mat-checkbox [disabled]="true" [(ngModel)]="vehicle.Options.HasAWD">AWD</mat-checkbox>
+			<mat-checkbox [disabled]="true" [(ngModel)]="vehicle.Options.HasAC">AC</mat-checkbox>
+			<mat-checkbox [disabled]="true" [(ngModel)]="vehicle.Options.HasABS">ABS</mat-checkbox>
+		</div>
+	</div>
+
+
+	<div *ngIf="vehicle.Notes">
+		<b>Vehicle Notes</b>
+		<div class="ma-respect-whitespace">{{vehicle.Notes}}</div>
+	</div>
+
+</div>

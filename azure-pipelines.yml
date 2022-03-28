@@ -38,6 +38,18 @@ steps:
   displayName: 'Build Public Inspection Report - Prod'
 
 ############################
+# Internal Inspection Report Builds
+############################
+
+- script: |
+    npm run report-internal:build:staging
+  displayName: 'Build Internal Inspection Report - Staging'
+
+- script: |
+    npm run report-internal:build:prod
+  displayName: 'Build Internal Inspection Report - Prod'
+
+############################
 # MyCar Builds
 ############################
 

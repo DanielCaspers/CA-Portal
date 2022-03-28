@@ -1,0 +1,13 @@
+<ng-container *ngFor="let item of inspectionItems; let last=last">
+	<div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px">
+		<ma-recommended-service-severity [severity]="item.Condition"></ma-recommended-service-severity>
+		<div class="mat-body-2">{{item.Name}}</div>
+	</div>
+
+	<ma-inspection-report-item
+			[inspectionItem]="item"
+			[isCondensed]="true">
+	</ma-inspection-report-item>
+	<mat-divider *ngIf="!last" [inset]="true"></mat-divider>
+	<div class="spacer"></div>
+</ng-container>

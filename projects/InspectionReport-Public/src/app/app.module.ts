@@ -9,12 +9,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {
 	MurphyAutomotiveSharedLibraryModule,
 	NavTitleModule,
-	RecommendedServiceSeverityModule
 } from 'murphy-automotive-shared-library';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CoreModule } from './core-view/core.module';
 import { InspectionsModule } from './inspections/inspections.module';
 
 @NgModule({
@@ -30,11 +28,9 @@ import { InspectionsModule } from './inspections/inspections.module';
 		// NgxAnalyticsModule.forRoot([NgxAnalyticsGoogleAnalytics], { pageTracking: { clearIds: true }} as NgxAnalyticsSettings),
 
 		MurphyAutomotiveSharedLibraryModule,
-		RecommendedServiceSeverityModule,
 		NavTitleModule,
 
 		AppRoutingModule,
-		CoreModule,
 		InspectionsModule
 	],
 	providers: [

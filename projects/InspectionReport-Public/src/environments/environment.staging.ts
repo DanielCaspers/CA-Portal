@@ -8,5 +8,11 @@ export const environment: MaEnvironmentBase = {
 	googleAnalytics: {
 		domain: 'none',
 		trackingId: 'UA-140002525-1',
+	},
+	features: {
+		inspections: {
+			includeUnknownCondition: false,
+			displayMode: 'Public'
+		}
 	}
 };

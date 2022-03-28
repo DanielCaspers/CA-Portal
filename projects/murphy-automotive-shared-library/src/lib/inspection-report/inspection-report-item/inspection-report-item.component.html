@@ -1,0 +1,91 @@
+<div fxLayout="column" fxLayoutGap="10px">
+	<div *ngIf="!isCondensed" fxLayout="row" fxLayoutGap="30px">
+		<ma-recommended-service-severity [severity]="inspectionItem.Condition"></ma-recommended-service-severity>
+
+		<div class="mat-subheading-1">{{inspectionItem.Name}}</div>
+	</div>
+	<div fxLayout="column" fxLayoutGap="10px">
+		<!-- Canned Responses -->
+		<div fxLayout="column" fxLayoutGap="10px" *ngIf="inspectionItem.CannedResponses && inspectionItem.CannedResponses.length > 0">
+			<div class="mat-body-2">
+				<ng-container *ngIf="displayMode == 'Public'">Description</ng-container>
+				<ng-container *ngIf="displayMode == 'Internal'">Canned Responses</ng-container>
+			</div>
+
+			<div fxLayout="row" fxLayoutGap="10px" *ngFor="let cannedResponse of inspectionItem.CannedResponses">
+				<div *ngIf="displayMode == 'Public'">
+					<ng-container *ngIf="!cannedResponse.Description">{{cannedResponse.Response}}</ng-container>
+					<ng-container *ngIf="!!cannedResponse.Description">{{cannedResponse.Description}}</ng-container>
+				</div>
+
+				<div *ngIf="displayMode == 'Internal'">
+					<div class="ma-respect-whitespace">{{cannedResponse.Response}}</div>
+				</div>
+				<!-- 				   ngx-analyticsOn="click"
+				   angularticsAction="Viewed"
+				   angularticsLabel="Inspection item - {{inspectionItem.Name}}}"
+				   [angularticsCategory]="'Help Topics'" -->
+				<a *ngIf="cannedResponse.Url"
+				   mat-button
+				   href="{{cannedResponse.Url}}"
+				   target="_blank">
+					<mat-icon color="accent">help_outline</mat-icon>
+				</a>
+			</div>
+		</div>
+
+		<!-- Notes -->
+		<div fxLayout="column" *ngIf="inspectionItem.Note">
+			<div class="mat-body-2">
+				<ng-container *ngIf="displayMode == 'Public'">Your personalized note</ng-container>
+				<ng-container *ngIf="displayMode == 'Internal'">Tech says</ng-container>
+			</div>
+			<i><q class="ma-respect-whitespace">{{inspectionItem.Note}}</q></i>
+		</div>
+
+		<!-- Show measurements in the body for service advisors, but behind a button to engage a dialog for public users -->
+
+		<ng-container *ngIf="displayMode == 'Internal'">
+			<div fxLayout="column" *ngIf="inspectionItem.Measurements && inspectionItem.Measurements.length > 0">
+				<div class="mat-body-2">Measurements</div>
+
+				<div fxLayout="row" *ngFor="let measurement of inspectionItem.Measurements">
+					<div fxFlex="70" class="mat-body-1">{{measurement.Label}}</div>
+					<div class="mat-body-1">{{measurement.Value}} &nbsp; {{measurement.Unit}}</div>
+				</div>
+			</div>
+		</ng-container>
+
+		<!-- Action Buttons -->
+		<div fxLayout="row">
+			<!--
+								ngx-analyticsOn="click"
+					angularticsAction="Viewed"
+					[angularticsLabel]="inspectionItem.Name"
+					[angularticsCategory]="'Measurements'"
+					[angularticsProperties]="{'Checklist Item': inspectionItem.Name, 'Condition': inspectionItem.condition }"
+					-->
+			<ng-container *ngIf="displayMode == 'Public'">
+				<button *ngIf="inspectionItem.Measurements && inspectionItem.Measurements.length > 0"
+				        color="accent"
+				        mat-button
+				        (click)="openMeasurementsDialog()">
+					View Measurements
+				</button>
+			</ng-container>
+			<!--
+						        ngx-analyticsOn="click"
+			        angularticsAction="Viewed"
+			        [angularticsLabel]="inspectionItem.Name"
+			        [angularticsCategory]="'Images'"
+			        -->
+			<button *ngIf="inspectionItem.Images && inspectionItem.Images.length > 0"
+			        color="accent"
+			        mat-button
+			        (click)="openGallery()">
+				View Gallery
+				<!--<mat-icon color="accent">photo_library</mat-icon>-->
+			</button>
+		</div>
+	</div>
+</div>
