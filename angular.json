@@ -409,7 +409,7 @@
               "browserTarget": "InspectionReport-Internal:build:production"
             },
             "staging": {
-              "browserTarget": "InspectionReport-Internal:build:production"
+              "browserTarget": "InspectionReport-Internal:build:staging"
             }
           },
           "defaultConfiguration": "development"

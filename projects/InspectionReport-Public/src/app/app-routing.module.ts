@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
-import { CoreViewComponent } from '../../../murphy-automotive-shared-library/src/lib/inspection-report/core-view/core-view.component';
+import { InspectionReportCoreViewComponent } from 'murphy-automotive-shared-library';
 import { inspectionRoutes } from './inspections/inspections.routing';
 
 const routes: Routes = [
 	{
 		path: '',
-		component: CoreViewComponent,
+		component: InspectionReportCoreViewComponent,
 		children: [
 			{ path: '', redirectTo: 'inspections', pathMatch: 'full' },
 			{

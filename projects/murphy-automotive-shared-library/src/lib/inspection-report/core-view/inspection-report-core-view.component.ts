@@ -6,10 +6,10 @@ import { StoreInfo, StoreInfoService } from '../../http/store-info/store-info.mo
 
 @Component({
 	selector: 'ma-core-view',
-	templateUrl: './core-view.component.html',
-	styleUrls: [ './core-view.component.scss' ]
+	templateUrl: './inspection-report-core-view.component.html',
+	styleUrls: [ './inspection-report-core-view.component.scss' ]
 })
-export class CoreViewComponent implements OnInit, OnDestroy {
+export class InspectionReportCoreViewComponent implements OnInit, OnDestroy {
 
 	// Defaulting to values until loaded for least disorienting experience
 	public storeInfo: StoreInfo = {

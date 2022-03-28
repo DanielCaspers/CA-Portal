@@ -1,7 +1,4 @@
-<ma-inspection-customer-concerns [inspectionItems]="inspectionItems"></ma-inspection-customer-concerns>
-
-<mat-accordion>
-	<div class="mat-subheading-2">Full inspection report</div>
+<mat-accordion [displayMode]="displayMode" [multi]="multi">
 	<mat-expansion-panel
 			*ngFor="let item of inspectionItems"
 			(opened)="onExpand(item.Name, 'InspectionItem')"

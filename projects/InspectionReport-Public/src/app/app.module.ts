@@ -13,7 +13,6 @@ import {
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CoreModule } from '../../../murphy-automotive-shared-library/src/lib/inspection-report/core-view/core.module';
 import { InspectionsModule } from './inspections/inspections.module';
 
 @NgModule({
@@ -32,7 +31,6 @@ import { InspectionsModule } from './inspections/inspections.module';
 		NavTitleModule,
 
 		AppRoutingModule,
-		CoreModule,
 		InspectionsModule
 	],
 	providers: [

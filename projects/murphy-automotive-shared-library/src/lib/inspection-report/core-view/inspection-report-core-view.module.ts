@@ -12,11 +12,11 @@ import { RouterModule } from '@angular/router';
 import { SafeUrlModule } from '../../safe-url-pipe/safe-url.module';
 import { StoreInfoModule } from '../../http/store-info/store-info.module';
 
-import { CoreViewComponent } from './core-view.component';
+import { InspectionReportCoreViewComponent } from './inspection-report-core-view.component';
 
 @NgModule({
 	declarations: [
-		CoreViewComponent
+		InspectionReportCoreViewComponent
 	],
 	imports: [
 		CommonModule,
@@ -33,5 +33,5 @@ import { CoreViewComponent } from './core-view.component';
 	],
 	providers: []
 })
-export class CoreModule {
+export class InspectionReportCoreViewModule {
 }

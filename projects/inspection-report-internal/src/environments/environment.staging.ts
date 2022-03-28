@@ -4,5 +4,11 @@ import { MaEnvironmentBase } from '../../../../environment.model';
 export const environment: MaEnvironmentBase = {
 	production: false,
 	apiBaseUrl: 'https://di2.murphyauto.net',
-	httpOptions: { headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'}) }
+	httpOptions: { headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'}) },
+	features: {
+		inspections: {
+			includeUnknownCondition: true,
+			displayMode: 'Internal'
+		}
+	}
 };

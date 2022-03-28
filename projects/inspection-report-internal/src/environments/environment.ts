@@ -8,7 +8,13 @@ import {MaEnvironmentBase} from '../../../../environment.model';
 export const environment: MaEnvironmentBase = {
 	production: false,
 	apiBaseUrl: 'http://localhost:54343',
-	httpOptions: {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})}
+	httpOptions: {headers: new HttpHeaders({'Access-Control-Allow-Origin': '*'})},
+	features: {
+		inspections: {
+			includeUnknownCondition: true,
+			displayMode: 'Internal'
+		}
+	}
 };
 
 /*

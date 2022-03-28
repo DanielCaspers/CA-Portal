@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import filter from 'lodash-es/filter';
-import reduce from 'lodash-es/reduce';
-import sortBy from 'lodash-es/sortBy';
 // import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
+import { first } from 'rxjs/operators';
 
-import { InspectionHttpService } from '../inspection-http.service';
+import { InspectionHttpService } from '../inspection-http/inspection-http.service';
 import { InspectionReportItemContainerComponent } from '../inspection-report-item-container/inspection-report-item-container-component';
 
 @Component({
@@ -15,8 +13,10 @@ import { InspectionReportItemContainerComponent } from '../inspection-report-ite
 })
 export class InspectionReportGroupedComponent extends InspectionReportItemContainerComponent implements OnInit {
 
+	public collapsedPanelHeight: string;
+	public expandedPanelHeight: string;
+
 	public inspectionGroups;
-	public customerConcernInspectionItems;
 	public inspectionId: string;
 
 	constructor(
@@ -28,12 +28,23 @@ export class InspectionReportGroupedComponent extends InspectionReportItemContai
 	}
 
 	public ngOnInit(): void {
+		this.route.data
+			.pipe(
+				first()
+			)
+			.subscribe((data) => {
+				this.collapsedPanelHeight = data.collapsedHeight;
+				this.expandedPanelHeight = data.expandedHeight;
+			});
+
 		this.route.parent.params.subscribe((params) => {
 			this.inspectionId = params.id;
 
-			const sub = this.inspectionService.getInspectionReport(this.inspectionId, true)
+			this.inspectionService.getInspectionReport(this.inspectionId, true)
+				.pipe(
+					first()
+				)
 				.subscribe((response) => {
-					sub.unsubscribe();
 					this.inspectionGroups = response;
 
 					// Add client-side state to the group response model so that each group, when expanded,
@@ -42,18 +53,6 @@ export class InspectionReportGroupedComponent extends InspectionReportItemContai
 					for (const group of this.inspectionGroups) {
 						group.IsExpanded = false;
 					}
-
-					this.customerConcernInspectionItems =
-						// Accumulate all of the grouped items into a flattened array
-						reduce(this.inspectionGroups, (result, ig, key) => {
-							return result.concat(ig.Items);
-						}, []);
-
-					this.customerConcernInspectionItems =
-						sortBy(
-							filter(this.customerConcernInspectionItems, ['IsCustomerConcern', true]),
-							['Condition', 'Name']
-						);
 				});
 		});
 	}

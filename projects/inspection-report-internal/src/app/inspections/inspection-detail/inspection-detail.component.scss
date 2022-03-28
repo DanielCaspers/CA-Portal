@@ -1,4 +1,20 @@
 :host {
+	.spacer {
+		height: 8px;
+	}
+	mat-icon {
+		font-size: 30px;
+
+		&.customer-waiting {
+			color: royalblue;
+			margin-left: 15px;
+		}
+
+		&.action-required {
+			color: red;
+		}
+	}
+
 	.customer-concerns-title {
 		font-weight: 400;
 		margin-top: 10px;

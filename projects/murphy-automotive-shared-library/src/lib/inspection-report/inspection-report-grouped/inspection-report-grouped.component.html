@@ -1,11 +1,8 @@
-<ma-inspection-customer-concerns [inspectionItems]="customerConcernInspectionItems"></ma-inspection-customer-concerns>
-
 <mat-accordion>
-	<div class="mat-subheading-2">Full inspection report</div>
 	<mat-expansion-panel *ngFor="let inspectionGroup of inspectionGroups"
 						(opened)="onExpand(inspectionGroup)"
 						(closed)="onCollapse(inspectionGroup)">
-		<mat-expansion-panel-header>
+		<mat-expansion-panel-header [collapsedHeight]="collapsedPanelHeight" [expandedHeight]="expandedPanelHeight">
 			<mat-panel-title
 					fxLayout="row"
 					fxLayoutAlign="start center"
@@ -23,9 +20,7 @@
 
 		<ng-container *ngFor="let ii of inspectionGroup.Items; let idx = index;">
 			<ma-inspection-report-item [inspectionItem]="ii"></ma-inspection-report-item>
-			<div *ngIf="idx < inspectionGroup.Items.length - 1"
-			     class="ma-divider">
-			</div>
+			<div *ngIf="idx < inspectionGroup.Items.length - 1" class="ma-divider"></div>
 		</ng-container>
 
 	</mat-expansion-panel>

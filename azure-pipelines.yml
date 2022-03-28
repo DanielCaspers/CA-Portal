@@ -22,7 +22,7 @@ steps:
   displayName: 'Install Angular CLI'
 
 - script: |
-    npm install --legacy-peer-deps
+    npm run install-with-legacy
   displayName: 'Install NPM packages'
 
 ############################
@@ -36,6 +36,18 @@ steps:
 - script: |
     npm run report:build:prod
   displayName: 'Build Public Inspection Report - Prod'
+
+############################
+# Internal Inspection Report Builds
+############################
+
+- script: |
+    npm run report-internal:build:staging
+  displayName: 'Build Internal Inspection Report - Staging'
+
+- script: |
+    npm run report-internal:build:prod
+  displayName: 'Build Internal Inspection Report - Prod'
 
 ############################
 # MyCar Builds

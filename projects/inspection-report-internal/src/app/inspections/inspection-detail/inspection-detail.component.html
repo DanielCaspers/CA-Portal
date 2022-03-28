@@ -1,0 +1,85 @@
+<div *ngIf="workOrder" class="work-order-details">
+	<mat-card *ngIf="!!inspectionItems && inspectionItems.length > 0">
+		<mat-card-header>
+			<mat-card-title>Inspection Report for Order #{{workOrder.Id?.substring(3)}} (Tech: {{workOrder?.EmployeeId}})</mat-card-title>
+			<mat-card-subtitle>
+				<div *ngIf="workOrder.Customer"
+				     fxLayout="row"
+				     fxLayoutAlign="start center" fxFill>
+					<span> {{workOrder.Customer.Name}} (ID: {{workOrder.Customer.Id}})</span>
+					<mat-icon *ngIf="!!workOrder.Customer.WaitingSinceDate" class="customer-waiting" title="Customer Waiting">assignment_ind</mat-icon>
+					<mat-icon *ngIf="!!workOrder.Status && workOrder.Status.Code == 22" class="action-required" title="Action Required">notifications_active</mat-icon>
+				</div>
+			</mat-card-subtitle>
+		</mat-card-header>
+		<mat-card-content class="mat-body-1">
+			<b>Vehicle Details</b>
+
+			<ma-customer-vehicle-summary [typographyClass]="mat-subheading-2" [vehicle]="workOrder?.Vehicle"></ma-customer-vehicle-summary>
+
+			<div fxLayout="row" fxLayoutGap="20px">
+				<div fxLayout="column" fxLayoutAlign="center end">
+					<div>VIN</div>
+					<div>Odometer</div>
+					<div>Engine</div>
+					<div>Transmission</div>
+				</div>
+				<div fxLayout="column">
+					<div>{{workOrder?.Vehicle?.VIN}}</div>
+					<div>{{workOrder?.Vehicle?.Odometer}}</div>
+					<div>{{workOrder?.Vehicle?.Engine}}</div>
+					<div>{{workOrder?.Vehicle?.Transmission}}</div>
+				</div>
+			</div>
+
+			<div fxLayout="column">
+				<div fxLayout="row" *ngIf="!!workOrder?.Vehicle.Options" fxLayoutAlign="start center" fxLayoutGap="20px">
+					<mat-checkbox [disabled]="true" [checked]="workOrder?.Vehicle.Options.Has4WD">4WD</mat-checkbox>
+					<mat-checkbox [disabled]="true" [checked]="workOrder?.Vehicle.Options.HasAWD">AWD</mat-checkbox>
+					<mat-checkbox [disabled]="true" [checked]="workOrder?.Vehicle.Options.HasAC">AC</mat-checkbox>
+					<mat-checkbox [disabled]="true" [checked]="workOrder?.Vehicle.Options.HasABS">ABS</mat-checkbox>
+				</div>
+			</div>
+
+			<div class="spacer"></div>
+
+			<div class="mat-body-1" *ngIf="workOrder.WorkDescription">
+				<b>Work Description</b>
+				<div class="ma-respect-whitespace">{{workOrder.WorkDescription}}</div>
+			</div>
+
+			<div class="spacer"></div>
+			<div class="spacer"></div>
+
+			<div class="mat-body-1" *ngIf="workOrder.Notes">
+				<b>Work Order Notes</b>
+				<div class="ma-respect-whitespace">{{workOrder.Notes}}</div>
+			</div>
+
+			<mat-divider></mat-divider>
+			<div class="spacer"></div>
+			<div class="spacer"></div>
+
+			<div *ngIf="inspectionItems && inspectionItems.length > 0" class="mat-h3 customer-concerns-title">
+				Customer concerns
+			</div>
+			<ma-inspection-report-customer-concerns [inspectionItems]="inspectionItems"></ma-inspection-report-customer-concerns>
+		</mat-card-content>
+	</mat-card>
+</div>
+
+<!-- Routes made available based on different views of the inspection -->
+<nav mat-tab-nav-bar *ngIf="inspectionId">
+	<a mat-tab-link
+	   *ngFor="let routeLink of routeLinks;"
+	   [routerLink]="routeLink.link"
+	   routerLinkActive=""
+	   #rla="routerLinkActive"
+	   [active]="routeLink.isActive"
+	   [routerLinkActiveOptions]="{exact: true}">
+		{{routeLink.label}}
+	</a>
+</nav>
+
+<!-- Detailed breakdown of the inspection -->
+<router-outlet></router-outlet>

@@ -29,9 +29,23 @@ export * from './lib/http/store-info/store-info.module';
 export * from './lib/http/work-order/work-order.service';
 export * from './lib/http/work-order/work-order.module';
 
-export * from './lib/inspection-report/core-view/core-view.component';
-export * from './lib/inspection-report/core-view/core.module';
-export * from './lib/inspection-report/inspections/inspections.routing';
+export * from './lib/inspection-report/core-view/inspection-report-core-view.component';
+export * from './lib/inspection-report/core-view/inspection-report-core-view.module';
+
+export * from './lib/inspection-report/inspection-customer-concerns/inspection-report-customer-concerns.component';
+export * from './lib/inspection-report/inspection-customer-concerns/inspection-report-customer-concerns.module';
+
+export * from './lib/inspection-report/inspection-report-item/inspection-report-item.component';
+export * from './lib/inspection-report/inspection-report-item/inspection-report-item.module';
+
+export * from './lib/inspection-report/inspection-report-grouped/inspection-report-grouped.component';
+export * from './lib/inspection-report/inspection-report-grouped/inspection-report-grouped.module';
+
+export * from './lib/inspection-report/inspection-report-item-list/inspection-report-item-list.component';
+export * from './lib/inspection-report/inspection-report-item-list/inspection-report-item-list.module';
+
+export * from './lib/inspection-report/inspection-http/inspection-http.service';
+export * from './lib/inspection-report/inspection-http/inspection-http.module';
 
 export * from './lib/measurements-form-dialog/measurements-form-dialog.component';
 export * from './lib/measurements-form-dialog/measurements-form-dialog.module';

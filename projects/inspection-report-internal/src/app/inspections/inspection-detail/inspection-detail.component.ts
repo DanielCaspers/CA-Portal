@@ -1,29 +1,17 @@
 import { AfterViewInit, Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Params, Router } from '@angular/router';
 // import { NgxAnalyticsGoogleAnalytics } from 'ngx-analytics/ga';
 import { Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { filter, first } from 'rxjs/operators';
 
-import { StoreInfoService, WorkOrderService } from 'murphy-automotive-shared-library';
-import {HttpHeaders} from '@angular/common/http';
-// import { environment } from '../../../environments/environment';
+import { StoreInfoService, WorkOrderService, InspectionHttpService } from 'murphy-automotive-shared-library';
+import { environment } from '../../../environments/environment';
 
 interface IInspectionRouteLink {
 	label: string;
 	link: string;
 	isActive: boolean;
 }
-
-// TODO DJC FIXME environment injection
-const environment = {
-	production: false,
-	apiBaseUrl: 'https://di2.murphyauto.net',
-	httpOptions: { headers: new HttpHeaders({ 'Access-Control-Allow-Origin': '*' }) },
-	googleAnalytics: {
-		domain: 'none',
-		trackingId: 'UA-140002525-1',
-	}
-};
 
 @Component({
 	selector: 'ma-inspection-detail',
@@ -32,6 +20,7 @@ const environment = {
 })
 export class InspectionDetailComponent implements OnDestroy, OnInit, AfterViewInit {
 	public inspectionId: string = null;
+	public inspectionItems;
 	public routeLinks: IInspectionRouteLink[];
 	public workOrder = null;
 
@@ -42,6 +31,7 @@ export class InspectionDetailComponent implements OnDestroy, OnInit, AfterViewIn
 	constructor(
 		private route: ActivatedRoute,
 		private router: Router,
+		private inspectionService: InspectionHttpService,
 		public storeInfoService: StoreInfoService,
 		private workOrderService: WorkOrderService,
 		// private googleAnalyticsService: NgxAnalyticsGoogleAnalytics,
@@ -49,57 +39,7 @@ export class InspectionDetailComponent implements OnDestroy, OnInit, AfterViewIn
 	}
 
 	public ngOnInit(): void {
-		this.routeParamsSubscription = this.route.params.subscribe(params => {
-			this.inspectionId = params.id;
-
-			this.routeLinks = [
-				{
-					label: 'By area',
-					link: `/inspections/${this.inspectionId}/report`,
-					isActive: false
-				},
-				{
-					label: 'By priority',
-					link: `/inspections/${this.inspectionId}/priority`,
-					isActive: false
-				}
-			];
-
-			this.updateActiveTab();
-
-			this.workOrderService.getWorkOrder(environment.apiBaseUrl, this.inspectionId, environment.httpOptions)
-				.subscribe((response) => {
-					this.workOrder = response;
-					// Store Info service passes info to core view, who doesn't have route parameter
-
-					// TODO DJC Determine if this works appropriately once deployed to remote
-					// this.googleAnalyticsService.setUsername('004123456');
-					// this.googleAnalyticsService.setUserProperties({
-					// 	'Checklist Item': undefined,
-					// 	'Company Number': '004',
-					// 	'Vehicle Year': 2016,
-					// 	'Vehicle Make': 'Ford',
-					// 	'Vehicle Model': 'Mustang',
-					// 	'Vehicle Mileage': '27000',
-					// });
-
-					// this.window.ga('set', {
-					// 	'dimension6': '004',
-					// 	'dimension3': 2016,
-					// 	'dimension4': 'Ford',
-					// 	'dimension5': 'Mustang',
-					// 	'dimension2': '27000',
-					// });
-
-					if (!!this.workOrder && !!this.workOrder.Id) {
-						const companyNumber = this.workOrder.Id.substring(0, 3);
-
-						this.storeInfoSubscription =
-							this.storeInfoService.getStoreInfo(environment.apiBaseUrl, companyNumber, environment.httpOptions)
-							.subscribe(() => {});
-					}
-				});
-		});
+		this.routeParamsSubscription = this.route.params.subscribe(this.onRouteChanged.bind(this));
 
 		this.routerSubscription = this.router.events
 			.pipe(
@@ -108,6 +48,8 @@ export class InspectionDetailComponent implements OnDestroy, OnInit, AfterViewIn
 			.subscribe(() => {
 				this.updateActiveTab();
 			});
+
+		this.getInspectionReport();
 	}
 
 
@@ -141,6 +83,68 @@ export class InspectionDetailComponent implements OnDestroy, OnInit, AfterViewIn
 
 	public get activeRoute(): IInspectionRouteLink {
 		return this.routeLinks.find(tab => tab.isActive);
+	}
+
+	private onRouteChanged(params: Params): void {
+		this.inspectionId = params.id;
+
+		this.routeLinks = [
+			{
+				label: 'By area',
+				link: `/inspections/${this.inspectionId}/report`,
+				isActive: false
+			},
+			{
+				label: 'By priority',
+				link: `/inspections/${this.inspectionId}/priority`,
+				isActive: false
+			}
+		];
+
+		this.updateActiveTab();
+
+		this.workOrderService.getWorkOrder(environment.apiBaseUrl, this.inspectionId, environment.httpOptions)
+			.subscribe((response) => {
+				this.workOrder = response;
+				// Store Info service passes info to core view, who doesn't have route parameter
+
+				// TODO DJC Determine if this works appropriately once deployed to remote
+				// this.googleAnalyticsService.setUsername('004123456');
+				// this.googleAnalyticsService.setUserProperties({
+				// 	'Checklist Item': undefined,
+				// 	'Company Number': '004',
+				// 	'Vehicle Year': 2016,
+				// 	'Vehicle Make': 'Ford',
+				// 	'Vehicle Model': 'Mustang',
+				// 	'Vehicle Mileage': '27000',
+				// });
+
+				// this.window.ga('set', {
+				// 	'dimension6': '004',
+				// 	'dimension3': 2016,
+				// 	'dimension4': 'Ford',
+				// 	'dimension5': 'Mustang',
+				// 	'dimension2': '27000',
+				// });
+
+				if (!!this.workOrder && !!this.workOrder.Id) {
+					const companyNumber = this.workOrder.Id.substring(0, 3);
+
+					this.storeInfoSubscription =
+						this.storeInfoService.getStoreInfo(environment.apiBaseUrl, companyNumber, environment.httpOptions)
+							.subscribe(() => {});
+				}
+			});
+	}
+
+	private getInspectionReport(): void {
+		this.inspectionService.getInspectionReport(this.inspectionId, false)
+			.pipe(
+				first()
+			)
+			.subscribe((response) => {
+				this.inspectionItems = response;
+			});
 	}
 
 	private updateActiveTab(): void {

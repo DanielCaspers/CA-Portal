@@ -2,9 +2,10 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatIconModule } from '@angular/material/icon';
 import { MatTabsModule } from '@angular/material/tabs';
-// import { NgxAnalyticsModule } from 'ngx-analytics';
 
 import {
 	CustomerVehicleSummaryModule,
@@ -31,9 +32,10 @@ import { environment } from '../../environments/environment';
 		FlexLayoutModule,
 
 		MatCardModule,
+		MatCheckboxModule,
 		MatDividerModule,
+		MatIconModule,
 		MatTabsModule,
-		// NgxAnalyticsModule,
 
 		InspectionHttpModule,
 		InspectionReportCustomerConcernsModule,

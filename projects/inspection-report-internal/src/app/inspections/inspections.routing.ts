@@ -13,16 +13,16 @@ export const inspectionRoutes: Routes = [
 				path: 'report',
 				component: InspectionReportGroupedComponent,
 				data: {
-					collapsedHeight: '',
-					expandedHeight: ''
+					collapsedHeight: '40px',
+					expandedHeight: '40px'
 				}
 			},
 			{
 				path: 'priority',
 				component: InspectionReportItemListComponent,
 				data: {
-					displayMode: 'default',
-					multi: false
+					displayMode: 'flat',
+					multi: true
 				}
 			}
 		]

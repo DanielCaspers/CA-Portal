@@ -25,4 +25,14 @@ export interface MaEnvironmentBase {
 		domain: string;
 		trackingId: string;
 	};
+
+	/**
+	 * Feature flags
+	 */
+	features?: {
+		inspections: {
+			includeUnknownCondition: boolean;
+			displayMode: 'Internal' | 'Public';
+		}
+	};
 }
