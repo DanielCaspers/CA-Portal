@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, Subject } from 'rxjs';
+import { Observable, ReplaySubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { StoreInfo } from './store-info.models';
@@ -8,7 +8,7 @@ import { StoreInfo } from './store-info.models';
 @Injectable()
 export class StoreInfoService {
 
-	private storeInfoSubject: Subject<any> = new Subject();
+	private storeInfoSubject: ReplaySubject<any> = new ReplaySubject();
 
 	constructor(private httpClient: HttpClient) { }
 

@@ -8,6 +8,7 @@ import {
 	RecommendedServiceSeverityModule
 } from '../../recommended-services/recommended-service-severity/recommended-service-severity.module';
 import { InspectionReportItemComponent } from './inspection-report-item.component';
+import { StoreInfoModule } from '../../http/store-info/store-info.module';
 
 @NgModule({
 	declarations: [
@@ -18,7 +19,8 @@ import { InspectionReportItemComponent } from './inspection-report-item.componen
 		FlexLayoutModule,
 		MatButtonModule,
 		MatIconModule,
-		RecommendedServiceSeverityModule
+		RecommendedServiceSeverityModule,
+		StoreInfoModule
 	],
 	exports: [
 		InspectionReportItemComponent

@@ -27,7 +27,7 @@
 				   [angularticsCategory]="'Help Topics'" -->
 				<a *ngIf="cannedResponse.Url"
 				   mat-button
-				   href="{{cannedResponse.Url}}"
+				   href="{{transformCannedResponseUrl(cannedResponse.Url)}}"
 				   target="_blank">
 					<mat-icon color="accent">help_outline</mat-icon>
 				</a>
