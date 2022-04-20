@@ -146,35 +146,39 @@
 					</ng-container>
 				</mat-selection-list>
 
-				<mat-form-field style="width: 100%" color="accent">
-					<mat-chip-list #chipList>
-						<mat-chip
-								*ngFor="let issue of issues"
-								[selectable]="true"
-								[removable]="true"
-								(removed)="remove(issue)">
-							{{issue.viewValue}}
-							<mat-icon matChipRemove>cancel</mat-icon>
-						</mat-chip>
-						<input placeholder="Common concerns and issues"
-						       #issueInput
-						       formControlName="commonIssues"
-						       [matAutocomplete]="auto"
-						       [matChipInputFor]="chipList"
-						       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-						       [matChipInputAddOnBlur]="false">
-					</mat-chip-list>
-					<mat-autocomplete
-						#auto="matAutocomplete"
-						(optionSelected)="addFromAutocomplete($event)">
-						<mat-option
-								*ngFor="let issue of filteredIssues | async"
-								[value]="issue">
-							{{issue.viewValue}}
-						</mat-option>
-					</mat-autocomplete>
-					<mat-error *ngIf="issuesFormGroup.hasError('atLeastOne')">{{atLeastOneFormFieldRequiredText}}</mat-error>
-				</mat-form-field>
+<!-- Temporarily removed due to form field validation issues in the following cases -->
+<!-- 1) User begins to enter common concern/issue, blurs the field without selecting autocomplete, and enters -->
+<!-- 2) User enters an item that is a common concern, and then clears the chip. This results in a form which shouldn't be submitable, but can be. -->
+
+<!--				<mat-form-field style="width: 100%" color="accent">-->
+<!--					<mat-chip-list #chipList>-->
+<!--						<mat-chip-->
+<!--								*ngFor="let issue of issues"-->
+<!--								[selectable]="true"-->
+<!--								[removable]="true"-->
+<!--								(removed)="remove(issue)">-->
+<!--							{{issue.viewValue}}-->
+<!--							<mat-icon matChipRemove>cancel</mat-icon>-->
+<!--						</mat-chip>-->
+<!--						<input placeholder="Common concerns and issues"-->
+<!--						       #issueInput-->
+<!--						       formControlName="commonIssues"-->
+<!--						       [matAutocomplete]="auto"-->
+<!--						       [matChipInputFor]="chipList"-->
+<!--						       [matChipInputSeparatorKeyCodes]="separatorKeysCodes"-->
+<!--						       [matChipInputAddOnBlur]="false">-->
+<!--					</mat-chip-list>-->
+<!--					<mat-autocomplete-->
+<!--						#auto="matAutocomplete"-->
+<!--						(optionSelected)="addFromAutocomplete($event)">-->
+<!--						<mat-option-->
+<!--								*ngFor="let issue of filteredIssues | async"-->
+<!--								[value]="issue">-->
+<!--							{{issue.viewValue}}-->
+<!--						</mat-option>-->
+<!--					</mat-autocomplete>-->
+<!--					<mat-error *ngIf="issuesFormGroup.hasError('atLeastOne')">{{atLeastOneFormFieldRequiredText}}</mat-error>-->
+<!--				</mat-form-field>-->
 
 				<mat-form-field color="accent">
 					<textarea matInput rows="6" formControlName="issueDescription" placeholder="Other needs or concerns"></textarea>
