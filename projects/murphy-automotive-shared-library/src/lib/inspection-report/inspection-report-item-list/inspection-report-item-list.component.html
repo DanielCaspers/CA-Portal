@@ -3,6 +3,7 @@
 			*ngFor="let item of inspectionItems"
 			(opened)="onExpand(item.Name, 'InspectionItem')"
 			(closed)="onCollapse(item.Name, 'InspectionItem')"
+			[expanded]="shouldExpand(item)"
 			[disabled]="!shouldExpand(item)"
 			[hideToggle]="!shouldExpand(item)">
 		<mat-expansion-panel-header>

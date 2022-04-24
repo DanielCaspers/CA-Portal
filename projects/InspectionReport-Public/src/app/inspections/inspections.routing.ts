@@ -22,7 +22,7 @@ export const inspectionRoutes: Routes = [
 				component: InspectionReportItemListComponent,
 				data: {
 					displayMode: 'default',
-					multi: false
+					multi: true
 				}
 			}
 		]

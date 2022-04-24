@@ -17,7 +17,7 @@ export class InspectionReportItemListComponent extends InspectionReportItemConta
 	public inspectionId: string;
 
 	public displayMode: 'default' | 'flat' = 'default';
-	public multi = false;
+	public multi = true;
 
 	constructor(
 		private inspectionService: InspectionHttpService,
