@@ -152,6 +152,9 @@
 		<div fxLayout="column" class="ma-router-container">
 			<router-outlet></router-outlet>
 		</div>
+
+		<ma-commit-summary [gitInfo]="gitInfo"></ma-commit-summary>
+
 		<!--</mat-sidenav-content>-->
 	</mat-sidenav-container>
 </div>

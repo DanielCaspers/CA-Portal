@@ -12,6 +12,9 @@ export * from './lib/can-deactivate-guard/can-deactivate.guard';
 export * from './lib/confirm-dialog/confirm-dialog.component';
 export * from './lib/confirm-dialog/confirm-dialog.module';
 
+export * from './lib/commit-summary/commit-summary.component';
+export * from './lib/commit-summary/commit-summary.module';
+
 export * from './lib/customer-vehicle-details/customer-vehicle-details.component';
 export * from './lib/customer-vehicle-details/customer-vehicle-details.module';
 

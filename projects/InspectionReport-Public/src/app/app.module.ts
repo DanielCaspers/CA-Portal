@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {
 	MurphyAutomotiveSharedLibraryModule,
+	CommitSummaryModule,
 	NavTitleModule,
 } from 'murphy-automotive-shared-library';
 
@@ -28,6 +29,7 @@ import { InspectionsModule } from './inspections/inspections.module';
 		// NgxAnalyticsModule.forRoot([NgxAnalyticsGoogleAnalytics], { pageTracking: { clearIds: true }} as NgxAnalyticsSettings),
 
 		MurphyAutomotiveSharedLibraryModule,
+		CommitSummaryModule,
 		NavTitleModule,
 
 		AppRoutingModule,

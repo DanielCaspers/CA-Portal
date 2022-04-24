@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {
 	MurphyAutomotiveSharedLibraryModule,
+	CommitSummaryModule,
 	NavTitleModule,
 } from 'murphy-automotive-shared-library';
 
@@ -25,6 +26,7 @@ import { InspectionsModule } from './inspections/inspections.module';
 
 		NavTitleModule,
 		MurphyAutomotiveSharedLibraryModule,
+		CommitSummaryModule,
 
 		AppRoutingModule,
 		InspectionsModule

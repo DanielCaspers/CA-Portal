@@ -23,7 +23,6 @@ import { StoreInfoModule } from './store-info/store-info.module';
 		HttpClientModule,
 
 		// NgxAnalyticsModule.forRoot([NgxAnalyticsGoogleAnalytics], { pageTracking: { clearIds: true }} as NgxAnalyticsSettings),
-
 		AppRoutingModule,
 		CoreModule,
 		AuthModule,

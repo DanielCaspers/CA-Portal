@@ -10,6 +10,7 @@ import { InspectionReportItemListModule } from './inspection-report/inspection-r
 import { InspectionHttpModule } from './inspection-report/inspection-http/inspection-http.module';
 import { CustomerVehicleDetailsModule } from './customer-vehicle-details/customer-vehicle-details.module';
 import { CustomerVehicleSummaryModule } from './customer-vehicle-summary/customer-vehicle-summary.module';
+import { CommitSummaryModule } from './commit-summary/commit-summary.module';
 import { GalleryModule } from './gallery/gallery.module';
 import { GalleryDialogModule } from './gallery-dialog/gallery-dialog.module';
 import { MeasurementsFormDialogModule } from './measurements-form-dialog/measurements-form-dialog.module';
@@ -37,6 +38,7 @@ import { VehicleColorIndicatorModule } from './vehicle-color-indicator/vehicle-c
 		InspectionReportItemModule,
 		InspectionReportGroupedModule,
 		InspectionReportItemListModule,
+		CommitSummaryModule,
 		CustomerVehicleDetailsModule,
 		CustomerVehicleSummaryModule,
 		GalleryModule,

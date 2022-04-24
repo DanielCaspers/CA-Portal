@@ -4,6 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { first } from 'rxjs/operators';
 
 import { NavTitleService } from 'murphy-automotive-shared-library';
+import { gitInfo } from '../../../../../git-version';
 
 import { AuthService } from '../auth/auth.service';
 import { AuthTokenService } from '../auth/auth-token.service';
@@ -27,6 +28,7 @@ export class CoreViewComponent implements OnInit {
 	public customerName = '';
 	public pointsBalance: number;
 	public navTitle;
+	public gitInfo = gitInfo;
 
 	private token;
 
