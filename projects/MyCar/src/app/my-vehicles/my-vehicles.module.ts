@@ -19,26 +19,21 @@ import { VehicleCardComponent } from './vehicle-card/vehicle-card.component';
 import { VehiclesHttpService } from './vehicles-http.service';
 
 @NgModule({
-	declarations: [ MyVehiclesComponent, VehicleCardComponent ],
-	imports: [
-		CommonModule,
-		FlexLayoutModule,
-		HttpClientModule,
-
-		MatButtonModule,
-		MatCardModule,
-		MatIconModule,
-		MatMenuModule,
-
-		// NgxAnalyticsModule,
-
-		ConfirmDialogModule,
-		RecommendedServicesModule,
-
-		MyVehiclesRoutingModule
-	],
-	entryComponents: [ MyVehiclesComponent ],
-	providers: [ VehiclesHttpService ]
+    declarations: [MyVehiclesComponent, VehicleCardComponent],
+    imports: [
+        CommonModule,
+        FlexLayoutModule,
+        HttpClientModule,
+        MatButtonModule,
+        MatCardModule,
+        MatIconModule,
+        MatMenuModule,
+        // NgxAnalyticsModule,
+        ConfirmDialogModule,
+        RecommendedServicesModule,
+        MyVehiclesRoutingModule
+    ],
+    providers: [VehiclesHttpService]
 })
 export class MyVehiclesModule {
 }

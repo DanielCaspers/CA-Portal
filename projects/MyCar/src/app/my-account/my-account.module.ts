@@ -27,33 +27,30 @@ import { TelInputModule } from '../../../../murphy-automotive-shared-library/src
 import { PhoneNumberPipeModule } from '../../../../murphy-automotive-shared-library/src/lib/phone-number-pipe/phone-number.module';
 
 @NgModule({
-	declarations: [ MyAccountComponent ],
-	imports: [
-		CommonModule,
-		FlexLayoutModule,
-		FormsModule,
-		HttpClientModule,
-		ReactiveFormsModule,
-
-		MatButtonModule,
-		MatCardModule,
-		MatCheckboxModule,
-		MatIconModule,
-		MatInputModule,
-		MatFormFieldModule,
-		MatRadioModule,
-		MatSelectModule,
-		MatTabsModule,
-		MatTooltipModule,
-
-		VipRewardsModule,
-		MyAccountRoutingModule,
-		ConfirmDialogModule,
-		TelInputModule,
-		PhoneNumberPipeModule
-	],
-	entryComponents: [ MyAccountComponent ],
-	providers: [ AccountHttpService ]
+    declarations: [MyAccountComponent],
+    imports: [
+        CommonModule,
+        FlexLayoutModule,
+        FormsModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        MatButtonModule,
+        MatCardModule,
+        MatCheckboxModule,
+        MatIconModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatRadioModule,
+        MatSelectModule,
+        MatTabsModule,
+        MatTooltipModule,
+        VipRewardsModule,
+        MyAccountRoutingModule,
+        ConfirmDialogModule,
+        TelInputModule,
+        PhoneNumberPipeModule
+    ],
+    providers: [AccountHttpService]
 })
 export class MyAccountModule {
 }

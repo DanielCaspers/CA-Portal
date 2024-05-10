@@ -10,26 +10,23 @@ import { RecommendedServicesDialogService } from './recommended-services-dialog.
 import { RecommendedServiceSeverityModule } from '../recommended-service-severity/recommended-service-severity.module';
 
 @NgModule({
-	declarations: [
-		RecommendedServicesDialogComponent
-	],
-	entryComponents: [
-		RecommendedServicesDialogComponent
-	],
-	imports: [
-		CommonModule,
-		FlexLayoutModule,
-		MatButtonModule,
-		MatDialogModule,
-		MatIconModule,
-		RecommendedServiceSeverityModule
-	],
-	providers: [
-		RecommendedServicesDialogService
-	],
-	exports: [
-		RecommendedServicesDialogComponent
-	]
+    declarations: [
+        RecommendedServicesDialogComponent
+    ],
+    imports: [
+        CommonModule,
+        FlexLayoutModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatIconModule,
+        RecommendedServiceSeverityModule
+    ],
+    providers: [
+        RecommendedServicesDialogService
+    ],
+    exports: [
+        RecommendedServicesDialogComponent
+    ]
 })
 class RecommendedServicesDialogModule {}
 

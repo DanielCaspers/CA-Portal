@@ -7,9 +7,9 @@ import {
 } from '@angular/core';
 import {
 	AbstractControl,
-	FormBuilder,
-	FormControl,
-	FormGroup,
+	UntypedFormBuilder,
+	UntypedFormControl,
+	UntypedFormGroup,
 	ValidationErrors,
 	ValidatorFn,
 	Validators
@@ -43,7 +43,7 @@ export const RequiredOrNull = (control: AbstractControl): ValidationErrors | nul
 };
 
 export const AtLeastOne = (validator: ValidatorFn) => (
-	group: FormGroup,
+	group: UntypedFormGroup,
 ): ValidationErrors | null => {
 	const controls = group && group.controls && Object.keys(group.controls);
 	const hasAtLeastOneControlFailedValidatorFn = controls.some(k => !validator(group.controls[k]));
@@ -108,7 +108,7 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 	 */
 	public maxDate = new Date().setMonth(this.minDate.getMonth() + 2);
 
-	public dateFormGroup: FormGroup;
+	public dateFormGroup: UntypedFormGroup;
 	public dateFilter = (d: Date) => {
 		const formattedDate = this.dateFormatter(d);
 		return this.daysAvailable.includes(formattedDate);
@@ -126,7 +126,7 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 	}
 
 	// Step 4: Select vehicle
-	public vehicleFormGroup: FormGroup;
+	public vehicleFormGroup: UntypedFormGroup;
 
 	public appointmentType: AppointmentType = AppointmentType.ExistingVehicle;
 
@@ -164,7 +164,7 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 	private knownVehicleChangeSubscription: Subscription = null;
 
 	// Step 5: Describe vehicle needs
-	public issuesFormGroup: FormGroup;
+	public issuesFormGroup: UntypedFormGroup;
 
 	// Autocomplete inputs config
 	public readonly separatorKeysCodes: number[] = [ENTER];
@@ -195,7 +195,7 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 	constructor(
 		private appointmentSchedulerHttpService: AppointmentSchedulerHttpService,
 		private dialogService: MatDialog,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private route: ActivatedRoute,
 		private storeInfoService: StoreInfoService,
 		private vehiclesHttpService: VehiclesHttpService) {
@@ -471,31 +471,31 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 	/*
 	 * Angular Reactive Form Accessors
 	 */
-	public get date(): FormControl {
+	public get date(): UntypedFormControl {
 		return this.dateFormGroup.get('date') as any;
 	}
 
-	public get knownVehicle(): FormControl {
+	public get knownVehicle(): UntypedFormControl {
 		return this.vehicleFormGroup.get('knownVehicle') as any;
 	}
 
-	public get year(): FormControl {
+	public get year(): UntypedFormControl {
 		return this.vehicleFormGroup.get('year') as any;
 	}
 
-	public get make(): FormControl {
+	public get make(): UntypedFormControl {
 		return this.vehicleFormGroup.get('make') as any;
 	}
 
-	public get model(): FormControl {
+	public get model(): UntypedFormControl {
 		return this.vehicleFormGroup.get('model') as any;
 	}
 
-	public get commonIssues(): FormControl {
+	public get commonIssues(): UntypedFormControl {
 		return this.issuesFormGroup.get('commonIssues') as any;
 	}
 
-	public get issueDescription(): FormControl {
+	public get issueDescription(): UntypedFormControl {
 		return this.issuesFormGroup.get('issueDescription') as any;
 	}
 
@@ -533,7 +533,7 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 		this.vehicleFormGroup.markAsPristine();
 	}
 
-	private get newVehicleForm(): FormGroup {
+	private get newVehicleForm(): UntypedFormGroup {
 		return this.formBuilder.group({
 			year: ['', Validators.required],
 			make: ['', Validators.required],
@@ -541,7 +541,7 @@ export class AppointmentSchedulerComponent implements OnInit, CanDeactivate<Appo
 		});
 	}
 
-	private get existingVehicleForm(): FormGroup {
+	private get existingVehicleForm(): UntypedFormGroup {
 		const fg =  this.formBuilder.group({
 			knownVehicle: ['', Validators.required]
 		});

@@ -22,28 +22,23 @@ import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
-	declarations: [ VehicleHistoryComponent ],
-	imports: [
-		CommonModule,
-		FlexLayoutModule,
-
-		FormsModule,
-		MatButtonModule,
-		MatExpansionModule,
-		MatFormFieldModule,
-		MatIconModule,
-		MatInputModule,
-		MatSelectModule,
-		MatToolbarModule,
-
-		Ng2SearchPipeModule,
-
-		SafeUrlModule,
-
-		VehicleHistoryRoutingModule
-	],
-	entryComponents: [ VehicleHistoryComponent ],
-	providers: [ VehicleHistoryHttpService ]
+    declarations: [VehicleHistoryComponent],
+    imports: [
+        CommonModule,
+        FlexLayoutModule,
+        FormsModule,
+        MatButtonModule,
+        MatExpansionModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        MatSelectModule,
+        MatToolbarModule,
+        Ng2SearchPipeModule,
+        SafeUrlModule,
+        VehicleHistoryRoutingModule
+    ],
+    providers: [VehicleHistoryHttpService]
 })
 export class VehicleHistoryModule {
 }

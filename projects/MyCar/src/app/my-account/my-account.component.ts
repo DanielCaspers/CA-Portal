@@ -4,9 +4,9 @@ import {
 	ViewEncapsulation
 } from '@angular/core';
 import {
-	FormArray,
-	FormBuilder,
-	FormGroup,
+	UntypedFormArray,
+	UntypedFormBuilder,
+	UntypedFormGroup,
 	Validators
 } from '@angular/forms';
 
@@ -26,9 +26,9 @@ import { TelephoneViewModel } from '../../../../murphy-automotive-shared-library
 export class MyAccountComponent implements OnInit {
 
 	public account: AccountOverview;
-	public addressFormGroup: FormGroup;
-	public emailFormArray: FormArray;
-	public phoneFormArray: FormArray;
+	public addressFormGroup: UntypedFormGroup;
+	public emailFormArray: UntypedFormArray;
+	public phoneFormArray: UntypedFormArray;
 
 	/**
 	 * Use as a feature flag and to automatically handle structural directive template binding scoping.
@@ -97,7 +97,7 @@ export class MyAccountComponent implements OnInit {
 
 	constructor(
 		private accountHttpService: AccountHttpService,
-		private formBuilder: FormBuilder,
+		private formBuilder: UntypedFormBuilder,
 		private confirmDialogService: ConfirmDialogService
 	) {
 		this.addressFormGroup = this.formBuilder.group({

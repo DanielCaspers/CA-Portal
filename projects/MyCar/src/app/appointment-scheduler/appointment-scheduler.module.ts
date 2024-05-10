@@ -33,48 +33,43 @@ import { AppointmentSchedulerComponent } from './appointment-scheduler.component
 import { AppointmentSchedulerHttpService } from './appointment-scheduler-http.service';
 
 @NgModule({
-	declarations: [ AppointmentSchedulerComponent ],
-	imports: [
-		CommonModule,
-		FlexLayoutModule,
-		FormsModule,
-		ReactiveFormsModule,
-
-		MatAutocompleteModule,
-		MatButtonModule,
-		MatButtonToggleModule,
-		MatCheckboxModule,
-		MatChipsModule,
-		MatDatepickerModule,
-		MatDialogModule,
-		MatInputModule,
-		MatIconModule,
-		MatListModule,
-		MatNativeDateModule,
-		MatProgressBarModule,
-		MatProgressSpinnerModule,
-		MatSelectModule,
-		MatStepperModule,
-
-		// NgxAnalyticsModule,
-
-		RecommendedServiceSeverityModule,
-		SafeUrlModule,
-
-		AppointmentSchedulerRoutingModule
-	],
-	entryComponents: [ AppointmentSchedulerComponent ],
-	providers: [
-		AppointmentSchedulerHttpService,
-		CanDeactivateGuard,
-		{
-			provide: STEPPER_GLOBAL_OPTIONS,
-			useValue: {
-				displayDefaultIndicatorType: false,
-				showError: true
-			}
-		}
-	]
+    declarations: [AppointmentSchedulerComponent],
+    imports: [
+        CommonModule,
+        FlexLayoutModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatAutocompleteModule,
+        MatButtonModule,
+        MatButtonToggleModule,
+        MatCheckboxModule,
+        MatChipsModule,
+        MatDatepickerModule,
+        MatDialogModule,
+        MatInputModule,
+        MatIconModule,
+        MatListModule,
+        MatNativeDateModule,
+        MatProgressBarModule,
+        MatProgressSpinnerModule,
+        MatSelectModule,
+        MatStepperModule,
+        // NgxAnalyticsModule,
+        RecommendedServiceSeverityModule,
+        SafeUrlModule,
+        AppointmentSchedulerRoutingModule
+    ],
+    providers: [
+        AppointmentSchedulerHttpService,
+        CanDeactivateGuard,
+        {
+            provide: STEPPER_GLOBAL_OPTIONS,
+            useValue: {
+                displayDefaultIndicatorType: false,
+                showError: true
+            }
+        }
+    ]
 })
 export class AppointmentSchedulerModule {
 }

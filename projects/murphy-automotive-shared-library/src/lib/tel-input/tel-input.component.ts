@@ -13,8 +13,8 @@ import {
 import {
 	AbstractControl,
 	ControlValueAccessor,
-	FormBuilder,
-	FormGroup,
+	UntypedFormBuilder,
+	UntypedFormGroup,
 	NgControl,
 	Validators
 } from '@angular/forms';
@@ -40,7 +40,7 @@ export class TelInputComponent
 	@ViewChild('exchange', {static: false}) exchangeInput: HTMLInputElement;
 	@ViewChild('subscriber', {static: false}) subscriberInput: HTMLInputElement;
 
-	parts: FormGroup;
+	parts: UntypedFormGroup;
 	stateChanges = new Subject<void>();
 	focused = false;
 	controlType = 'tel-input';
@@ -115,7 +115,7 @@ export class TelInputComponent
 	}
 
 	constructor(
-		formBuilder: FormBuilder,
+		formBuilder: UntypedFormBuilder,
 		private _focusMonitor: FocusMonitor,
 		private _elementRef: ElementRef<HTMLElement>,
 		@Optional() @Inject(MatFormField) public _formField: MatFormField,

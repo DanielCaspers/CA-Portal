@@ -11,26 +11,23 @@ import { GalleryDialogService } from './gallery-dialog.service';
 import { GalleryModule } from '../gallery/gallery.module';
 
 @NgModule({
-	declarations: [
-		GalleryDialogComponent
-	],
-	entryComponents: [
-		GalleryDialogComponent
-	],
-	imports: [
-		CommonModule,
-		FlexLayoutModule,
-		MatButtonModule,
-		MatDialogModule,
-		MatIconModule,
-		GalleryModule
-	],
-	providers: [
-		GalleryDialogService
-	],
-	exports: [
-		GalleryDialogComponent
-	]
+    declarations: [
+        GalleryDialogComponent
+    ],
+    imports: [
+        CommonModule,
+        FlexLayoutModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatIconModule,
+        GalleryModule
+    ],
+    providers: [
+        GalleryDialogService
+    ],
+    exports: [
+        GalleryDialogComponent
+    ]
 })
 class GalleryDialogModule {}
 

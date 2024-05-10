@@ -9,24 +9,21 @@ import { ConfirmDialogComponent } from './confirm-dialog.component';
 import { ConfirmDialogService } from './confirm-dialog.service';
 
 @NgModule({
-	declarations: [
-		ConfirmDialogComponent
-	],
-	entryComponents: [
-		ConfirmDialogComponent
-	],
-	imports: [
-		CommonModule,
-		FlexLayoutModule,
-		MatButtonModule,
-		MatDialogModule
-	],
-	providers: [
-		ConfirmDialogService
-	],
-	exports: [
-		ConfirmDialogComponent
-	]
+    declarations: [
+        ConfirmDialogComponent
+    ],
+    imports: [
+        CommonModule,
+        FlexLayoutModule,
+        MatButtonModule,
+        MatDialogModule
+    ],
+    providers: [
+        ConfirmDialogService
+    ],
+    exports: [
+        ConfirmDialogComponent
+    ]
 })
 class ConfirmDialogModule {}
 

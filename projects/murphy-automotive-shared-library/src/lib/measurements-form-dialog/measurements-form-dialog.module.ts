@@ -10,25 +10,22 @@ import { MeasurementsFormDialogComponent } from './measurements-form-dialog.comp
 import { MeasurementsFormDialogService } from './measurements-form-dialog.service';
 
 @NgModule({
-	declarations: [
-		MeasurementsFormDialogComponent
-	],
-	entryComponents: [
-		MeasurementsFormDialogComponent
-	],
-	imports: [
-		CommonModule,
-		FlexLayoutModule,
-		MatButtonModule,
-		MatDialogModule,
-		MatIconModule
-	],
-	providers: [
-		MeasurementsFormDialogService
-	],
-	exports: [
-		MeasurementsFormDialogComponent
-	]
+    declarations: [
+        MeasurementsFormDialogComponent
+    ],
+    imports: [
+        CommonModule,
+        FlexLayoutModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatIconModule
+    ],
+    providers: [
+        MeasurementsFormDialogService
+    ],
+    exports: [
+        MeasurementsFormDialogComponent
+    ]
 })
 class MeasurementsFormDialogModule {}
 

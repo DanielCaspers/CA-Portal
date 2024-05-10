@@ -8,15 +8,13 @@ import { CouponCardComponent } from './coupon-card/coupon-card.component';
 import { CouponHttpService } from './coupon-http.service';
 
 @NgModule({
-	declarations: [ MyCouponsComponent, CouponCardComponent ],
-	entryComponents: [ MyCouponsComponent ],
-	imports: [
-		CommonModule,
-		FlexLayoutModule,
-
-		CouponsRoutingModule
-	],
-	providers: [CouponHttpService]
+    declarations: [MyCouponsComponent, CouponCardComponent],
+    imports: [
+        CommonModule,
+        FlexLayoutModule,
+        CouponsRoutingModule
+    ],
+    providers: [CouponHttpService]
 })
 export class CouponsModule {
 }

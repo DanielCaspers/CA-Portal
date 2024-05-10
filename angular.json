@@ -413,7 +413,6 @@
       }
     }
   },
-  "defaultProject": "InspectionReport-Public",
   "cli": {
     "analytics": false
   }
