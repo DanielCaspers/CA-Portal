@@ -36,7 +36,7 @@ export class VipRewardsHttpService {
 		const token = this.jwtHelperService.decodeToken(this.authTokenService.authToken);
 
 		return this.httpClient.get<any[]>(
-			`${environment.apiBaseUrl}/${token.conos[0]}/vip/${token.conos[0]}`,
+			`${environment.apiBaseUrl}/vip/${token.conos[0]}`,
 			environment.httpOptions)
 			.pipe(
 				map(VipRewardsHttpService.dtoMapper)
