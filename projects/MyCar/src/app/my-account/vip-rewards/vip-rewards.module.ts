@@ -7,6 +7,7 @@ import { MatListModule } from '@angular/material/list';
 
 import { VipRewardsRoutingModule } from './vip-rewards-routing.module';
 import { VipRewardsComponent } from './vip-rewards.component';
+import { VipRewardsHttpService } from './vip-rewards-http.service';
 
 @NgModule({
 	declarations: [ VipRewardsComponent ],
@@ -17,10 +18,10 @@ import { VipRewardsComponent } from './vip-rewards.component';
 		MatCardModule,
 		MatDividerModule,
 		MatListModule,
-
 		VipRewardsRoutingModule
 	],
-	entryComponents: [ VipRewardsComponent ]
+	entryComponents: [ VipRewardsComponent ],
+	providers: [VipRewardsHttpService]
 })
 export class VipRewardsModule {
 }
