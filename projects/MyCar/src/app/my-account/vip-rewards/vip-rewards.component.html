@@ -15,42 +15,13 @@
 				<mat-list-item>
 					<b>Points</b>
 				</mat-list-item>
-				<mat-divider></mat-divider>
 
-				<mat-list-item>
-					300
-				</mat-list-item>
-				<mat-divider></mat-divider>
-
-				<mat-list-item>
-					400
-				</mat-list-item>
-				<mat-divider></mat-divider>
-
-				<mat-list-item>
-					1000
-				</mat-list-item>
-				<mat-divider></mat-divider>
-
-				<mat-list-item>
-					1500
-				</mat-list-item>
-				<mat-divider></mat-divider>
-
-				<mat-list-item>
-					2500
-				</mat-list-item>
-				<mat-divider></mat-divider>
-
-				<mat-list-item>
-					2500
-				</mat-list-item>
-				<mat-divider></mat-divider>
-
-				<mat-list-item>
-					3000
-				</mat-list-item>
-
+				<ng-container *ngFor="let reward of serviceRewards">
+					<mat-divider></mat-divider>
+					<mat-list-item>
+						{{reward.points}}
+					</mat-list-item>
+				</ng-container>
 			</mat-list>
 
 			<mat-divider class="point-reward-divider" [vertical]="true"></mat-divider>
@@ -59,42 +30,14 @@
 				<mat-list-item>
 					<b>Reward</b>
 				</mat-list-item>
-				<mat-divider></mat-divider>
 
-				<mat-list-item>
-					Time Saver Car Wash <span class="disclaimer">&nbsp;*</span>
-				</mat-list-item>
-				<mat-divider></mat-divider>
+				<ng-container *ngFor="let reward of serviceRewards">
+					<mat-divider></mat-divider>
+					<mat-list-item>
+						{{reward.description.primary}} {{reward.description.secondary}}
+					</mat-list-item>
+				</ng-container>
 
-				<mat-list-item>
-					Ultimate Car Wash <span class="disclaimer">&nbsp;*</span>
-				</mat-list-item>
-				<mat-divider></mat-divider>
-
-				<mat-list-item>
-					$20 Service Certificate
-				</mat-list-item>
-				<mat-divider></mat-divider>
-
-				<mat-list-item>
-					Tire Rotation
-				</mat-list-item>
-				<mat-divider></mat-divider>
-
-				<mat-list-item>
-					Time Saver Wash Card (10 ct) <span class="disclaimer">&nbsp;*</span>
-				</mat-list-item>
-				<mat-divider></mat-divider>
-
-				<mat-list-item>
-					$50 Service Certificate
-				</mat-list-item>
-
-				<mat-divider></mat-divider>
-
-				<mat-list-item>
-					Ultimate Wash Card (10 ct) <span class="disclaimer">&nbsp;*</span>
-				</mat-list-item>
 			</mat-list>
 		</mat-card-content>
 
@@ -110,36 +53,13 @@
 				<mat-list-item>
 					<b>Points</b>
 				</mat-list-item>
-				<mat-divider></mat-divider>
 
-				<mat-list-item>
-					2120
-				</mat-list-item>
-				<mat-divider></mat-divider>
-
-				<mat-list-item>
-					2600
-				</mat-list-item>
-				<mat-divider></mat-divider>
-
-				<mat-list-item>
-					3080
-				</mat-list-item>
-				<mat-divider></mat-divider>
-
-				<mat-list-item>
-					3560
-				</mat-list-item>
-				<mat-divider></mat-divider>
-
-				<mat-list-item>
-					4040
-				</mat-list-item>
-				<mat-divider></mat-divider>
-
-				<mat-list-item>
-					4520
-				</mat-list-item>
+				<ng-container *ngFor="let reward of oilChangeRewards">
+					<mat-divider></mat-divider>
+					<mat-list-item>
+						{{reward.points}}
+					</mat-list-item>
+				</ng-container>
 			</mat-list>
 
 			<mat-divider class="point-reward-divider" [vertical]="true"></mat-divider>
@@ -148,36 +68,13 @@
 				<mat-list-item>
 					<b>Reward</b>
 				</mat-list-item>
-				<mat-divider></mat-divider>
 
-				<mat-list-item>
-					Up to $46
-				</mat-list-item>
-				<mat-divider></mat-divider>
-
-				<mat-list-item>
-					Up to $61
-				</mat-list-item>
-				<mat-divider></mat-divider>
-
-				<mat-list-item>
-					Up to $76
-				</mat-list-item>
-				<mat-divider></mat-divider>
-
-				<mat-list-item>
-					Up to $81
-				</mat-list-item>
-				<mat-divider></mat-divider>
-
-				<mat-list-item>
-					Up to $106
-				</mat-list-item>
-				<mat-divider></mat-divider>
-
-				<mat-list-item>
-					Up to $121
-				</mat-list-item>
+				<ng-container *ngFor="let reward of oilChangeRewards">
+					<mat-divider></mat-divider>
+					<mat-list-item>
+						{{reward.description.secondary}}
+					</mat-list-item>
+				</ng-container>
 			</mat-list>
 		</mat-card-content>
 	</mat-card>

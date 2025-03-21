@@ -19,6 +19,7 @@
     "report-internal:build:staging": "node git-version-gen.js && ng build InspectionReport-Internal -c staging",
     "report-internal:build:prod": "node git-version-gen.js && ng build InspectionReport-Internal -c production",
     "report-internal:lint": "ng lint InspectionReport-Internal",
+    "mycar:serve:local2": "ng serve MyCar --port 4201",
     "mycar:serve:local": "node git-version-gen.js && ng serve MyCar --port 4201",
     "mycar:serve:staging": "node git-version-gen.js && ng serve MyCar -c staging --port 4201",
     "mycar:serve:prod": "node git-version-gen.js && ng serve MyCar -c production --port 4201",
