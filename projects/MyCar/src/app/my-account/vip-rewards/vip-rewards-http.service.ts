@@ -18,10 +18,10 @@ export class VipRewardsHttpService {
 					VipRewardType.OilChange :
 					VipRewardType.Service,
 				description: {
-					heading: dto.rewardDesc1,
-					subheading: dto.rewardDesc2
+					primary: dto.rewardDesc1,
+					secondary: dto.rewardDesc2
 				},
-				pointCost: dto.points,
+				points: dto.points,
 			} as VipReward;
 		});
 	}

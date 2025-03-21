@@ -34,7 +34,7 @@
 				<ng-container *ngFor="let reward of serviceRewards">
 					<mat-divider></mat-divider>
 					<mat-list-item>
-						{{reward.description.heading}}
+						{{reward.description.primary}} {{reward.description.secondary}}
 					</mat-list-item>
 				</ng-container>
 
@@ -69,10 +69,10 @@
 					<b>Reward</b>
 				</mat-list-item>
 
-				<ng-container *ngFor="let reward of serviceRewards">
+				<ng-container *ngFor="let reward of oilChangeRewards">
 					<mat-divider></mat-divider>
 					<mat-list-item>
-						{{reward.description.heading}}
+						{{reward.description.secondary}}
 					</mat-list-item>
 				</ng-container>
 			</mat-list>

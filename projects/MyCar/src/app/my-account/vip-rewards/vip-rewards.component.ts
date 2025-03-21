@@ -37,7 +37,7 @@ export class VipRewardsComponent implements OnInit {
 				first()
 			)
 			.subscribe((vipRewards) => {
-				const sortedVipRewards = vipRewards.sort((a, b) => a.pointCost - b.pointCost); // Numeric ascending by points
+				const sortedVipRewards = vipRewards.sort((a, b) => a.points - b.points); // Numeric ascending by points
 				this.serviceRewards = sortedVipRewards.filter(r => r.type === VipRewardType.Service);
 				this.oilChangeRewards = sortedVipRewards.filter(r => r.type === VipRewardType.OilChange);
 			});

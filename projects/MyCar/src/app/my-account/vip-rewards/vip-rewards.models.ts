@@ -6,8 +6,8 @@ export enum VipRewardType {
 export interface VipReward {
 	type: VipRewardType;
     description: {
-        heading: string;
-        subheading: string;
+        primary: string;
+        secondary: string;
     }
-	pointCost: number;
+	points: number;
 }

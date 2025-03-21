@@ -3,11 +3,11 @@
 # Murphy Automotive Angular Projects
 This repository contains the following software products for Murphy Automotive
 1. **Digital Inspection Report (client only)**
-2. **MyCar** 
+2. **MyCar**
 3. **Shared Component Library**
 
 ## Digital Inspection Report
-#### Summary 
+#### Summary
 A public facing report of a vehicle inspection during a visit. Reporting data comes from a running instance of
 [DigitalInspection](https://github.com/DanielCaspers/DigitalInspection).
 
@@ -25,15 +25,15 @@ Allow anonymous users to
 _The app will automatically reload if you change any of the source files._
 
 #### Build
-1. Run `ng report:build:(local|staging|prod)` to build the Digital Inspection report app. 
+1. Run `ng report:build:(local|staging|prod)` to build the Digital Inspection report app.
 2. The build artifacts will be stored in the `dist/InspectionReport-Public` directory.
 
 ## MyCar
-#### Summary 
+#### Summary
 A user membership site for Murphy Automotive customers to manage their account and vehicles
 
 #### Purposes
-Allow authenticated users to 
+Allow authenticated users to
 1. Monitor and manage services for vehicles
 2. Schedule appointments
 3. Adjust account settings
