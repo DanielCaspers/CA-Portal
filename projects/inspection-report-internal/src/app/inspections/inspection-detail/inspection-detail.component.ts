@@ -23,6 +23,7 @@ export class InspectionDetailComponent implements OnDestroy, OnInit, AfterViewIn
 	public inspectionItems;
 	public routeLinks: IInspectionRouteLink[];
 	public workOrder = null;
+	public hasCustomerConcern = false;
 
 	private routeParamsSubscription: Subscription;
 	private routerSubscription: Subscription;
@@ -125,6 +126,7 @@ export class InspectionDetailComponent implements OnDestroy, OnInit, AfterViewIn
 			)
 			.subscribe((response) => {
 				this.inspectionItems = response;
+				this.hasCustomerConcern = this.inspectionItems.filter(ii => ii.IsCustomerConcern).length > 0;
 			});
 	}
 
