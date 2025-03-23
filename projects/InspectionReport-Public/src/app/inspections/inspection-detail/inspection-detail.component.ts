@@ -23,6 +23,7 @@ export class InspectionDetailComponent implements OnDestroy, OnInit, AfterViewIn
 	public inspectionItems;
 	public routeLinks: IInspectionRouteLink[];
 	public workOrder = null;
+	public hasCustomerConcern = false;
 
 	private routeParamsSubscription: Subscription;
 	private routerSubscription: Subscription;
@@ -108,25 +109,6 @@ export class InspectionDetailComponent implements OnDestroy, OnInit, AfterViewIn
 				this.workOrder = response;
 				// Store Info service passes info to core view, who doesn't have route parameter
 
-				// TODO DJC Determine if this works appropriately once deployed to remote
-				// this.googleAnalyticsService.setUsername('004123456');
-				// this.googleAnalyticsService.setUserProperties({
-				// 	'Checklist Item': undefined,
-				// 	'Company Number': '004',
-				// 	'Vehicle Year': 2016,
-				// 	'Vehicle Make': 'Ford',
-				// 	'Vehicle Model': 'Mustang',
-				// 	'Vehicle Mileage': '27000',
-				// });
-
-				// this.window.ga('set', {
-				// 	'dimension6': '004',
-				// 	'dimension3': 2016,
-				// 	'dimension4': 'Ford',
-				// 	'dimension5': 'Mustang',
-				// 	'dimension2': '27000',
-				// });
-
 				if (!!this.workOrder && !!this.workOrder.Id) {
 					const companyNumber = this.workOrder.Id.substring(0, 3);
 
@@ -144,6 +126,7 @@ export class InspectionDetailComponent implements OnDestroy, OnInit, AfterViewIn
 			)
 			.subscribe((response) => {
 				this.inspectionItems = response;
+				this.hasCustomerConcern = this.inspectionItems.filter(ii => ii.IsCustomerConcern).length > 0;
 			});
 	}
 

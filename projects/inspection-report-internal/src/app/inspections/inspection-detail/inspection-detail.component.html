@@ -1,7 +1,17 @@
 <div *ngIf="workOrder" class="work-order-details">
 	<mat-card *ngIf="!!inspectionItems && inspectionItems.length > 0">
 		<mat-card-header>
-			<mat-card-title>Inspection Report for Order #{{workOrder.Id?.substring(3)}} (Tech: {{workOrder?.EmployeeId}})</mat-card-title>
+			<mat-card-title>
+				<div>
+					Inspection Report for Order #{{workOrder.Id?.substring(3)}}
+				</div>
+				<div>
+					<span *ngIf="workOrder && workOrder.InspectionCompletionDate">
+						{{workOrder.InspectionCompletionDate.slice(6, -2) | date: 'shortDate' }}
+					</span>
+					Tech: {{workOrder?.EmployeeId}}
+				</div>
+			</mat-card-title>
 			<mat-card-subtitle>
 				<div *ngIf="workOrder.Customer"
 				     fxLayout="row"
@@ -18,17 +28,36 @@
 			<ma-customer-vehicle-summary [typographyClass]="mat-subheading-2" [vehicle]="workOrder?.Vehicle"></ma-customer-vehicle-summary>
 
 			<div fxLayout="row" fxLayoutGap="20px">
-				<div fxLayout="column" fxLayoutAlign="center end">
-					<div>VIN</div>
+				<div fxLayout="column" fxLayoutAlign="start start">
 					<div>Odometer</div>
 					<div>Engine</div>
 					<div>Transmission</div>
 				</div>
 				<div fxLayout="column">
-					<div>{{workOrder?.Vehicle?.VIN}}</div>
-					<div>{{workOrder?.Vehicle?.Odometer}}</div>
-					<div>{{workOrder?.Vehicle?.Engine}}</div>
-					<div>{{workOrder?.Vehicle?.Transmission}}</div>
+					<div>
+						<ng-container *ngIf="workOrder?.Vehicle?.Odometer">
+							{{workOrder?.Vehicle?.Odometer}}
+						</ng-container>
+						<ng-container *ngIf="!workOrder?.Vehicle?.Odometer">
+							&nbsp;
+						</ng-container>
+					</div>
+					<div>
+						<ng-container *ngIf="workOrder?.Vehicle?.Engine">
+							{{workOrder?.Vehicle?.Engine}}
+						</ng-container>
+						<ng-container *ngIf="!workOrder?.Vehicle?.Engine">
+							&nbsp;
+						</ng-container>
+					</div>
+					<div>
+						<ng-container *ngIf="workOrder?.Vehicle?.Transmission">
+							{{workOrder?.Vehicle?.Transmission}}
+						</ng-container>
+						<ng-container *ngIf="!workOrder?.Vehicle?.Transmission">
+							&nbsp;
+						</ng-container>
+					</div>
 				</div>
 			</div>
 
@@ -56,13 +85,15 @@
 				<div class="ma-respect-whitespace">{{workOrder.Notes}}</div>
 			</div>
 
-			<mat-divider></mat-divider>
-			<div class="spacer"></div>
-			<div class="spacer"></div>
+			<ng-container *ngIf="hasCustomerConcern">
+				<mat-divider></mat-divider>
+				<div class="spacer"></div>
+				<div class="spacer"></div>
 
-			<div *ngIf="inspectionItems && inspectionItems.length > 0" class="mat-h3 customer-concerns-title">
-				Customer concerns
-			</div>
+				<div  class="mat-h3 customer-concerns-title">
+					Customer concerns
+				</div>
+			</ng-container>
 			<ma-inspection-report-customer-concerns [inspectionItems]="inspectionItems"></ma-inspection-report-customer-concerns>
 		</mat-card-content>
 	</mat-card>
